@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -26,4 +27,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected function isConectado(){
+        return !Auth::guest();
+    }
+
+    protected function isAdmin(){
+        return $this->isConectado() && Auth::user()->rol === "admin";
+    }
+
+    protected function isDesarrollador(){
+        return $this->isConectado() && Auth::user()->rol === "desarrollador";
+    }
+
+    protected function isNormal(){
+        return $this->isConectado() && Auth::user()->rol === "normal";
+    }
 }

@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MainController@index')->name('main');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {
+ 	Route::get('/', 'MainController@index')->name('mainAdmin');
+ });
+
+Route::group(['prefix' => 'desarrollador', 'middleware' => 'desarrollador', "name" => "desarrollador"], function () {
+ 	Route::get('/', 'MainController@index')->name('mainDesarrollador');
+ });
