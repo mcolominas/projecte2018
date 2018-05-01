@@ -17,7 +17,7 @@ class CreateJuegosTable extends Migration
             $table->increments('id');
             $table->integer('id_creador')->unsigned();
             $table->string('nombre');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('url');
             $table->longText('descripcion');
             $table->timestamps();
@@ -36,5 +36,9 @@ class CreateJuegosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('juegos');
+    }
+
+    public function juegos(){
+        return $this->hasMany('App\Juego');
     }
 }

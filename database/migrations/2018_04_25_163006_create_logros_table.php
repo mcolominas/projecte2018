@@ -17,6 +17,8 @@ class CreateLogrosTable extends Migration
             $table->increments('id');
             $table->integer('id_juego')->unsigned();
             $table->string('nombre');
+            $table->string('descripcion');
+            $table->string('img');
             $table->integer('coins')->default(0);
             $table->enum('estado', ['pendiente','aceptado','rechazado'])->default("pendiente");
 
