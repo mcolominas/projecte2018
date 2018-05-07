@@ -1,0 +1,26 @@
+.page-footer{
+    text-align: center;
+}
+.page-footer > div:first-child{
+    width: 100%;
+}
+.prueba>a {
+}
+.top-menu > ul > li a{
+	color: #79869a;
+
+}
+.top-menu > ul > li a:hover, .top-menu > ul > li a:focus {
+    background-color: #3f4f62;
+}
+
+.page-footer, .panel-heading{
+	background-color: #2b3643 !important;
+	color: #98a6ba !important;
+}
+.mt-element-overlay .mt-overlay-1:hover .mt-info{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    height: 100%;
+	 overflow-y:  auto;
+}
