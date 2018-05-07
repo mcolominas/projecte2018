@@ -16,10 +16,13 @@ class CreateLogrosTable extends Migration
         Schema::create('logros', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_juego')->unsigned();
-            $table->string('nombre');
+            $table->string('nombre', 30);
             $table->string('descripcion');
             $table->string('img');
             $table->integer('coins')->default(0);
+            $table->integer('tiempo_minimo')->unsigned();
+            $table->integer('tiempo_maximo')->unsigned();
+            $table->string('hash', 32)->unique();
             $table->enum('estado', ['pendiente','aceptado','rechazado'])->default("pendiente");
 
             $table->index('id_juego');

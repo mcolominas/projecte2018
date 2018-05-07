@@ -16,10 +16,12 @@ class CreateJuegosTable extends Migration
         Schema::create('juegos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_creador')->unsigned();
-            $table->string('nombre');
-            $table->string('slug')->unique();
+            $table->string('nombre', 30);
+            $table->string('slug', 30)->unique();
             $table->string('url');
             $table->longText('descripcion');
+            $table->integer('visitas')->unsigned();
+            $table->string('hash', 32)->unique();
             $table->timestamps();
 
             $table->index('id_creador');
