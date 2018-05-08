@@ -37,6 +37,10 @@ class Juego extends Model{
         return $this->hasMany('App\Logro', 'id_juego', 'id');
     }
 
+    protected function productos(){
+        return $this->hasMany('App\Tienda', 'id_juego', 'id');
+    }
+
     //Eventos de modelo
     protected static function boot()
     {
@@ -44,6 +48,7 @@ class Juego extends Model{
 
         self::creating(function($model){
             $model->slug = $model->generateSlug();
+            $model->hash = $model->generateHash();
         });
     }
 
@@ -78,10 +83,18 @@ class Juego extends Model{
 
     //Metodo recursivo para obtener todos los sub comentarios
     private function addSubComentario($comentarios){
-        if(!is_null($comentarios))
+        if(!is_null($comentarios)){
             foreach ($comentarios as $comentario){
                 $comentario->user;
                 $this->addSubComentario(@$comentario->subComentarios);
             }
         }
     }
+    
+    private function generateHash(){
+        do{
+            $hash = md5(uniqid());
+        }while(Juego::where("hash", $hash)->count() > 0);
+        return $hash;
+    }
+}

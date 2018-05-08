@@ -29,9 +29,24 @@ class User extends Authenticatable
         return $this->hasMany('App\Juego', 'id_creador', 'id');
     }
 
+    protected function baneados()
+    {
+        return $this->hasMany('App\Baneado', 'id_usuario', 'id');
+    }
+
     protected function logros()
     {
-        return $this->belongsToMany('App\Logro', 'logros_obtenidos', 'id_usuario', 'id_logro');
+        return $this->belongsToMany('App\Logro', 'users_logros', 'id_usuario', 'id_logro');
+    }
+
+    protected function misCompras()
+    {
+        return $this->belongsToMany('App\Tienda', 'tienda_user', 'id_user', 'id_tienda');
+    }
+
+    protected function jugando()
+    {
+        return $this->belongsToMany('App\Juego', 'users_jugando', 'id_usuario', 'id_juego');
     }
 
     //Otros

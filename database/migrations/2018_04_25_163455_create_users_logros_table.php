@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLogrosObtenidosTable extends Migration
+class CreateUsersLogrosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLogrosObtenidosTable extends Migration
      */
     public function up()
     {
-        Schema::create('logros_obtenidos', function (Blueprint $table) {
+        Schema::create('users_logros', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_usuario')->unsigned();
             $table->integer('id_logro')->unsigned();
@@ -34,6 +34,6 @@ class CreateLogrosObtenidosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logros_obtenidos');
+        Schema::dropIfExists('users_logros');
     }
 }

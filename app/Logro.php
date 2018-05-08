@@ -22,7 +22,25 @@ class Logro extends Model
 
     protected function users()
     {
-        return $this->belongsToMany('App\User', 'logros_obtenidos', 'id_logro', 'id_usuario');
+        return $this->belongsToMany('App\User', 'users_logros', 'id_logro', 'id_usuario');
+    }
+
+    //Eventos de modelo
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($model){
+            $model->hash = $model->generateHash();
+        });
+    }
+
+    //Otros
+    private function generateHash(){
+        do{
+            $hash = md5(uniqid());
+        }while(Logro::where("hash", $hash)->count() > 0);
+        return $hash;
     }
 
 }
