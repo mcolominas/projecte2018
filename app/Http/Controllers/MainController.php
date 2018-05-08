@@ -21,4 +21,5 @@ class MainController extends Controller
     	//die(json_encode($l));
         return view('paginas/index');
     }
+
 }

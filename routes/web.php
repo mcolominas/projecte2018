@@ -17,6 +17,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/perfil','PerfilController@perfil')->name('perfil');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {
  	Route::get('/', 'MainController@index')->name('mainAdmin');

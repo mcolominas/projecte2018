@@ -10,8 +10,9 @@
 	color: #79869a;
 
 }
-.top-menu > ul > li a:hover, .top-menu > ul > li a:focus {
+.top-menu > ul > li a:hover, .top-menu > ul > li a:focus, .top-menu a:hover i {
     background-color: #3f4f62;
+    color: white !important;
 }
 
 .page-footer, .panel-heading{
@@ -22,5 +23,8 @@
 	overflow: hidden;
     text-overflow: ellipsis;
     height: 100%;
-	 overflow-y:  auto;
+	overflow-y:  auto;
+}
+html{
+    overflow-x: hidden;
 }

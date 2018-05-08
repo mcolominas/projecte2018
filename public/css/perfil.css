@@ -1,0 +1,66 @@
+.card-body{
+	box-shadow: 6px 8px 10px #79809c;
+	width: 100%;
+}
+
+.nav-pills>li>a, .nav-tabs>li>a{
+	border-radius: 0;
+}
+
+.card-body .card-title{
+	background: #2b3643;
+	color: white;
+	padding: 10px 0;
+	margin: 0;
+	text-align: center;
+	letter-spacing: 3px;
+	border-radius: 3px 3px 0 0;
+}
+#cambiar{
+	color: #000000c4;
+	background: rgba(50,163,194,1);
+	background: -moz-radial-gradient(center, ellipse cover, rgba(50,163,194,1) 0%, rgba(164,233,252,1) 49%, rgba(50,163,194,1) 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(50,163,194,1)), color-stop(49%, rgba(164,233,252,1)), color-stop(100%, rgba(50,163,194,1)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(50,163,194,1) 0%, rgba(164,233,252,1) 49%, rgba(50,163,194,1) 100%);
+	background: -o-radial-gradient(center, ellipse cover, rgba(50,163,194,1) 0%, rgba(164,233,252,1) 49%, rgba(50,163,194,1) 100%);
+	background: -ms-radial-gradient(center, ellipse cover, rgba(50,163,194,1) 0%, rgba(164,233,252,1) 49%, rgba(50,163,194,1) 100%);
+	background: radial-gradient(ellipse at center, rgba(50,163,194,1) 0%, rgba(164,233,252,1) 49%, rgba(50,163,194,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#32a3c2', endColorstr='#32a3c2', GradientType=1 );
+	border-radius: 20px !important;
+	position: relative;
+
+	-webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 1.5s;
+
+}
+
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    0%   {left:40vw;}
+    70%  {left:-10vw;}
+    100% {left:0vw;}
+}
+
+/* Standard syntax */
+@keyframes example {
+    0%   {left:40vw;}
+    70%  {left:-10vw;}
+    100% {left:0vw;}
+}
+
+#cambiar span{
+	background-color: #ffffff69;
+    border-radius: 20px;
+}
+
+#messages .content p{
+	margin: 10px 0;
+}
+
+#messages .content h5{
+	border-bottom: 1px solid black;
+    display: inline-block;
+}
