@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/', 'MainController@index')->name('main');
+Route::get('/', 'frontEnd\indexController@getJuegos')->name('index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/perfil','PerfilController@perfil')->name('perfil');
+Route::get('/perfil','frontEnd/PerfilController@perfil')->name('perfil');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {
  	Route::get('/', 'MainController@index')->name('mainAdmin');
