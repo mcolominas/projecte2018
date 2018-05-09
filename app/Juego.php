@@ -74,6 +74,13 @@ class Juego extends Model{
         return $text;
     }
 
+    //Añade la url al juego
+    public function setUrl(){
+        unset($this->slug);
+        $this->url = route('juego', ['slug' => $this->slug]);
+        return $this;
+    }
+
     //Añade todos los comentarios con sus sub comentarios al juego y los 
     //datos del usuario quien ha escrito el comentario.
     public function addComentarios(){

@@ -20,7 +20,7 @@ class CreateJuegosTable extends Migration
             $table->string('slug', 30)->unique();
             $table->string('url');
             $table->longText('descripcion');
-            $table->integer('visitas')->unsigned();
+            $table->integer('visitas')->unsigned()->default(0);
             $table->string('hash', 32)->unique();
             $table->timestamps();
 

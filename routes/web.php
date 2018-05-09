@@ -15,8 +15,11 @@
 Auth::routes();
 
 //FrontEnd
-Route::get('/', 'frontEnd\indexController@getJuegos')->name('index');
+Route::get('/', 'frontEnd\IndexController@getJuegos')->name('index');
+Route::get('/pag/{pag}', 'frontEnd\IndexController@getJuegos')->name('indexPag');
+
 Route::get('/perfil','frontEnd\PerfilController@perfil')->name('perfil');
+Route::get('/juego/{slug}','frontEnd\indexController@perfil')->name('juego');
 
 //BackEnd Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {
