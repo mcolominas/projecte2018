@@ -11,16 +11,19 @@
 |
 */
 
-Route::get('/', 'frontEnd\indexController@getJuegos')->name('index');
-
+//Auth routes
 Auth::routes();
 
-Route::get('/perfil','frontEnd/PerfilController@perfil')->name('perfil');
+//FrontEnd
+Route::get('/', 'frontEnd\indexController@getJuegos')->name('index');
+Route::get('/perfil','frontEnd\PerfilController@perfil')->name('perfil');
 
+//BackEnd Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {
  	Route::get('/', 'MainController@index')->name('mainAdmin');
  });
 
+//BackEnd Delevep
 Route::group(['prefix' => 'desarrollador', 'middleware' => 'desarrollador', "name" => "desarrollador"], function () {
  	Route::get('/', 'MainController@index')->name('mainDesarrollador');
  });
