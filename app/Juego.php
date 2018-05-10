@@ -76,8 +76,8 @@ class Juego extends Model{
 
     //Añade la url al juego
     public function setUrl(){
-        unset($this->slug);
         $this->url = route('juego', ['slug' => $this->slug]);
+        unset($this->slug);
         return $this;
     }
 
