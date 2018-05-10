@@ -6,7 +6,6 @@ use Closure;
 
 use App\Models\User;
 
-
 class desarrolladorAccessMiddleware
 {
     /**

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Paginado;
 use App\Models\Juego;
+
 class IndexController extends Controller
 {
     protected function getJuegos(Request $request, $pag = 1){
