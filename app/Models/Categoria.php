@@ -45,4 +45,11 @@ class Categoria extends Model
 			return 'n-a';
 		return $text;
 	}
+
+	//Añade la url al juego
+    public function setUrl($route){
+        $this->url = route($route, ['slug' => $this->slug]);
+        unset($this->slug);
+        return $this;
+    }
 }

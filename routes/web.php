@@ -17,6 +17,8 @@ Auth::routes();
 //FrontEnd
 Route::get('/', 'frontEnd\IndexController@getJuegos')->name('index');
 Route::get('/pag/{pag}', 'frontEnd\IndexController@getJuegos')->name('indexPag');
+Route::get('/categoria/{slug}', 'frontEnd\IndexController@getJuegos')->name('indexCategoria');
+Route::get('/categoria/{slug}/pag/{pag}', 'frontEnd\IndexController@getJuegos')->name('indexCategoriaPag');
 
 Route::get('/perfil','frontEnd\PerfilController@perfil')->name('perfil');
 Route::get('/juego/{slug}','frontEnd\indexController@perfil')->name('juego');
