@@ -2,3 +2,10 @@
 	text-align: center;
 	
 }
+.juego-info{
+	text-decoration: none;
+	text-transform: capitalize;
+	color: #ffff;
+	padding: 0;
+
+}

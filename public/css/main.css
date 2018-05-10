@@ -19,12 +19,25 @@
 	background-color: #2b3643 !important;
 	color: #98a6ba !important;
 }
-.mt-element-overlay .mt-overlay-1:hover .mt-info{
+.mt-element-overlay .mt-overlay-1 .juego-info{
 	overflow: hidden;
     text-overflow: ellipsis;
     height: 100%;
-	overflow-y:  auto;
+    overflow-y:  auto;
 }
 html{
     overflow-x: hidden;
 }
+#buscador{
+    height: 100px;
+    margin: auto 0;
+    transform: translate(0%,13%);
+    position: relative;
+}
+
+#buscador > form {
+    display: inline-table;
+}
+
+
+
