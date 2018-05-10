@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Juego;
-use App\User;
+use App\Models\Juego;
+use App\Models\User;
 
 class MainController extends Controller
 {

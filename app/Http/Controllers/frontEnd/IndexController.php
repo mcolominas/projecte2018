@@ -5,7 +5,7 @@ namespace App\Http\Controllers\frontEnd;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Paginado;
-use App\Juego;
+use App\Models\Juego;
 class IndexController extends Controller
 {
     protected function getJuegos(Request $request, $pag = 1){
@@ -13,8 +13,7 @@ class IndexController extends Controller
 
     	$paginado = Paginado::generar($juegos, "indexPag", 1, $pag, 5);
 
-		$juegos = $juegos->get()->each(
-    		function($juego){
+		$juegos = $juegos->get()->each(function($juego){
     		$juego->setUrl();
     	});
 
