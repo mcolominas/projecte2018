@@ -11,7 +11,7 @@ class IndexController extends Controller
     protected function getJuegos(Request $request, $pag = 1){
     	$juegos = Juego::select("nombre", "descripcion", "img", "slug")->orderBy('created_at', "desc");
 
-    	$paginado = Paginado::generar($juegos, "indexPag", 1, $pag, 5);
+    	$paginado = Paginado::generar($juegos, "indexPag", 16, $pag, 3);
 
 		$juegos = $juegos->get()->each(function($juego){
     		$juego->setUrl();

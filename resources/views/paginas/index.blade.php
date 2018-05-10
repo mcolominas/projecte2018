@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('styles')
-	@parent
-    <link href="{{ asset('css/paginaPrincipal.css') }}" rel="stylesheet" type="text/css" />
+@parent
+<link href="{{ asset('css/paginaPrincipal.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 @section('title')
-    {{ config('app.name', 'Game World') }} - Inicio
+{{ config('app.name', 'Game World') }} - Inicio
 @stop
 
 @section('content')
@@ -18,155 +18,56 @@
 
 <!-- Contiene los juegos -->
 <div class="mt-element-card mt-element-overlay">
-    <div class="row">
-    	<!-- Empieza Juego -->
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="#" target="_blank">
-            	<div class="mt-card-item">
-            		<div class="mt-card-content">
-	                    <h3 class="mt-card-name">TITULO</h3>  
-	                </div>
-	                <div class="mt-card-avatar mt-overlay-1">
-	                    <img src="{{ ('vendor/assets/pages/img/demo/tablero2.jpg') }}" />
-	                    <div class="mt-overlay">
-	                        <ul class="mt-info">
-	                            <span>DESCRIPCIÓN DEL JUEGO aaaaaaaaaaaaa aaaaaaaaa aaaaaa aaaaaaaaaaa aaaaa aaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaa aaaaaaaaaaaaa aaaaa aaaaaaaaa aaaaaaaa aaaaaaaaa aaaaa
-	                            aaaaaaaaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaaaaa aaaa
-	                        aaaaaaaaaaaaa aaaaaaa aaaaaaaaaaaa a aaaaaaaaa aaaaa
-	                    aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaa aaaa aaaaaaaaa aaaaa aaaaa aaaaaa aaaaaa aaaaaasdfs sdf  asd asd a a asd asd asd as das dasd as dasd a as dasd as a das ad asd aadf asd as as daaa aaaaaaa</span>
-	                        </ul> 
-	                    </div>
-	                </div>
-            	</div>
-            </a>   
-        </div>
-        <!-- Acaba juego -->
+	<div class="row">
+		<!-- Empieza Juego -->
 
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="#" target="_blank">
-            	<div class="mt-card-item">
-            		<div class="mt-card-content">
-	                    <h3 class="mt-card-name">TITULO</h3>  
+		@foreach ($juegos as $juego)
 
-	                </div>
-	                <div class="mt-card-avatar mt-overlay-1">
-	                    <img src="{{ ('vendor/assets/pages/img/demo/tablero2.jpg') }}" />
-	                    <div class="mt-overlay">
-	                        <ul class="mt-info">
-	                            <span>DESCRIPCIÓN DEL JUEGO aaaaaaaaaaaaa aaaaaaaaa aaaaaa aaaaaaaaaaa aaaaa aaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaa aaaaaaaaaaaaa aaaaa aaaaaaaaa aaaaaaaa aaaaaaaaa aaaaa
-	                            aaaaaaaaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaaaaa aaaa
-	                        aaaaaaaaaaaaa aaaaaaa aaaaaaaaaaaa a aaaaaaaaa aaaaa
-	                    aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaa aaaa aaaaaaaaa aaaaa aaaaa aaaaaa aaaaaa aaaaaasdfs sdf  asd asd a a asd asd asd as das dasd as dasd a as dasd as a das ad asd aadf asd as as daaa aaaaaaa</span>
-	                        </ul> 
-	                    </div>
-	                </div>
-            	</div>
-            </a>   
-        </div>
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+			<a href="{{ $juego->url }}" target="_blank">
+				<div class="mt-card-item">
+					<div class="mt-card-content">
+						<h3 class="mt-card-name">{{ $juego->nombre }}</h3>  
+					</div>
+					<div class="mt-card-avatar mt-overlay-1">
+						<img src='{{ asset("img/juegos/portada/$juego->nombre") }}' />
+						<div class="mt-overlay">
+							<ul class="juego-info">
+								<span>{{$juego->descripcion}}</span>
+							</ul> 
+						</div>
+					</div>
+				</div>
+			</a>   
+		</div>
+		<!-- Acaba juego -->
+		@endforeach
 
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="#" target="_blank">
-            	<div class="mt-card-item">
-            		<div class="mt-card-content">
-	                    <h3 class="mt-card-name">TITULO</h3>  
-
-	                </div>
-	                <div class="mt-card-avatar mt-overlay-1">
-	                    <img src="{{ ('vendor/assets/pages/img/demo/tablero2.jpg') }}" />
-	                    <div class="mt-overlay">
-	                        <ul class="mt-info">
-	                            <span>DESCRIPCIÓN DEL JUEGO aaaaaaaaaaaaa aaaaaaaaa aaaaaa aaaaaaaaaaa aaaaa aaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaa aaaaaaaaaaaaa aaaaa aaaaaaaaa aaaaaaaa aaaaaaaaa aaaaa
-	                            aaaaaaaaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaaaaa aaaa
-	                        aaaaaaaaaaaaa aaaaaaa aaaaaaaaaaaa a aaaaaaaaa aaaaa
-	                    aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaa aaaa aaaaaaaaa aaaaa aaaaa aaaaaa aaaaaa aaaaaasdfs sdf  asd asd a a asd asd asd as das dasd as dasd a as dasd as a das ad asd aadf asd as as daaa aaaaaaa</span>
-	                        </ul> 
-	                    </div>
-	                </div>
-            	</div>
-            </a>   
-        </div>
-
-
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="#" target="_blank">
-            	<div class="mt-card-item">
-            		<div class="mt-card-content">
-	                    <h3 class="mt-card-name">TITULO</h3>  
-
-	                </div>
-	                <div class="mt-card-avatar mt-overlay-1">
-	                    <img src="{{ ('vendor/assets/pages/img/demo/tablero2.jpg') }}" />
-	                    <div class="mt-overlay">
-	                        <ul class="mt-info">
-	                            <span>DESCRIPCIÓN DEL JUEGO aaaaaaaaaaaaa aaaaaaaaa aaaaaa aaaaaaaaaaa aaaaa aaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaa aaaaaaaaaaaaa aaaaa aaaaaaaaa aaaaaaaa aaaaaaaaa aaaaa
-	                            aaaaaaaaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaaaaa aaaa
-	                        aaaaaaaaaaaaa aaaaaaa aaaaaaaaaaaa a aaaaaaaaa aaaaa
-	                    aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaa aaaa aaaaaaaaa aaaaa aaaaa aaaaaa aaaaaa aaaaaasdfs sdf  asd asd a a asd asd asd as das dasd as dasd a as dasd as a das ad asd aadf asd as as daaa aaaaaaa</span>
-	                        </ul> 
-	                    </div>
-	                </div>
-            	</div>
-            </a>   
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="#" target="_blank">
-            	<div class="mt-card-item">
-            		<div class="mt-card-content">
-	                    <h3 class="mt-card-name">TITULO</h3>  
-
-	                </div>
-	                <div class="mt-card-avatar mt-overlay-1">
-	                    <img src="{{ ('vendor/assets/pages/img/demo/tablero2.jpg') }}" />
-	                    <div class="mt-overlay">
-	                        <ul class="mt-info">
-	                            <span>DESCRIPCIÓN DEL JUEGO aaaaaaaaaaaaa aaaaaaaaa aaaaaa aaaaaaaaaaa aaaaa aaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaa aaaaaaaaaaaaa aaaaa aaaaaaaaa aaaaaaaa aaaaaaaaa aaaaa
-	                            aaaaaaaaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaaaaa aaaa
-	                        aaaaaaaaaaaaa aaaaaaa aaaaaaaaaaaa a aaaaaaaaa aaaaa
-	                    aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaa aaaa aaaaaaaaa aaaaa aaaaa aaaaaa aaaaaa aaaaaasdfs sdf  asd asd a a asd asd asd as das dasd as dasd a as dasd as a das ad asd aadf asd as as daaa aaaaaaa</span>
-	                        </ul> 
-	                    </div>
-	                </div>
-            	</div>
-            </a>   
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="#" target="_blank">
-            	<div class="mt-card-item">
-            		<div class="mt-card-content">
-	                    <h3 class="mt-card-name">TITULO</h3>  
-
-	                </div>
-	                <div class="mt-card-avatar mt-overlay-1">
-	                    <img src="{{ ('vendor/assets/pages/img/demo/tablero2.jpg') }}" />
-	                    <div class="mt-overlay">
-	                        <ul class="mt-info">
-	                            <span>DESCRIPCIÓN DEL JUEGO aaaaaaaaaaaaa aaaaaaaaa aaaaaa aaaaaaaaaaa aaaaa aaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaa aaaaaaaaaaaaa aaaaa aaaaaaaaa aaaaaaaa aaaaaaaaa aaaaa
-	                            aaaaaaaaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaaaaa aaaa
-	                        aaaaaaaaaaaaa aaaaaaa aaaaaaaaaaaa a aaaaaaaaa aaaaa
-	                    aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaa aaaa aaaaaaaaa aaaaa aaaaa aaaaaa aaaaaa aaaaaasdfs sdf  asd asd a a asd asd asd as das dasd as dasd a as dasd as a das ad asd aadf asd as as daaa aaaaaaa</span>
-	                        </ul> 
-	                    </div>
-	                </div>
-            	</div>
-            </a>   
-        </div>
-    </div>
+	</div>
 </div>
-
-
+<!--
+	<?= json_encode($juegos) ?> _____
+	<?= json_encode($paginado) ?>
+-->
 <!-- paginación -->
 <div class="centrar">
 	<ul class="pagination">
-	    <li><a href="#">«</a></li>
-	    <li><a href="#">1</a></li>
-	    <li><a href="#">2</a></li>
-	    <li><a href="#">3</a></li>
-	    <li><a href="#">4</a></li>
-	    <li><a href="#">5</a></li>
-	    <li><a href="#">6</a></li>
-	    <li><a href="#">»</a></li>
+		<li class="{{$paginado['primera']['desactivado'] ? 'disabled' : null}}">
+			<a href="{{$paginado['primera']['url']}}">{{$paginado['primera']['signo']}}</a>
+		</li>
+		<li class="{{$paginado['anterior']['desactivado'] ? 'disabled' : null}}">
+			<a href="{{$paginado['anterior']['url']}}">{{$paginado['anterior']['signo']}}</a>
+		</li>
+		@foreach($paginado['paginas'] as $pag)
+		<li class="{{$pag['activo'] ? 'active' : null}}" ><a href="{{$pag['url']}}">{{$pag['signo']}}</a></li>
+		@endforeach
+		<li class="{{$paginado['siguiente']['desactivado'] ? 'disabled' : null}}">
+			<a href="{{$paginado['siguiente']['url']}}">{{$paginado['siguiente']['signo']}}</a>
+		</li>
+		<li class="{{$paginado['ultima']['desactivado'] ? 'disabled' : null}}">
+			<a href="{{$paginado['ultima']['url']}}">{{$paginado['ultima']['signo']}}</a>
+		</li>
+
 	</ul>
 </div>
 <!-- PUBLICIDAD -->
