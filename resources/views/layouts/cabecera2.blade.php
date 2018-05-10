@@ -27,16 +27,16 @@
                         </form>
                     </li>
                     @guest
-                    <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="{{ route('register') }}">Register</a></li>
+                    <li id="login"><a href="{{ route('login') }}">Login</a></li>
+                    <li id="register"><a href="{{ route('register') }}">Register</a></li>
                     @else
                     @if ( Auth::user()->rol === "admin" )
-                    <li><a href="#">Panel de Administrador</a></li>
+                    <li id="admin"><a href="#">Panel de Administrador</a></li>
                     @elseif ( Auth::user()->rol === "desarrollador")
-                    <li><a href="#">Panel de Desarollador</a></li>
+                    <li id="develop"><a href="#">Panel de Desarollador</a></li>
                     @endif
 
-                    <li class="dropdown dropdown-user">
+                    <li id="dropdown" class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <span class="username username-hide-on-mobile"> {{ Auth::user()->name }}  </span>
                             <i class="fa fa-angle-down"></i>
