@@ -52,7 +52,7 @@ class Paginado extends Controller
 			$a .= "a";
 			$datos["paginas"][] = [ "signo" => $i, 
 									"url" => route($ruta, ['pag' => $i]), 
-									"desactivado" => $i == $pagActual];
+									"activo" => $i == $pagActual];
 		}
 		
 		return $datos;

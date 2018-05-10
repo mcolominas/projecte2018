@@ -13,7 +13,7 @@ class IndexController extends Controller
 
     	$paginado = Paginado::generar($juegos, "indexPag", 1, $pag, 5);
 
-		$juegos->get()->each(
+		$juegos = $juegos->get()->each(
     		function($juego){
     		$juego->setUrl();
     	});
