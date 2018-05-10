@@ -1,10 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,19 +11,13 @@
   <!-- iconos -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
-  <link href="{{ asset('vendor/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="{{ asset('vendor/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" />
-  
-  <!-- BEGIN THEME GLOBAL STYLES -->
-  <link href="{{ asset('vendor/assets/global/css/components-md.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
-  <link href="{{ asset('vendor/assets/global/css/plugins-md.min.css') }}" rel="stylesheet" type="text/css" />
-  
-  <!-- BEGIN THEME LAYOUT STYLES -->
-  <link href="{{ asset('vendor/assets/layouts/layout/css/layout.min.css') }}" rel="stylesheet" type="text/css" />
-  <link href="{{ asset('vendor/assets/layouts/layout/css/themes/darkblue.min.css') }}" rel="stylesheet" type="text/css" id="style_color" />
+  <!-- Bootstrap core CSS-->
+  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
+  <!-- Custom styles for this template-->
+  <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
 
   @section('styles')
@@ -32,31 +25,49 @@
 
   <title>@yield('title', config('app.name', 'Game World') )</title>
 </head>
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
-<div class="page-wrapper">
-  @include('layouts.cabecera')
 
-  <div class="clearfix"> </div>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 
-  <div class="page-container">
-    @include('layouts.menu')
-
-    <div class="page-content-wrapper">
-      <div class="page-content">
-        @yield('content')
-      </div>
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      @include('layouts.menuLateral')
+      @include('layouts.menuSuperior')
     </div>
+  </nav>
 
-    @include('layouts.pieDePagina')
-</div>
 
-  <!-- JS -->
-  <script src="{{ asset('vendor/assets/global/plugins/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/assets/global/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('vendor/assets/global/plugins/morris/morris.min.js') }}" type="text/javascript"></script>
-  <script src="{{ asset('vendor/assets/global/scripts/app.min.js') }}" type="text/javascript"></script>
-  <script src="{{ asset('vendor/assets/layouts/layout/scripts/layout.min.js') }}" type="text/javascript"></script>
-  @section('scripts')
-  @show
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      @yield('content')
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        @include('layouts.pieDePagina')
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{{ asset('js/sb-admin.min.js') }}"></script>
+    @section('scripts')
+    @show
+  </div>
 </body>
+
 </html>

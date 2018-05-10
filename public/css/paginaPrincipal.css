@@ -1,11 +1,32 @@
-.centrar{
+#juegos h3{
 	text-align: center;
-	
 }
-.juego-info{
-	text-decoration: none;
+#juegos h3:first-letter, #juegos .desc > div:first-letter{
 	text-transform: capitalize;
-	color: #ffff;
-	padding: 0;
+}
+#juegos  a{
+	text-decoration: none;
+	color: black;
+}
+#juegos .desc{
+	position: relative;
+}
 
+#juegos .desc > div{
+	padding: 10px;
+	color: white;
+	background-color: rgba(0,0,0,.75);
+	position: absolute;
+	overflow-y: auto;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+#juegos > div:hover .desc > div{
+	display: block;
+}
+#paginado{
+	display: inherit;
 }
