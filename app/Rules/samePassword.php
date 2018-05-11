@@ -36,6 +36,6 @@ class samePassword implements Rule
      */
     public function message()
     {
-        return 'Te as equivocado de contraseña';
+        return 'Te has equivocado de contraseña';
     }
 }
