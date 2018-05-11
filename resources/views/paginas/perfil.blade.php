@@ -28,9 +28,8 @@
 		<div class="tab-content">
 			<!-- Panel 1 Cambio Correo -->
 			<div class="tab-pane active" id="home">
-				<form class="form-horizontal" method="POST">
+				<form class="form-horizontal" action="{{ route('perfil.correo') }}" method="POST">
 					{{ csrf_field() }}
-					{{ method_field('PUT') }}
 					<fieldset>
 
 						<!-- Form Name -->
@@ -40,8 +39,12 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="nuevoMail">Nuevo Correo</label>  
 							<div class="col-md-5">
-								<input id="nuevoMail" name="nuevoMail" type="text" placeholder="Introduce el nuevo correo" class="form-control input-md" required="">
-
+								<input id="nuevoMail" name="nuevoMail" type="text"  value="{{ old('nuevoMail') }}" placeholder="Introduce el nuevo correo" class="form-control input-md">
+								@if ($errors->has('nuevoMail'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('nuevoMail') }}</strong>
+                                    </span>
+                                @endif
 							</div>
 						</div>
 
@@ -50,7 +53,11 @@
 							<label class="col-md-4 control-label" for="confirmPwd">Confirmar Contraseña</label>
 							<div class="col-md-5">
 								<input id="confirmPwd" name="confirmPwd" type="password" placeholder="Introduce tu contraseña" class="form-control input-md" required="">
-
+								@if ($errors->has('confirmPwd'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('confirmPwd') }}</strong>
+                                    </span>
+                                @endif
 							</div>
 						</div>
 
@@ -128,37 +135,37 @@
 						<!-- Form Name -->
 						<legend>Hazte Develop</legend>
 						<div class="content">
-								<h5><b>¿Qué es un Develop?</b></h5>
-								<p><b><i>Develop o Developer </i></b> quiere decir que serás desarollador de tus própios juegos.<br>
+							<h5><b>¿Qué es un Develop?</b></h5>
+							<p><b><i>Develop o Developer </i></b> quiere decir que serás desarollador de tus própios juegos.<br>
 								Podrás crearlos utilizando JavaScript, un lenguaje de programación, para que tu o otros usuarios
 								puedan jugar y ganar monedas virtuales las cuales podrás gastar en una tienda virtual, ya sea para 
-								tener una épica skin o ventajas para tu personaje, entre otras cosas.</p>
-								
-								<h5><b>¿Qué ventajas obtengo al ser Develop?</b></h5>
-								<p> La principal ventaja como <b><i>Develop</i></b> es que podrás crear tus própios juegos utilizando
-								JavaScript, así tus amigos o otros usuarios podrán probar el juego de tus sueños.<br>
-								También podrás añadir logros en tus juegos para recompensar a esos usuarios que deciden aventurarse en tu juego.</p>
+							tener una épica skin o ventajas para tu personaje, entre otras cosas.</p>
 
-								<p>Otra característica, es que puedes añadir en la tienda online productos para facilitar algún reto difícil del juego que hayas creado.<br>
-								(¡¡El precio de los productos lo puedes decidir tú!!)</p>
+							<h5><b>¿Qué ventajas obtengo al ser Develop?</b></h5>
+							<p> La principal ventaja como <b><i>Develop</i></b> es que podrás crear tus própios juegos utilizando
+								JavaScript, así tus amigos o otros usuarios podrán probar el juego de tus sueños.<br>
+							También podrás añadir logros en tus juegos para recompensar a esos usuarios que deciden aventurarse en tu juego.</p>
+
+							<p>Otra característica, es que puedes añadir en la tienda online productos para facilitar algún reto difícil del juego que hayas creado.<br>
+							(¡¡El precio de los productos lo puedes decidir tú!!)</p>
 						</div>
 
 						<!-- Button -->
 						<div class="form-group">
 							<div class="col-md-4 col-md-offset-2">
 								<button id="cambiar" name="cambiar" class="btn"><span>Quiero hacerme Develop<span></button>
+								</div>
 							</div>
-						</div>
 
-					</fieldset>
-				</form>
+						</fieldset>
+					</form>
+
+				</div>
+
 
 			</div>
-
-
 		</div>
+
 	</div>
 
-</div>
-
-@stop
+	@stop

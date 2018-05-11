@@ -20,7 +20,9 @@ Route::get('/pag/{pag}', 'frontEnd\IndexController@getJuegos')->name('indexPag')
 Route::get('/categoria/{slug}', 'frontEnd\IndexController@getJuegos')->name('indexCategoria');
 Route::get('/categoria/{slug}/pag/{pag}', 'frontEnd\IndexController@getJuegos')->name('indexCategoriaPag');
 
-Route::get('/perfil','frontEnd\PerfilController@perfil')->name('perfil');
+Route::get('/perfil','frontEnd\PerfilController@getPerfil')->name('perfil');
+Route::post('/perfil','frontEnd\PerfilController@postCorreo')->name('perfil.correo');
+
 Route::get('/juego/{slug}','frontEnd\indexController@perfil')->name('juego');
 
 //BackEnd Admin
