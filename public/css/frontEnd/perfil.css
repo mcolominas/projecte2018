@@ -17,6 +17,21 @@
 	letter-spacing: 3px;
 	border-radius: 9px 9px 0 0;
 }
+.list-group-item{
+	color: #0986b9;
+	text-shadow: 1px 0px #400f0f
+}
+
+legend{
+	text-align: center;
+	color: #187969!important;
+	margin-bottom: 25px;
+	font-size: 28px;
+    font-weight: 400!important;
+    background-color: #0065ce2e!important;
+    border-radius: 20px;
+}
+
 #cambiar{
 	color: #000000c4;
 	background: rgba(50,163,194,1);

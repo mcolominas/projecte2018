@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	@endif
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<div class="card-body">
 			<h3 class="card-title">Opciones</h3>
 			<div class="list-group" id="list-tab" role="tablist">
@@ -30,21 +30,19 @@
 	</div>
 	
 <!-- Content -->
-<div class="col-md-8">
+<div class="col-md-9">
 	<div class="tab-content">
 		<!-- Panel 1 Cambio Correo -->
 		<div class="tab-pane active" id="home">
-			<form class="form-horizontal" action="{{ route('perfil.correo') }}" method="POST">
+			<legend>Cambiar Correo</legend>
+			<form class="form-horizontal col-md-6 offset-md-3" action="{{ route('perfil.correo') }}" method="POST">
 				{{ csrf_field() }}
 				<fieldset>
 
-					<!-- Form Name -->
-					<legend>Cambiar Correo</legend>
-
 					<!-- Text input-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="nuevoMail">Nuevo Correo</label>  
-						<div class="col-md-5">
+					<div class="form-group row">
+						<label class="col-md-12 control-label" for="nuevoMail">Nuevo Correo</label>  
+						<div class="col-md-12">
 							<input id="nuevoMail" name="nuevoMail" type="text"  value="{{ old('nuevoMail') }}" placeholder="Introduce el nuevo correo" class="form-control input-md">
 							@if ($errors->has('nuevoMail'))
 							<span class="help-block">
@@ -55,9 +53,9 @@
 					</div>
 
 					<!-- Password input-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="confirmPwd">Confirmar Contraseña</label>
-						<div class="col-md-5">
+					<div class="form-group row">
+						<label class="col-md-12 control-label" for="confirmPwd">Confirmar Contraseña</label>
+						<div class="col-md-12">
 							<input id="confirmPwd" name="confirmPwd" type="password" placeholder="Introduce tu contraseña" class="form-control input-md" required="">
 							@if ($errors->has('confirmPwd'))
 							<span class="help-block">
@@ -68,9 +66,9 @@
 					</div>
 
 					<!-- Button -->
-					<div class="form-group">
-						<div class="col-md-4 col-md-offset-4">
-							<button name="cambiar" class="btn btn-success">Cambiar Datos</button>
+					<div class="form-group row">
+						<div class="col-md-8 offset-md-2">
+							<button name="cambiar" class="w-100 btn btn-success">Cambiar Datos</button>
 						</div>
 					</div>
 
@@ -80,43 +78,44 @@
 
 		<!-- Panel 2 Cambio Contraseña -->
 		<div class="tab-pane" id="profile">
-			<form class="form-horizontal" method="POST">
+			<legend>Cambiar Contraseña</legend>
+			<form class="form-horizontal col-md-6 offset-md-3" method="POST">
 				{{ csrf_field() }}
 				<fieldset>
 
 					<!-- Form Name -->
-					<legend>Cambiar Contraseña</legend>
+					
 
 					<!-- Password input-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="pwdActual">Contraseña Actual</label>
-						<div class="col-md-5">
+					<div class="form-group row">
+						<label class="col-md-12 control-label" for="pwdActual">Contraseña Actual</label>
+						<div class="col-md-12">
 							<input id="pwdActual" name="currentPassword" type="password" placeholder="Introduce tu contraseña Actual" class="form-control input-md" required="">
 
 						</div>
 					</div>
 
 					<!-- Password input-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="pwdNuevo">Contraseña Nueva</label>
-						<div class="col-md-5">
+					<div class="form-group row">
+						<label class="col-md-12 control-label" for="pwdNuevo">Contraseña Nueva</label>
+						<div class="col-md-12">
 							<input id="pwdNuevo" name="newPassword" type="password" placeholder="Introduce la nueva contraseña" class="form-control input-md" required="">
 
 						</div>
 					</div>
 
 					<!-- Password input-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="confirmPwd">Confirmar Contraseña</label>
-						<div class="col-md-5">
+					<div class="form-group row">
+						<label class="col-md-12 control-label" for="confirmPwd">Confirmar Contraseña</label>
+						<div class="col-md-12">
 							<input id="confirmPwd" name="newPassword_confirmation" type="password" placeholder="Repite la nueva contraseña " class="form-control input-md" required="">
 
 						</div>
 					</div>
 
 					<!-- Button -->
-					<div class="form-group">
-						<div class="col-md-4 col-md-offset-4">
+					<div class="form-group row">
+						<div class="col-md-8 offset-md-3">
 							<button name="cambiar" class="btn btn-success">Cambiar Datos</button>
 						</div>
 					</div>
@@ -156,7 +155,7 @@
 
 					<!-- Button -->
 					<div class="form-group">
-						<div class="col-md-4 col-md-offset-2">
+						<div class="col-md-4 offset-md-2">
 							<button id="cambiar" name="cambiar" class="btn"><span>Quiero hacerme Develop<span></button>
 							</div>
 						</div>
