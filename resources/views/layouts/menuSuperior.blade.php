@@ -1,11 +1,11 @@
 <ul class="navbar-nav ml-auto">
   <li class="nav-item">
     <!-- BUSCADOR -->
-    <form class="form-inline my-2 my-lg-0 mr-lg-2">
+    <form id="formBuscar" class="form-inline my-2 my-lg-0 mr-lg-2" method="get" action="{{route('buscar')}}">
       <div class="input-group">
-        <input class="form-control" type="text" placeholder="Search for...">
+        <input id="location" class="form-control" type="text" placeholder="Buscar juego">
         <span class="input-group-append">
-          <button class="btn btn-primary" type="button">
+          <button class="btn btn-primary" type="submit">
             <i class="fa fa-search"></i>
           </button>
         </span>
@@ -56,3 +56,16 @@
   </li>
   @endguest
 </ul>
+
+@section("scripts")
+<script type="text/javascript">
+  $(function(){
+  $("#formBuscar").submit(function(e){
+    e.preventDefault();
+    var link = '{{route("juego",["slug" => ""])}}/' + $(this).find("input").eq(0).attr("slug");
+    window.location.replace(link);
+  });
+
+  })
+</script>
+@endSection
