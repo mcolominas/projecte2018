@@ -1,6 +1,7 @@
 .card-body{
 	box-shadow: 6px 8px 10px #79809c;
 	width: 100%;
+	padding: 0;
 }
 
 .nav-pills>li>a, .nav-tabs>li>a{
@@ -14,7 +15,7 @@
 	margin: 0;
 	text-align: center;
 	letter-spacing: 3px;
-	border-radius: 3px 3px 0 0;
+	border-radius: 9px 9px 0 0;
 }
 #cambiar{
 	color: #000000c4;
