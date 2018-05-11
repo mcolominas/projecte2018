@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	@endif
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<div class="card-body">
 			<h3 class="card-title">Opciones</h3>
 			<div class="list-group" id="list-tab" role="tablist">
@@ -28,19 +28,9 @@
 			</div>
 		</div>
 	</div>
-	<!--<div class="col-md-3">
-		<div class="card-body">
-			<h3 class="card-title">Opciones</h3>
-			<ul class="nav nav-pills nav-stacked" id="myTabs">
-				<li class="active"><a href="#home" data-toggle="pill">Cambiar Correo</a></li>
-				<li><a href="#profile" data-toggle="pill">Cambiar Contraseña</a></li>
-				<li><a href="#messages" data-toggle="pill">Hazte Developer!!</a></li>
-			</ul>
-		</div>
-	</div>
--->
+	
 <!-- Content -->
-<div class="col-md-9">
+<div class="col-md-8">
 	<div class="tab-content">
 		<!-- Panel 1 Cambio Correo -->
 		<div class="tab-pane active" id="home">
@@ -119,7 +109,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="confirmPwd">Confirmar Contraseña</label>
 						<div class="col-md-5">
-							<input id="confirmPwd" name="newPassword_confirm" type="password" placeholder="Repite la nueva contraseña " class="form-control input-md" required="">
+							<input id="confirmPwd" name="newPassword_confirmation" type="password" placeholder="Repite la nueva contraseña " class="form-control input-md" required="">
 
 						</div>
 					</div>
