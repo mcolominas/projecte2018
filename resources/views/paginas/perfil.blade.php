@@ -2,7 +2,7 @@
 
 @section('styles')
 @parent
-<link href="{{ asset('css/perfil.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('css/frontEnd/perfil.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 @section('title')

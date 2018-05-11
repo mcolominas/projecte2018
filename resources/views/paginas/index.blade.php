@@ -2,7 +2,7 @@
 
 @section('styles')
 @parent
-<link href="{{ asset('css/paginaPrincipal.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('css/frontEnd/paginaPrincipal.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 @section('title')

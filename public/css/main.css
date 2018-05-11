@@ -5,3 +5,12 @@ html{
 	width: 24px;
 	height: 24px;
 }
+.help-block{
+	color: red;
+}
+.bg-dark{
+background-color: #24292e!important;
+}
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav{
+ background-color: #404a54!important;
+}

@@ -1,0 +1,15 @@
+
+.col-md-9.col-md-offset-2.mx-auto.mt-3{
+	border: 1px solid #dae3f7!important;
+    border-radius: 40px;
+}
+
+.panel-heading{
+	text-align: center;
+	color: #187969!important;
+	margin-bottom: 25px;
+	font-size: 28px;
+    font-weight: 400!important;
+    background-color: #0065ce2e!important;
+    border-radius: 20px;
+}
