@@ -21,6 +21,6 @@ class desarrolladorAccessMiddleware
             die("Desarrollador panel");
             return $next($request);
         }else
-            return redirect()->route('main');
+            return redirect()->route('index');
     }
 }

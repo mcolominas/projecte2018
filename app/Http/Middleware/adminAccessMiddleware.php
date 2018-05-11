@@ -20,7 +20,7 @@ class adminAccessMiddleware
         if (User::isAdmin()){
             return $next($request);
         }else
-            return redirect()->route('main');
+            return redirect()->route('index');
         
     }
 }

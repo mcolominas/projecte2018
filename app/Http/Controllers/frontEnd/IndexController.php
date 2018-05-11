@@ -18,6 +18,6 @@ class IndexController extends Controller
     		$juego->setUrl();
     	});
 
-    	return view('paginas/index', ["juegos" => $juegos, "paginado" => $paginado]);
+    	return view('frontEnd/index', ["juegos" => $juegos, "paginado" => $paginado]);
     }
 }
