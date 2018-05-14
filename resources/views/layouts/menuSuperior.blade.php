@@ -29,7 +29,7 @@
   </li>
   @elseif ( Auth::user()->rol === "desarrollador")
   <li class="nav-item" id="develop">
-    <a class="nav-link" href="#">Panel de Desarollador</a>
+    <a class="nav-link" href="{{ route('mainDesarrollador')}}">Panel de Desarollador</a>
   </li>
   @endif
   <li class="nav-item dropdown">

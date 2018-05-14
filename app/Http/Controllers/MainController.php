@@ -19,7 +19,7 @@ class MainController extends Controller
     		$model->juego->addComentarios();
     	});*/
     	//die(json_encode($l));
-        return view('paginas/index');
+        return view('backEnd/Develop/panelDevelop');
     }
 
 }
