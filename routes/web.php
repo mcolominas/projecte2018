@@ -23,7 +23,7 @@ Route::get('/categoria/{slug}/pag/{pag}', 'frontEnd\IndexController@getJuegos')-
 Route::get('/perfil','frontEnd\PerfilController@getPerfil')->name('perfil');
 Route::post('/perfil','frontEnd\PerfilController@postCorreo')->name('perfil.correo');
 
-Route::get('/juego/{slug}','frontEnd\indexController@perfil')->name('juego');
+Route::get('/juego/{slug}','frontEnd\IndexController@perfil')->name('juego');
 
 //BackEnd Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {

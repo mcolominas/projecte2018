@@ -20,4 +20,10 @@ class IndexController extends Controller
 
     	return view('frontEnd/index', ["juegos" => $juegos, "paginado" => $paginado]);
     }
+
+
+    public function perfil(){
+    	return view('frontEnd/juego');
+    }
+
 }
