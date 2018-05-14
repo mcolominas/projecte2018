@@ -5,6 +5,27 @@ html{
 	width: 24px;
 	height: 24px;
 }
+.imgbuscador{
+	width: 80px;
+    height: 80px;
+}
+.mp_list{
+	top:100%;
+	position: absolute;
+	background-color: #fff;
+	border: 1px solid;
+	border-radius: 0 0 5px 5px;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding: 0px;
+    width: 100%;
+
+}
+.mp_list >li {
+	list-style-type: none;
+    border-bottom: 1px solid black;
+    padding: 5px 0; 
+}
 .help-block{
 	color: red;
 }

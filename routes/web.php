@@ -26,7 +26,7 @@ Route::name('perfil')->group(function () {
 	Route::post('/perfil','frontEnd\PerfilController@postCorreo')->name('.datos');
 });
 
-Route::get('/juego/{slug}','frontEnd\indexController@perfil')->name('juego');
+Route::get('/juego/{slug}','frontEnd\IndexController@perfil')->name('juego');
 
 //BackEnd Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {
