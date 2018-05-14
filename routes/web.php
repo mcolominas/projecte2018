@@ -20,17 +20,20 @@ Route::get('/pag/{pag}', 'frontEnd\IndexController@getJuegos')->name('indexPag')
 Route::get('/categoria/{slug}', 'frontEnd\IndexController@getJuegos')->name('indexCategoria');
 Route::get('/categoria/{slug}/pag/{pag}', 'frontEnd\IndexController@getJuegos')->name('indexCategoriaPag');
 
-Route::get('/perfil','frontEnd\PerfilController@getPerfil')->name('perfil');
-Route::post('/perfil','frontEnd\PerfilController@postCorreo')->name('perfil.correo');
+
+Route::name('perfil')->group(function () {
+	Route::get('/perfil','frontEnd\PerfilController@getPerfil');
+	Route::post('/perfil','frontEnd\PerfilController@postCorreo')->name('.datos');
+});
 
 Route::get('/juego/{slug}','frontEnd\indexController@perfil')->name('juego');
 
 //BackEnd Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {
- 	Route::get('/', 'MainController@index')->name('mainAdmin');
- });
+	Route::get('/', 'MainController@index')->name('mainAdmin');
+});
 
 //BackEnd Delevep
 Route::group(['prefix' => 'desarrollador', 'middleware' => 'desarrollador', "name" => "desarrollador"], function () {
- 	Route::get('/', 'MainController@index')->name('mainDesarrollador');
- });
+	Route::get('/', 'MainController@index')->name('mainDesarrollador');
+});
