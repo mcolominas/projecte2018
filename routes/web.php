@@ -15,10 +15,8 @@
 Auth::routes();
 
 //FrontEnd
-Route::get('/', 'frontEnd\IndexController@getJuegos')->name('index');
-Route::get('/pag/{pag}', 'frontEnd\IndexController@getJuegos')->name('indexPag');
-Route::get('/categoria/{slug}', 'frontEnd\IndexController@getJuegos')->name('indexCategoria');
-Route::get('/categoria/{slug}/pag/{pag}', 'frontEnd\IndexController@getJuegos')->name('indexCategoriaPag');
+Route::get('/{pag?}', 'frontEnd\IndexController@getJuegos')->name('index');
+Route::get('/categoria/{slug}/{pag?}', 'frontEnd\IndexController@getJuegosByCategorias')->name('indexCategoria');
 
 
 Route::name('perfil')->group(function () {

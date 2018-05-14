@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 class Paginado extends Controller
 {
 	public static function generar(&$consulta, $ruta, $maxElementos, $pagActual, $cantPaginado){
+		$pagActual = (int) $pagActual;
+		
 		$cantElementos = $consulta->count();
 		$ultimaPag = ceil($cantElementos/$maxElementos);
 
@@ -47,9 +49,8 @@ class Paginado extends Controller
 					["signo" => ">>", 
 					 "url" => route($ruta, ['pag' => $ultimaPag]),
 					 "desactivado" => ($pagActual >= $ultimaPag)]];
-		$a = "";
+		
 		for($i = $minPag; $i <= $maxPag; $i++){
-			$a .= "a";
 			$datos["paginas"][] = [ "signo" => $i, 
 									"url" => route($ruta, ['pag' => $i]), 
 									"activo" => $i == $pagActual];
