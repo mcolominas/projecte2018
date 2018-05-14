@@ -1,0 +1,78 @@
+iframe#juego{
+	border: 1px solid black; 
+	border-radius: 20px 20px 0 0;
+	text-align: center; 
+	height: 500px; 
+	margin: 5px ;
+}
+
+div#descrip{
+	border: 1px solid #404a54; 
+	top: -20px;
+	border-radius: 0 0 20px 20px; 
+	text-align: center; 
+	margin: 5px;
+	background-color: #404a54;
+	color: white;
+	padding: 10px;
+}
+
+div#descrip > div> a{
+	padding-left: 5px;
+	float:right;
+	color: white;
+}
+div#descrip {
+	font-size: 20px;
+	text-align: left;
+}
+#reportar , #noMeGusta:hover{
+	color: red;
+}
+
+#meGusta:hover{
+	color:green;
+}
+.comentario {
+	width: auto;
+}
+.comentario > div:first-child{
+	margin-top: 5px;
+	border-radius: 6px;
+	box-shadow: 0 0 3px #000;
+	padding: 10px;
+	background-color: #91e2fb40;
+	border-left: thick solid #117590;
+}
+
+.comentario .comentario{
+	margin-left: 50px;
+}
+.comentario .comentario .comentario .comentario .comentario .comentario{
+	margin-left: 0px;
+}
+.comentario > div:first-child  > p{
+	padding-left: 100px;
+}
+.comentario > div:first-child > a {
+	float: right;
+	text-decoration: none;
+	margin-top: -20px;
+}
+
+.comentario > div:first-child > i , .comentario > div:first-child > h5{
+	display: inline;
+}
+.comentario > div:first-child > i{ 
+  border-radius: 60px;
+  border: 2px solid black;
+  padding: 0.5em 0.6em;
+}
+
+#comentar{
+	box-shadow: 0 0 4px #000;
+	padding: 10px;
+	top: 40px;
+	background-color: #f1af5b75;
+	border-radius: 30px;
+}

@@ -35,3 +35,6 @@ background-color: #24292e!important;
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav{
  background-color: #404a54!important;
 }
+.content-wrapper{
+	padding-bottom: 60px;
+}
