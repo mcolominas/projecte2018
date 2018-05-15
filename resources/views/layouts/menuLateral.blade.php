@@ -1,6 +1,13 @@
 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-  
-  @foreach (Menu::getMenuIndex() as $categoria)
+  <?php
+  if(Request::is('desarrollador*'))
+    $a = Menu::menuDesarollador();
+    else if(Request::is('admin*'))
+      $a = Menu::menuAdministrador();
+      else
+        $a = Menu::menuCategorias();
+  ?>
+  @foreach ($a as $categoria)
   <li class="nav-item" data-toggle="tooltip" data-placement="right" title="{{ $categoria['nombre'] }}">
     <a class="nav-link" href="{{ $categoria['url'] }}">
       <img class="icon" src="{{ $categoria['img'] }}">
@@ -8,6 +15,9 @@
     </a>
   </li>
   @endforeach
+
+
+
 </ul>
 <ul class="navbar-nav sidenav-toggler">
   <li class="nav-item">

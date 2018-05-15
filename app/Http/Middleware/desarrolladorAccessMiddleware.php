@@ -18,7 +18,6 @@ class desarrolladorAccessMiddleware
     public function handle($request, Closure $next)
     {
         if (User::isDesarrollador() || User::isAdmin()){
-            die("Desarrollador panel");
             return $next($request);
         }else
             return redirect()->route('index');

@@ -1,0 +1,24 @@
+#dataTable{
+	width: 80%;
+	text-align: center;
+	font-family:Georgia;
+	margin-left:auto; 
+    margin-right:auto;
+    font-weight: bold;
+}
+
+#dataTable > tbody > tr > td{
+	background-color: #0d3744a3;
+}
+
+#dataTable > tbody > tr > td > a{
+	text-decoration: none;
+}
+
+#edit{
+	color: #eadc09;
+}
+
+#drop{
+	color: #b91c1c;
+}
