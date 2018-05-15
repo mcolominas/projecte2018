@@ -18,3 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/buscar','Api\buscadorController@index')->name('buscar');
+
+Route::get('/addComentario','Api\Juegosontroller@addComentario')->name('buscar');
+Route::get('/addSubComentario','Api\JuegosController@addSubComentario')->name('buscar');
