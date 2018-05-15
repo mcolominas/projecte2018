@@ -83,17 +83,17 @@ class Juego extends Model{
 
     //Añade todos los comentarios con sus sub comentarios al juego y los 
     //datos del usuario quien ha escrito el comentario.
-    public function addComentarios(){
-        $this->addSubComentario(@$this->comentarios);
+    public function getComentarios(){
+        $this->getSubComentario(@$this->comentarios);
         return $this;
     }
 
     //Metodo recursivo para obtener todos los sub comentarios
-    private function addSubComentario($comentarios){
+    private function getSubComentario($comentarios){
         if(!is_null($comentarios)){
             foreach ($comentarios as $comentario){
                 $comentario->user;
-                $this->addSubComentario(@$comentario->subComentarios);
+                $this->getSubComentario(@$comentario->subComentarios);
             }
         }
     }
