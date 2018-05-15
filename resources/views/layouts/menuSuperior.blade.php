@@ -25,11 +25,11 @@
   @else
   @if ( Auth::user()->rol === "admin" )
   <li class="nav-item" id="admin">
-    <a class="nav-link" href="#">Panel de Administrador</a>
+    <a class="nav-link" href="{{ route('admin')}}">Panel de Administrador</a>
   </li>
   @elseif ( Auth::user()->rol === "desarrollador")
   <li class="nav-item" id="develop">
-    <a class="nav-link" href="{{ route('mainDesarrollador')}}">Panel de Desarollador</a>
+    <a class="nav-link" href="{{ route('desarrollador')}}">Panel de Desarollador</a>
   </li>
   @endif
   <li class="nav-item dropdown">

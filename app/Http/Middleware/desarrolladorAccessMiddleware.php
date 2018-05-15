@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class desarrolladorAccessMiddleware
 {
@@ -17,7 +17,9 @@ class desarrolladorAccessMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (User::isDesarrollador() || User::isAdmin()){
+            $user = Auth::user();
+
+        if ($user->isDesarrollador() || $user->isAdmin()){
             return $next($request);
         }else
             return redirect()->route('index');

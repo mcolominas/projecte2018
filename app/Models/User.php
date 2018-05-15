@@ -50,19 +50,19 @@ class User extends Authenticatable
     }
 
     //Otros
-    protected function isConectado(){
+    public function isConectado(){
         return !Auth::guest();
     }
 
-    protected function isAdmin(){
+    public function isAdmin(){
         return $this->isConectado() && Auth::user()->rol === "admin";
     }
 
-    protected function isDesarrollador(){
+    public function isDesarrollador(){
         return $this->isConectado() && Auth::user()->rol === "desarrollador";
     }
 
-    protected function isNormal(){
+    public function isNormal(){
         return $this->isConectado() && Auth::user()->rol === "normal";
     }
 }

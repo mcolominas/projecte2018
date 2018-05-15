@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 class Paginado extends Controller
 {
-	public static function generar(&$consulta, $ruta, $maxElementos, $pagActual, $cantPaginado){
+	public static function generar(&$consulta, $maxElementos, $pagActual, $cantPaginado, $url = []){
+		$pagActual = (int) $pagActual;
+
 		$cantElementos = $consulta->count();
 		$ultimaPag = ceil($cantElementos/$maxElementos);
 
@@ -32,26 +34,25 @@ class Paginado extends Controller
 
 		$datos = ["primera" => 
 					["signo" => "<<", 
-					 "url" => route($ruta, ['pag' => 1]),
+					 "url" => call_user_func_array($url, [1]),
 					 "desactivado" => ($pagActual <= 1)],
 				  "anterior" =>
 				  	 ["signo" => "<",
-					 "url" => route($ruta, ['pag' => $anteriorPag]),
+					 "url" => call_user_func_array($url, [$anteriorPag]),
 					 "desactivado" => !$activeAnteriorPag ], 
 				  "paginas" => [],
 				  "siguiente" =>
 				  	 ["signo" => ">",
-					 "url" => route($ruta, ['pag' => $siguientePag]),
+					 "url" => call_user_func_array($url, [$siguientePag]),
 					 "desactivado" => !$activeSiguientePag ],
 				  "ultima" => 
 					["signo" => ">>", 
-					 "url" => route($ruta, ['pag' => $ultimaPag]),
+					 "url" => call_user_func_array($url, [$ultimaPag]),
 					 "desactivado" => ($pagActual >= $ultimaPag)]];
-		$a = "";
+		
 		for($i = $minPag; $i <= $maxPag; $i++){
-			$a .= "a";
 			$datos["paginas"][] = [ "signo" => $i, 
-									"url" => route($ruta, ['pag' => $i]), 
+									"url" => call_user_func_array($url, [$i]), 
 									"activo" => $i == $pagActual];
 		}
 		

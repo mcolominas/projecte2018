@@ -17,4 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/buscar','buscador\buscadorController@index')->name('buscar');
+Route::get('/buscar','Api\buscadorController@index')->name('buscar');

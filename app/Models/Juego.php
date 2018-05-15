@@ -17,7 +17,7 @@ class Juego extends Model{
         return $this->belongsTo('App\Models\User', 'id_creador', 'id');
     }
 
-    protected function categorias(){
+    public function categorias(){
         return $this->belongsToMany('App\Models\Categoria', 'juegos_categorias', 'id_juego', 'id_categoria');
     }
 
