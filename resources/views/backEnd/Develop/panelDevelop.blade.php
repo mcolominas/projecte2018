@@ -14,7 +14,7 @@
 
 <div class="row">
 	<div>
-		<a href="#" class="btn btn-dark ml-3" type="button"> Añadir Juego Nuevo</a>
+		<a href="{{ route('crearJuego') }}" class="btn btn-dark ml-3" type="button"> Añadir Juego Nuevo</a>
 	</div>
 	<div id="tabla" class="col-12 mt-3">
 		<table class="table table-bordered" id="dataTable" cellspacing="0">

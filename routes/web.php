@@ -25,6 +25,7 @@ Route::post('/perfil','frontEnd\PerfilController@postCorreo')->name('perfil.corr
 
 Route::get('/juego/{slug}','frontEnd\IndexController@perfil')->name('juego');
 
+
 //BackEnd Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {
  	Route::get('/', 'MainController@index')->name('mainAdmin');
@@ -33,4 +34,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], 
 //BackEnd Delevep
 Route::group(['prefix' => 'desarrollador', 'middleware' => 'desarrollador', "name" => "desarrollador"], function () {
  	Route::get('/', 'MainController@index')->name('mainDesarrollador');
+ 	Route::get('/crearJuego','frontEnd\IndexController@crear')->name('crearJuego');
  });

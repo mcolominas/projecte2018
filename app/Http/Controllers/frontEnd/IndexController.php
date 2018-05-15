@@ -26,4 +26,8 @@ class IndexController extends Controller
     	return view('frontEnd/juego');
     }
 
+    public function crear(){
+        return view('backEnd/Develop/crearJuego');
+    }
+
 }
