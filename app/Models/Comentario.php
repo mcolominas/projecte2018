@@ -30,4 +30,22 @@ class Comentario extends Model
     protected function comentario(){
     	return $this->belongsTo('App\Models\Comentario', 'id_comentario', 'id');
     }
+
+    //Eventos de modelo
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($model){
+            $model->hash = $model->generateHash();
+        });
+    }
+
+    private function generateHash(){
+        do{
+            $hash = md5(uniqid());
+        }while(Comentario::where("hash", $hash)->count() > 0);
+        return $hash;
+    }
+
 }

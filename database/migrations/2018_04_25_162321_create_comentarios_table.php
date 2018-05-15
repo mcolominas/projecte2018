@@ -19,6 +19,7 @@ class CreateComentariosTable extends Migration
             $table->integer('id_juego')->unsigned()->nullable();
             $table->integer('id_comentario')->unsigned()->nullable();
             $table->longText('comentario');
+            $table->string('hash', 32)->unique();
             $table->timestamps();
 
             $table->index('id_usuario');
@@ -38,6 +39,6 @@ class CreateComentariosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comentario');
+        Schema::dropIfExists('comentarios');
     }
 }
