@@ -33,8 +33,22 @@ div#descrip {
 #meGusta:hover{
 	color:green;
 }
-.comentario {
+
+
+#comentar{
+	box-shadow: 0 0 4px #000;
+	padding: 10px;
+	top: 30px;
+	background-color: #f1af5b75;
+	border-radius: 30px;
+}
+
+
+
+
+#comentarios{
 	width: auto;
+	top: 60px;
 }
 .comentario > div:first-child{
 	margin-top: 5px;
@@ -69,10 +83,7 @@ div#descrip {
   padding: 0.5em 0.6em;
 }
 
-#comentar{
-	box-shadow: 0 0 4px #000;
-	padding: 10px;
-	top: 40px;
-	background-color: #f1af5b75;
-	border-radius: 30px;
+
+.content-wrapper{
+	padding-bottom: 20%;
 }

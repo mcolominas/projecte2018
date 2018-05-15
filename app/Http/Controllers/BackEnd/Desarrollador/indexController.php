@@ -10,4 +10,9 @@ class indexController extends Controller
     protected function index(){
     	return view('backEnd/Develop/index');
     }
+
+    protected function crear(){
+    	return view('backEnd/Develop/crearJuego');
+    }
+
 }

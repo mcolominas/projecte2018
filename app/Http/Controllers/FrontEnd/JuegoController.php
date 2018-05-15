@@ -9,7 +9,7 @@ use App\Models\Juego;
 class JuegoController extends Controller
 {
     protected function index(Request $request, $slug){
-    	$juego = Juego::where("slug", $slug)->firstOrFail()->getComentarios();
+    	$juego = Juego::where("slug", $slug)->firstOrFail()->getComentarios()->toArray();
     	return view('frontEnd/juego', ["juego" => $juego]);
     }
 }

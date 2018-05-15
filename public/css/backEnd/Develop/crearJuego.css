@@ -1,0 +1,56 @@
+textarea {
+  width: 100%;
+  float: top;
+  min-height: 250px;
+  overflow: scroll;
+  margin: auto;
+  display: inline-block;
+  background: #F4F4F9;
+  outline: none;
+  font-family: Courier, sans-serif;
+  font-size: 14px;
+}
+
+iframe#code {
+  bottom: 0;
+  position: relative;
+  width: 100%;
+  height: 35em;
+}
+
+.sortable {overflow: hidden; position: relative; height: 100%}
+.sortable a{
+  cursor: n-resize !important; 
+}
+
+.full{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.absolue-rigth{
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+}
+.card h5, .buttons > div{
+  position: relative;
+}
+.card .absolue-rigth button{
+  height: 100%;
+  margin: 0 !important;
+  padding: 0 .25rem !important;
+  float:right;
+  z-index: 1000;
+}
+.card .absolue-rigth button i{
+  vertical-align: middle;
+}
+.buttons .active ~ div button{
+  color: white;
+
+}

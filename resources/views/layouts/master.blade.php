@@ -57,7 +57,11 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fa fa-angle-up"></i>
     </a>
+  </div>
     
+    @section('modals')
+    @show
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script
@@ -75,7 +79,6 @@
     <script src="{{ asset('js/buscador.js') }}"></script>
     @section('scripts')
     @show
-  </div>
 </body>
 
 </html>
