@@ -26,7 +26,7 @@
 	@foreach ($juegos as $juego)
 
 	<div class="col-6 col-md-3">
-		<a href="{{ $juego->url }}" target="_blank">
+		<a href="{{ $juego->url }}">
 			<div>
 				<h3 class="mt-card-name">{{ $juego->nombre }}</h3>
 			</div>
