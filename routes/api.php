@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/buscar','Api\buscadorController@index')->name('buscar');
 
+
 Route::post('/addComentario','Api\JuegosController@addComentario');
 Route::post('/addSubComentario','Api\JuegosController@addSubComentario');
