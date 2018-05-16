@@ -22,3 +22,4 @@ Route::get('/buscar','Api\buscadorController@index')->name('buscar');
 
 Route::post('/addComentario','Api\JuegosController@addComentario');
 Route::post('/addSubComentario','Api\JuegosController@addSubComentario');
+Route::post('/addReporte','Api\JuegosController@addReporte');

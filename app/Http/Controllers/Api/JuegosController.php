@@ -63,49 +63,49 @@ class JuegosController extends Controller
 		if(!$this->existeYNoEstaVacio($mensaje))
 			return $this->returnError();
 
-			$juego = $this->getJuegoPorSlug($slug);
+		$juego = $this->getJuegoPorSlug($slug);
 
-			if(isset($juego)){
-				$reporte = new Reporte();
-				$reporte->id_juego = $juego->id;
-				$reporte->reporte = $mensaje;
-				if($reporte->save())
-					return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
-			}
-
-			return $this->returnError();
+		if(isset($juego)){
+			$reporte = new Reporte();
+			$reporte->id_juego = $juego->id;
+			$reporte->reporte = $mensaje;
+			if($reporte->save())
+				return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
 		}
 
-		private function getJuegoPorSlug($slug){
-			if($this->existeYNoEstaVacio($slug)){
-				$j = Juego::where("slug", $slug)->get();
-				if($j->count() == 1)
-					return $j->first();
-			}
-			return null;
-		}
-
-		private function getComentarioPorHash($hash){
-			if($this->existeYNoEstaVacio($hash)){
-				$c = Comentario::where("hash", $hash)->get();
-				if($c->count() == 1)
-					return $c->first();
-			}
-			return null;
-		}
-
-		private function getUser(){
-			$user = Auth::user();
-
-			if($this->existeYNoEstaVacio($user) && $user->isConectado()) return $user;
-			return null;
-		}
-
-		private function returnError(){
-			return response(json_encode(["status" => "0"]), 200)->header('Content-Type', 'application/json');
-		}
-
-		private function existeYNoEstaVacio($var){
-			return isset($var) && !empty($var);
-		}
+		return $this->returnError();
 	}
+
+	private function getJuegoPorSlug($slug){
+		if($this->existeYNoEstaVacio($slug)){
+			$j = Juego::where("slug", $slug)->get();
+			if($j->count() == 1)
+				return $j->first();
+		}
+		return null;
+	}
+
+	private function getComentarioPorHash($hash){
+		if($this->existeYNoEstaVacio($hash)){
+			$c = Comentario::where("hash", $hash)->get();
+			if($c->count() == 1)
+				return $c->first();
+		}
+		return null;
+	}
+
+	private function getUser(){
+		$user = Auth::user();
+
+		if($this->existeYNoEstaVacio($user) && $user->isConectado()) return $user;
+		return null;
+	}
+
+	private function returnError(){
+		return response(json_encode(["status" => "0"]), 200)->header('Content-Type', 'application/json');
+	}
+
+	private function existeYNoEstaVacio($var){
+		return isset($var) && !empty($var);
+	}
+}
