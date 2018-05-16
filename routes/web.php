@@ -34,8 +34,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], 
 
 //BackEnd Delevep
 Route::group(['prefix' => 'desarrollador', 'middleware' => 'desarrollador', "name" => "desarrollador"], function () {
-	Route::get('/', 'BackEnd\Desarrollador\indexController@index')->name('desarrollador');
-	Route::get('/crearJuego','BackEnd\Desarrollador\indexController@crear')->name('desarrollador.crearJuego');
+	Route::get('/', 'BackEnd\Desarrollador\JuegosController@getList')->name('desarrollador');
+
+	Route::get('/crear/juego/','BackEnd\Desarrollador\JuegosController@getCrear')->name('desarrollador.crearJuego');
+	Route::post('/crear/juego/','BackEnd\Desarrollador\JuegosController@postCrear');
+
+	Route::get('/editar/juego/{:slug}','BackEnd\Desarrollador\JuegosController@getCrear')->name('desarrollador.editarJuego');
+	Route::put('/editar/juego/{:slug}','BackEnd\Desarrollador\JuegosController@putCrear');
+
+	Route::delete('/eliminar/juego/{:slug}','BackEnd\Desarrollador\JuegosController@deleteJuego')->name('desarrollador.eliminarJuego');
 });
 
 
