@@ -40,9 +40,11 @@
 				{{$juego["descripcion"]}}
 			</span>
 			<div class="col-md-3">
-				<a href="#" data-toggle="tooltip" data-placement="top" title="Reportar!"> 
-					<i id="reportar" class="fas fa-ban"></i> 
-				</a>
+				<span data-toggle="modal" data-target="#addReport">
+					<a href="#" data-toggle="tooltip" data-placement="top" title="Reportar!" > 
+						<i id="reportar" class="fas fa-ban"></i> 
+					</a>
+				</span>
 				<!--
 				<a  href="#" data-toggle="tooltip" data-placement="top" title="No Me Gusta"> 
 					<i id="noMeGusta" class="far fa-thumbs-down"></i> 
@@ -50,7 +52,7 @@
 				<a  href="#" data-toggle="tooltip" data-placement="top" title="Me Gusta"> 
 					<i id="meGusta" class="far fa-thumbs-up"></i> 
 				</a>
-				-->
+			-->
 		</div>
 	</div>
 </div>
@@ -66,7 +68,8 @@
 </div>
 
 
-
+@guest
+@else
 <!-- Comentarios -->
 <div class="row">
 	<div id="comentar" class="col-10 offset-1 text-center">
@@ -119,6 +122,38 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="addReport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Reportar</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<input id="idComentario" type="hidden" name="id">
+					<input value="{{$juego['slug']}}" type="hidden" name="slug">
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">Comentario:</label>
+						<textarea class="form-control" id="message-text" name="mensaje"></textarea>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary">Enviar</button>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
+@endguest
 @stop
 
 @section("scripts")

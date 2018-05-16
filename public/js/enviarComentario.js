@@ -6,7 +6,7 @@ var hash,url,comentario,params,slug;
 $('#comentar form').submit(function(e){
 	e.preventDefault();
 	url = servidor + "addComentario";
-	comentario = $('#comentar form').find("textarea").val();
+	comentario = $('#comentar form').find("textarea").val().replace(/\n/g,"<br />");
 	slug = $('input[name="slug"]').val();
 	params = {comentario: comentario, slug: slug};
 
@@ -14,7 +14,7 @@ $('#comentar form').submit(function(e){
 		console.log(res); 
 		$('#comentar textarea').val('')
 		if(res.status == 1){
-			$('#comentarios').append(getHTMLComentario(res.username, res.comentario, res.id))
+			$('#comentarios').prepend(getHTMLComentario(res.username, res.comentario, res.id))
 		}
 	});
 
@@ -27,7 +27,7 @@ $("#addComentario form").submit(function(e){
 	e.preventDefault();
 	hash = $("#idComentario").val();
 	url = servidor+"addSubComentario";
-	comentario = $("#message-text").val();
+	comentario = $("#message-text").val().replace(/\n/g,"<br />");
 	slug = $('input[name="slug"]').val();
 	params = {id : hash, comentario: comentario, slug: slug}
 
