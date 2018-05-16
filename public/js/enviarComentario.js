@@ -78,3 +78,24 @@ $('#addComentario').on('hidden.bs.modal', function (e) {
 	$('#idComentario').val("");
 	$('#message-text').val("");
 })
+
+
+$('#addReport form').submit(function(e){
+	e.preventDefault();
+
+	slug = $('#addReport input').val();
+	comentario = $('#addReport textarea').val();
+	url = servidor + "addReporte";
+	params = {slug: slug, reporte: comentario}
+	ajax(url,"post",params,function(){
+		$('#addReport div[role="alert"]').show()
+		$('#addReport textarea').val('');
+	})
+
+
+})
+
+$('#addReport').on('hidden.bs.modal', function (e) {
+	$('#addReport div[role="alert"]').hide()
+	$('#addReport textarea').val('');
+})

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comentario;
 use App\Models\Juego;
+use App\Models\Reporte;
 
 class JuegosController extends Controller
 {
@@ -56,7 +57,7 @@ class JuegosController extends Controller
 		return $this->returnError();
 	}
 
-	protected function addReporte(){
+	protected function addReporte(Request $request){
 		$slug = $request->input('slug');
 		$mensaje = $request->input('reporte');
 

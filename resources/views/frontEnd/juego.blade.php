@@ -35,16 +35,17 @@
 
 
 		<!-- Aquí va la descripción -->
-		<div id="descrip" class="row col-md-12 ">
-			<span class="col-md-9 ">
-				{{$juego["descripcion"]}}
-			</span>
-			<div class="col-md-3">
+		<div id="descrip" class="row">
+			<span class="d-flex flex-row flex-nowrap justify-content-around">
+				<div>
+					{{$juego["descripcion"]}}
+				</div>
 				<span data-toggle="modal" data-target="#addReport">
-					<a href="#" data-toggle="tooltip" data-placement="top" title="Reportar!" > 
-						<i id="reportar" class="fas fa-ban"></i> 
-					</a>
+					<button class="p-0" id="reportar" data-toggle="tooltip" data-placement="top" title="Reportar!" > 
+						<i class="fas fa-ban"></i> 
+					</button>
 				</span>
+			</span>
 				<!--
 				<a  href="#" data-toggle="tooltip" data-placement="top" title="No Me Gusta"> 
 					<i id="noMeGusta" class="far fa-thumbs-down"></i> 
@@ -55,7 +56,6 @@
 			-->
 		</div>
 	</div>
-</div>
 </div>
 
 <!-- PUBLICIDAD -->
@@ -68,9 +68,9 @@
 </div>
 
 
-@guest
-@else
+
 <!-- Comentarios -->
+@auth
 <div class="row">
 	<div id="comentar" class="col-10 offset-1 text-center">
 		<h5><b>Escribe tu comentario!</b> <i class="fas fa-pencil-alt"></i></h5>
@@ -80,7 +80,7 @@
 		</form>
 	</div>
 </div>
-
+@endauth
 
 <div class="row">
 	<div id="comentarios" class="col-md-12">
@@ -94,6 +94,7 @@
 @stop
 
 @section("modals")
+@auth
 <div class="modal fade" id="addComentario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -122,6 +123,7 @@
 		</div>
 	</div>
 </div>
+@endauth
 
 <div class="modal fade" id="addReport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -133,11 +135,11 @@
 				</button>
 			</div>
 			<div class="modal-body">
+				<div style="display: none;" class="alert alert-success" role="alert">Su reporte ha sido enviado con exito.</div>
 				<form>
-					<input id="idComentario" type="hidden" name="id">
 					<input value="{{$juego['slug']}}" type="hidden" name="slug">
 					<div class="form-group">
-						<label for="message-text" class="col-form-label">Comentario:</label>
+						<label for="message-text" class="col-form-label">Motivo del Reporte:</label>
 						<textarea class="form-control" id="message-text" name="mensaje"></textarea>
 					</div>
 
@@ -153,7 +155,6 @@
 </div>
 
 
-@endguest
 @stop
 
 @section("scripts")

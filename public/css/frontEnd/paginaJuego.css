@@ -23,11 +23,20 @@ div#descrip > div> a{
 	color: white;
 }
 div#descrip {
-	font-size: 20px;
+	font-size: 16px;
 	text-align: left;
 }
-#reportar , #noMeGusta:hover{
+#reportar i, #noMeGusta:hover{
 	color: red;
+}
+#reportar i{
+	font-size: 20px;
+}
+
+#reportar{
+	background-color: transparent;
+    border: none;
+	outline: none;
 }
 
 #meGusta:hover{
