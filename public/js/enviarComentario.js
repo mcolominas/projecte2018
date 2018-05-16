@@ -1,30 +1,46 @@
-//función que llama a un ajax 
-var url = "";
-$("#addComentario form").submit(function(e){
+const servidor = "http://127.0.0.1:8000/api/";
+
+var hash,url,comentario,params,slug;
+
+//función que llama a una api e inserta un comentario
+$('#comentar form').submit(function(e){
 	e.preventDefault();
-	var hash = $("#idComentario").val()
-	if(hash == ""){
-		url = "http://localhost:8000/api/addComentario";
-	}else{
-		url = "http://localhost:8000/api/addSubComentario";
-	}
-	var comentario = $("#message-text").val();
-	var params = {id : hash, mensaje: comentario}
-	var respuesta = function(){alert("funciona");};
+	url = servidor + "addComentario";
+	comentario = $('#comentar form').find("textarea").val();
+	slug = $('input[name="slug"]').val();
+	params = {mensaje: comentario, slug: slug};
 
-
-	ajax(url,"POST",params,respuesta)
-	$('#addComentario').modal('hide')
+	ajax(url,"post",params,function(res){
+		console.log(res); 
+		$('#comentar textarea').val('')
+	});
 
 });
 
-//función general ajax
+
+//función que llama a una api e inserta un subcomentario 
+$("#addComentario form").submit(function(e){
+	e.preventDefault();
+	hash = $("#idComentario").val();
+	url = servidor+"addSubComentario";
+	comentario = $("#message-text").val();
+	slug = $('input[name="slug"]').val();
+	params = {id : hash, mensaje: comentario, slug: slug}
+
+
+	ajax(url,"post",params, function(res){console.log(res)} );
+	$('#addComentario').modal('hide');
+
+});
+
+
+
+
+//función ajax
 function ajax(url, method, params, respuesta){
 	$.ajax({
 		data:params,
 		dataType: 'json',
-		cors: true,
-		timeout: 5000,
 		url: url,
 		type: method,
 		success: respuesta,

@@ -50,7 +50,7 @@
 				<a  href="#" data-toggle="tooltip" data-placement="top" title="Me Gusta"> 
 					<i id="meGusta" class="far fa-thumbs-up"></i> 
 				</a>
-			-->
+				-->
 		</div>
 	</div>
 </div>

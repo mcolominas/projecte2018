@@ -74,7 +74,6 @@ class JuegosController extends Controller
 
 	private function getUser(){
 		$user = Auth::user();
-
 		if(isset($user) && $user->isConectado()) return $user;
 		return null;
 	}
