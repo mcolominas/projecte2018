@@ -12,7 +12,7 @@ class JuegosController extends Controller
     protected function getList(Request $request){
     	$user = Auth::user();
     	$juegos = Juego::where("id_creador", $user->id)->orderBy("created_at")->get();
-    	return view('backEnd/develop/juegos/lista', ["juegos", $juegos]);
+    	return view('backEnd/develop/juegos/lista', ["juegos" => $juegos]);
     }
 
     protected function getCrear(Request $request){
