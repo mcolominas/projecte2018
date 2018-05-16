@@ -8,11 +8,14 @@ $('#comentar form').submit(function(e){
 	url = servidor + "addComentario";
 	comentario = $('#comentar form').find("textarea").val();
 	slug = $('input[name="slug"]').val();
-	params = {mensaje: comentario, slug: slug};
+	params = {comentario: comentario, slug: slug};
 
 	ajax(url,"post",params,function(res){
 		console.log(res); 
 		$('#comentar textarea').val('')
+		if(res.status == 1){
+			$('#comentarios').append(getHTMLComentario(res.username, res.comentario, res.id))
+		}
 	});
 
 });
@@ -20,21 +23,35 @@ $('#comentar form').submit(function(e){
 
 //función que llama a una api e inserta un subcomentario 
 $("#addComentario form").submit(function(e){
+
 	e.preventDefault();
 	hash = $("#idComentario").val();
 	url = servidor+"addSubComentario";
 	comentario = $("#message-text").val();
 	slug = $('input[name="slug"]').val();
-	params = {id : hash, mensaje: comentario, slug: slug}
+	params = {id : hash, comentario: comentario, slug: slug}
 
 
-	ajax(url,"post",params, function(res){console.log(res)} );
+	ajax(url,"post",params, function(res){console.log(res)
+		if(res.status == 1){
+			$('#comentarios a[data-whatever='+hash+']').closest(".comentario").append(getHTMLComentario(res.username, res.comentario, res.id))
+		}
+	});
 	$('#addComentario').modal('hide');
 
 });
 
 
-
+function getHTMLComentario(username, comentario, id){
+	return $('<div class="comentario">'+
+		'<div>'+
+		'<i class="fas fa-user "></i>'+
+		'<h5><b> '+username+'</b></h5>'+
+		'<p>'+comentario+'</p>'+
+		'<a href="#" data-toggle="modal" data-target="#addComentario" data-whatever="'+id+'"> Comentar <i class="fas fa-comment"></i> </a>'+
+		'</div>'+
+		'</div>');
+}
 
 //función ajax
 function ajax(url, method, params, respuesta){
@@ -58,6 +75,6 @@ $('#addComentario').on('show.bs.modal', function (event) {
 
 //Función que elimina el valor del textarea y el input hidden cuando se cancela el formulario
 $('#addComentario').on('hidden.bs.modal', function (e) {
-  $('#idComentario').val("");
-  $('#message-text').val("");
+	$('#idComentario').val("");
+	$('#message-text').val("");
 })
