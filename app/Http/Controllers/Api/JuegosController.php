@@ -11,8 +11,11 @@ use App\Models\Juego;
 class JuegosController extends Controller
 {
 	protected function addComentario(Request $request){
-		$mensaje = $request->input('mensaje');
+		$mensaje = $request->input('comentario');
 		$slug = $request->input('slug');
+
+		if(!$this->existeYNoEstaVacio($mensaje) || !$this->existeYNoEstaVacio($slug))
+			return $this->returnError();
 
 		$juego = $this->getJuegoPorSlug($slug);
 		$user = $this->getUser();
@@ -24,15 +27,18 @@ class JuegosController extends Controller
 			$comentario->id_usuario = $user->id;
 
 			if($comentario->save())
-				return response(json_encode(["status" => "1", "id" => $comentario->hash]), 200)->header('Content-Type', 'application/json');
+				return response(json_encode(["status" => "1", "id" => $comentario->hash, "username" => $user->name, "comentario" => $mensaje]), 200)->header('Content-Type', 'application/json');
 		}
 		return $this->returnError();
 	}
 
 	protected function addSubComentario(Request $request){
-		$mensaje = $request->input('mensaje');
+		$mensaje = $request->input('comentario');
 		$hash = $request->input('id');
 		$slug = $request->input('slug');
+
+		if(!$this->existeYNoEstaVacio($mensaje) || !$this->existeYNoEstaVacio($hash) || !$this->existeYNoEstaVacio($slug))
+			return $this->returnError();
 
 		$juego = $this->getJuegoPorSlug($slug);
 		$comentarioPadre = $this->getComentarioPorHash($hash);
@@ -45,7 +51,7 @@ class JuegosController extends Controller
 			$comentario->id_usuario = $user->id;
 
 			if($comentario->save())
-				return response(json_encode(["status" => "1", "id" => $comentario->hash]), 200)->header('Content-Type', 'application/json');
+				return response(json_encode(["status" => "1", "id" => $comentario->hash, "username" => $user->name, "comentario" => $mensaje]), 200)->header('Content-Type', 'application/json');
 		}
 		return $this->returnError();
 	}
@@ -55,7 +61,7 @@ class JuegosController extends Controller
 	}
 
 	private function getJuegoPorSlug($slug){
-		if(isset($slug) && !empty($slug)){
+		if($this->existeYNoEstaVacio($slug)){
 			$j = Juego::where("slug", $slug)->get();
 			if($j->count() == 1)
 				return $j->first();
@@ -64,7 +70,7 @@ class JuegosController extends Controller
 	}
 
 	private function getComentarioPorHash($hash){
-		if(isset($hash) && !empty($hash)){
+		if($this->existeYNoEstaVacio($hash)){
 			$c = Comentario::where("hash", $hash)->get();
 			if($c->count() == 1)
 				return $c->first();
@@ -75,11 +81,15 @@ class JuegosController extends Controller
 	private function getUser(){
 		$user = Auth::user();
 
-		if(isset($user) && $user->isConectado()) return $user;
+		if($this->existeYNoEstaVacio($user) && $user->isConectado()) return $user;
 		return null;
 	}
 
 	private function returnError(){
 		return response(json_encode(["status" => "0"]), 200)->header('Content-Type', 'application/json');
+	}
+
+	private function existeYNoEstaVacio($var){
+		return isset($var) && !empty($var);
 	}
 }
