@@ -22,7 +22,7 @@ class Juego extends Model{
     }
 
     protected function comentarios(){
-        return $this->hasMany('App\Models\Comentario', 'id_juego', 'id');
+        return $this->hasMany('App\Models\Comentario', 'id_juego', 'id')->orderBy("created_at", "desc");
     }
 
     protected function plataformas(){

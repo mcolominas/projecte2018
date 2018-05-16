@@ -24,7 +24,7 @@ class Comentario extends Model
     }
 
     protected function subComentarios(){
-    	return $this->hasMany('App\Models\Comentario', 'id_comentario', 'id');
+    	return $this->hasMany('App\Models\Comentario', 'id_comentario', 'id')->orderBy("created_at", "asc");
     }
 
     protected function comentario(){
