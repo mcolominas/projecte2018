@@ -21,6 +21,7 @@ class CreateJuegosTable extends Migration
             $table->string('img');
             $table->string('slug', 30)->unique();
             $table->string('url');
+            $table->boolean('visible');
             $table->integer('visitas')->unsigned()->default(0);
             $table->string('hash', 32)->unique();
             $table->timestamps();
