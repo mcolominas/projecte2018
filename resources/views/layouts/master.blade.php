@@ -15,6 +15,7 @@
 
   <!-- Bootstrap core CSS-->
   <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
@@ -58,27 +59,31 @@
       <i class="fa fa-angle-up"></i>
     </a>
   </div>
-    
-    @section('modals')
-    @show
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script
+  @section('modals')
+  @show
+
+  <!-- Core JavaScript-->
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>  
-    <script src="{{ asset('js/jquery.marcopolo.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('js/sb-admin.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>  
 
-    <script src="{{ asset('js/buscador.js') }}"></script>
-    @section('scripts')
-    @show
+  <script src="{{ asset('vendor/datatables/jquery.dataTables.js') }}"></script>
+  <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+
+
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ asset('js/sb-admin.min.js') }}"></script>
+  <script src="{{ asset('js/jquery.marcopolo.js') }}"></script>
+  <script src="{{ asset('js/buscador.js') }}"></script>
+  @section('scripts')
+  @show
 </body>
 
 </html>

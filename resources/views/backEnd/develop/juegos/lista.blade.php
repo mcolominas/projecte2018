@@ -46,3 +46,9 @@
 </div>
 
 @stop
+
+@section('scripts')
+<script type="text/javascript">
+  $("#dataTable").DataTable();
+</script>
+@stop
