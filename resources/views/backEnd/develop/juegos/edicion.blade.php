@@ -16,33 +16,37 @@
 <form>
 	<div class="row">
 
-		<div class="col-md-5">
-			<div id="datosJuegos" class="form-group">
-				<label for="password" class="col-12 control-label">Nombre del juego</label>
-
+		<div class="col-md-12">
+			<div id="datosJuegos"  style="border: 1px solid" class="form-group col-6 offset-0">
+				<label for="nombre" class="col-12 control-label">Nombre del juego</label>
 				<div class="col-12">
 					<input id="nombre" type="text" class="form-control" name="nombre" required>
-					<span class="help-block">
-						<strong></strong>
-					</span>
-					
+				</div>
+				<label for="desc" class="col-12 control-label">Descripción del Juego</label>
+
+				<div class="col-12">
+					<textarea id="desc" class="w-100" rows="5" placeholder="Descripción del juego..." name="desc" required></textarea>
 				</div>
 			</div>
-			<input id="desc" type="text" class="form-control" name="nombre" required>
-			<input id="visible" type="checkbox" class="form-control" name="nombre" required>
-			<input id="icono" type="text" class="form-control" name="nombre" required>
-			<input id="radiobutton" type="radio" class="form-control" name="nombre" required>
-			<select id="categoria" name="categoria"  multiple required size="5">
-				<option>
-
-				</option>
-			</select>
-			<select id="plataforma" name="plataforma"  multiple required size="5">
-				<option>
-				</option>
-			</select>
+		
+			<div class="col-6" style="border: 1px solid"> asdasd </div>
 
 		</div>
+	</div>
+
+		<input id="visible" type="checkbox" class="form-control" name="visible" required>
+		<input id="icono" type="file" class="form-control" name="icono" required>
+		<input type="radio" class="form-control" name="tipo" value="url" required>
+		<input type="radio" class="form-control" name="tipo" value="creado" required>
+		<select id="categoria" name="categoria"  multiple required size="5">
+			<option>
+
+			</option>
+		</select>
+		<select id="plataforma" name="plataforma"  multiple required size="5">
+			<option>
+			</option>
+		</select>
 
 
 		<div class="col-sm-12 col-lg-4">
@@ -114,7 +118,6 @@
 			</div>
 		</div>
 
-	</div>
 	<div class="row">
 		<div class="col-sm mt-3">
 			<iframe id="code"></iframe>
