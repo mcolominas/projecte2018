@@ -50,7 +50,7 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 
 		if(buttons){
 			var divOptions = $('<div class="absolue-rigth active">');
-			var buttonDelete = $('<button data-type="'+type+'" class="delete btn btn-link">');
+			var buttonDelete = $('<button type="button" data-type="'+type+'" class="delete btn btn-link">');
 			buttonDelete.click(eventClickBtnRemove);
 			var iconDelete = $('<i class="material-icons">delete</i>');
 			var buttonEdit = $('<button data-type="'+type+'" class="edit btn btn-link">');
@@ -71,8 +71,10 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 	}
 
 	function getFileEditorItem(type, name){
+		let num = $('#collapse' + type + " .buttons").children().length;
+		if(type == "html") num = "";
 		let divParent = $('<div class="tab-pane" id="'+type+'-'+name+'">');
-		let textarea = $('<textarea type="'+type+'" placeholder="Aquí va tu código '+type+'">');
+		let textarea = $('<textarea type="'+type+'" name="'+type+num+'" placeholder="Aquí va tu código '+type+'">');
 
 		textarea.keyup(updateIframe);
 
@@ -88,6 +90,7 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 
 	function eventClickBtnRemove(e){
 		//openModalFileNameEdit();
+		
 	}
 };
 
