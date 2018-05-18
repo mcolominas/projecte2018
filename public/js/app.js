@@ -45,7 +45,7 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 
 	function getSortableItem(type, name){
 		let divParent = $("<div>");
-		let a = $('<a class="list-group-item list-group-item-action p-1" href="#'+type+'-'+name+'" name="'+name+'" role="tab">'+name+'</a>');
+		let a = $('<a class="list-group-item list-group-item-action p-1 '+type+'" tipo='+type+' href="#'+type+'-'+name+'" name="'+name+'" role="tab">'+name+'</a>');
 		a.click(changeTab);
 
 		if(buttons){
@@ -53,8 +53,8 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 			var buttonDelete = $('<button type="button" data-type="'+type+'" class="delete btn btn-link">');
 			buttonDelete.click(eventClickBtnRemove);
 			var iconDelete = $('<i class="material-icons">delete</i>');
-			var buttonEdit = $('<button data-type="'+type+'" class="edit btn btn-link">');
-			buttonEdit.click(eventClickBtnEdit);
+			var buttonEdit = $('<button id="btn'+type+name+'" data-type="'+type+'" class="edit btn btn-link">');
+			buttonEdit.on("click", eventClickBtnEdit);
 			var iconEdit = $('<i class="material-icons">mode_edit</i>');
 		}
 
@@ -74,10 +74,11 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 		let num = $('#collapse' + type + " .buttons").children().length;
 		if(type == "html") num = "";
 		let divParent = $('<div class="tab-pane" id="'+type+'-'+name+'">');
+		let inputOculto = $('<input hidden id="'+name+'" value="'+name+'" name="name'+type+num+'">');
 		let textarea = $('<textarea type="'+type+'" name="'+type+num+'" placeholder="Aquí va tu código '+type+'">');
 
 		textarea.keyup(updateIframe);
-
+		divParent.append(inputOculto)
 		divParent.append(textarea);
 
 		return divParent;
@@ -86,11 +87,23 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 	//events
 	function eventClickBtnEdit(e){
 		openModalFileNameEdit();
+		var object = $(e.currentTarget).parent().parent().find('a')
+		var tipo = object.attr('tipo');
+		var name = object.attr('name');
+
+		$('#file-name-edit-modal form').submit(e,object,tipo,name,realizarSubmit)
+
 	}
 
+	//se ejecuta cuando se da al botón eliminar
 	function eventClickBtnRemove(e){
 		//openModalFileNameEdit();
-		
+
+		var tipo = $(this).parent().parent().find('a').attr('tipo')
+		var name = tipo + "-" + $(this).parent().parent().find('a').attr('name')
+		$(this).parent().parent().remove()
+		removeFile(tipo,name)
+
 	}
 };
 
@@ -103,7 +116,10 @@ var systemFiles = new Files();
 function compile() {
 	systemFiles.add("html", "index", function(){}, false);
 	//add events
-	$("#file-menu .sortable" ).on( "sortupdate", updateIframe );
+	$("#file-menu .sortable" ).on( "sortupdate", function(){
+		updateIframe();
+		orderNames($(this).find('a').attr('tipo'));
+	} );
 	$("#file-menu .sortable").sortable({
 		revert: true,
 		axis: "y"
@@ -193,4 +209,43 @@ function openModalFileNameEdit(type = ""){
 	modal.modal('show');
 }
 
+//ordena los textareas
+function orderNames(type){
+	var i = 0;
+	var array = $('.'+type)
+
+	for(i;i<array.length;i++){
+		var name = type+"-"+array[i].name
+		$(array.eq(i).attr("href")).find("#inputOculto")
+		$(array.eq(i).attr("href")).find("textarea").attr('name',type+i)
+		$(array.eq(i).attr("href")).attr("id",name)
+	}
+	
+}
+
+// Elimina el fichero y ordena de nuevo los textareas
+function removeFile(type,id){
+	orderNames(type)
+	$('#'+id).empty()
+}
+
+
+function realizarSubmit(e,object,tipo,name){
+
+	e.preventDefault()
+	var valor = $('#file-name-edit-modal #file-name');
+
+	object.attr('name',valor.val())
+	object.text(valor.val())
+
+	//ordena los textareas
+	orderNames(tipo)
+
+	object.attr('href','#'+tipo+'-'+object.attr('name'))
+
+	valor.val("")
+	$('#file-name-edit-modal').modal('hide');
+
+
+}
 compile();

@@ -169,59 +169,59 @@
 @stop
 
 @section('modals')
-	<div class="modal fade" id="file-name-modal">
-		<div class="modal-dialog">
-			<form>
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Crear fichero</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="file-name" class="col-form-label">Nombre del fichero:</label>
-							<input type="text" class="form-control" id="file-name">
-							<input type="hidden" class="form-control" id="file-type">
-						</div>
-						<div class="alert alert-danger pt-1 pb-1" role="alert"></div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Crear fichero</button>
-					</div>
+<div class="modal fade" id="file-name-modal">
+	<div class="modal-dialog">
+		<form>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Crear fichero</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-			</form>
-		</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="file-name" class="col-form-label">Nombre del fichero:</label>
+						<input type="text" class="form-control" id="file-name">
+						<input type="hidden" class="form-control" id="file-type">
+					</div>
+					<div class="alert alert-danger pt-1 pb-1" role="alert"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Crear fichero</button>
+				</div>
+			</div>
+		</form>
 	</div>
+</div>
 
-	<div class="modal fade" id="file-name-edit-modal">
-		<div class="modal-dialog">
-			<form>
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Editar nombre fichero</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="file-name" class="col-form-label">Nombre del fichero:</label>
-							<input type="text" class="form-control" id="file-name">
-							<input type="hidden" class="form-control" id="file-type">
-						</div>
-						<div class="alert alert-danger pt-1 pb-1" role="alert"></div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Cambiar nombre</button>
-					</div>
+<div class="modal fade" id="file-name-edit-modal">
+	<div class="modal-dialog">
+		<form>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Editar nombre fichero</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-			</form>
-		</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="file-name" class="col-form-label">Nombre del fichero:</label>
+						<input type="text" class="form-control" id="file-name">
+						<input type="hidden" class="form-control" id="file-type">
+					</div>
+					<div class="alert alert-danger pt-1 pb-1" role="alert"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Cambiar nombre</button>
+				</div>
+			</div>
+		</form>
 	</div>
+</div>
 @stop
 
 
