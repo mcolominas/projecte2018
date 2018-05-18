@@ -65,7 +65,7 @@
 			<div class="w-100" style="border: 1px solid;">
 				<h4><b>	Categoria del juego </b></h4>
 				<p>Escoja una categoría para su juego</p>
-				<select id="category" name="category"  multiple required size="5" required>
+				<select id="category" name="categoria[]"  multiple required size="5" required>
 					@forEach ($categorias as $categoria)
 					<option value='{{$categoria->slug}}'>
 						{{$categoria->nombre}}
@@ -77,7 +77,7 @@
 			<div class="w-100" style="border: 1px solid">
 				<h4><b>	Plataforma del juego </b></h4>
 				<p>Indique si es para que plataforma es su juego</p>
-				<select id="plataforma" name="plataforma"  multiple required size="5" required>
+				<select id="plataforma" name="plataforma[]"  multiple required size="5" required>
 					@forEach ($plataformas as $plataforma)
 					<option value='{{$plataforma->slug}}'>
 						{{$plataforma->nombre}}
@@ -157,10 +157,7 @@
 			<div class="tab-content" role="tab-content">
 			</div>
 		</div>
-<<<<<<< HEAD
-=======
 
->>>>>>> 14930d6c7a2474ef7049d344db90fcc7f174774b
 	</div>
 	<div class="row">
 		<div class="col-sm mt-3">
