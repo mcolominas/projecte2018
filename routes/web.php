@@ -1,4 +1,4 @@
-	<?php
+<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +18,11 @@ Auth::routes();
 Route::get('/', 'FrontEnd\IndexController@getJuegos')->name('index');
 Route::get('/p/{pag?}', 'FrontEnd\IndexController@getJuegos')->name('indexPag');
 Route::get('/categoria/{slug}/{pag?}', 'FrontEnd\IndexController@getJuegosByCategorias')->name('juegosPorCategoria');
+
+//Get datos juego
+Route::get('/uploads/juegos/portada/{slug}', 'StorageController@getPortadaJuego')->name("storage.portadaJuego");
+
+Route::get('/uploads/juego/{slug}/{tipo}/{num?}', 'StorageController@getCodigoJuego')->name("storage.codigoJuego");
 
 
 Route::name('perfil')->group(function () {

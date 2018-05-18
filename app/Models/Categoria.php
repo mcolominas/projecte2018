@@ -49,7 +49,6 @@ class Categoria extends Model
 	//Añade la url al juego
     public function setUrl($route){
         $this->url = route($route, ['slug' => $this->slug]);
-        unset($this->slug);
         return $this;
     }
 }

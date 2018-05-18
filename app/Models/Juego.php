@@ -25,6 +25,10 @@ class Juego extends Model{
         return $this->hasMany('App\Models\Comentario', 'id_juego', 'id')->orderBy("created_at", "desc");
     }
 
+    protected function files(){
+        return $this->hasMany('App\Models\JuegoFileSystem', 'id_juego', 'id');
+    }
+
     protected function plataformas(){
         return $this->belongsToMany('App\Models\Plataforma', 'juegos_plataformas', 'id_juego', 'id_plataforma');
     }
@@ -77,7 +81,6 @@ class Juego extends Model{
     //Añade la url al juego
     public function setUrl(){
         $this->url = route('juego', ['slug' => $this->slug]);
-        unset($this->slug);
         return $this;
     }
 

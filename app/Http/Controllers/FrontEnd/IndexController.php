@@ -14,7 +14,7 @@ class IndexController extends Controller
     const MAXITEMS = 16;
 
     protected function getJuegos(Request $request, $pag = 1){
-        $juegos = Juego::select("nombre", "descripcion", "img", "slug")->orderBy("created_at", "desc");;
+        $juegos = Juego::select("nombre", "descripcion", "img", "slug")->orderBy("created_at", "desc");
 
         $paginado = Paginado::generar($juegos, IndexController::MAXITEMS, $pag, IndexController::MAXBUTTONS, [$this, "getRouteIndex"]);
 
