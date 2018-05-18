@@ -17,7 +17,8 @@ class CreateTiendaUserTable extends Migration
             $table->increments('id');
             $table->integer('id_tienda')->unsigned();
             $table->integer('id_user')->unsigned();
-
+            $table->timestamps();
+            
             $table->index('id_tienda');
             $table->index('id_user');
 

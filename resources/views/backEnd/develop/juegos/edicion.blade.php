@@ -157,6 +157,10 @@
 			<div class="tab-content" role="tab-content">
 			</div>
 		</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 14930d6c7a2474ef7049d344db90fcc7f174774b
 	</div>
 	<div class="row">
 		<div class="col-sm mt-3">

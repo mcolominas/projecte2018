@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('coins')->default(0);
-            $table->boolean('develop')->default(0);
             $table->enum('rol', ['normal','desarrollador','admin'])->default("normal");
             $table->rememberToken();
             $table->timestamps();

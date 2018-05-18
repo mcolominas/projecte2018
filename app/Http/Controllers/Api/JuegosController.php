@@ -105,8 +105,4 @@ class JuegosController extends Controller
 	private function returnError(){
 		return response(json_encode(["status" => "0"]), 200)->header('Content-Type', 'application/json');
 	}
-
-	private function existeYNoEstaVacio($var){
-		return isset($var) && !empty($var);
-	}
 }

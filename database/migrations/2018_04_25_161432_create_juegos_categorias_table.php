@@ -17,7 +17,8 @@ class CreateJuegosCategoriasTable extends Migration
             $table->increments('id');
             $table->integer('id_juego')->unsigned();
             $table->integer('id_categoria')->unsigned();
-
+            $table->timestamps();
+            
             $table->index('id_juego');
             $table->index('id_categoria');
 

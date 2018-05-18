@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class adminAccessMiddleware
 {
@@ -17,9 +17,11 @@ class adminAccessMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (User::isAdmin()){
+        $user = Auth::user();
+
+        if (isset($user) && $user->isAdmin())
             return $next($request);
-        }else
+        else
             return redirect()->route('index');
         
     }
