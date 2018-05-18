@@ -17,7 +17,8 @@ class CreateJuegosPlataformasTable extends Migration
             $table->increments('id');
             $table->integer('id_juego')->unsigned();
             $table->integer('id_plataforma')->unsigned();
-
+            $table->timestamps();
+            
             $table->index('id_juego');
             $table->index('id_plataforma');
 

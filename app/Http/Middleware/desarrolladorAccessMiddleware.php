@@ -17,11 +17,11 @@ class desarrolladorAccessMiddleware
      */
     public function handle($request, Closure $next)
     {
-            $user = Auth::user();
+        $user = Auth::user();
 
-        if ($user->isDesarrollador() || $user->isAdmin()){
+        if (isset($user) && ($user->isDesarrollador() || $user->isAdmin()))
             return $next($request);
-        }else
+        else
             return redirect()->route('index');
     }
 }

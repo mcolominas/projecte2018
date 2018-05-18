@@ -24,11 +24,11 @@ class CreateLogrosTable extends Migration
             $table->integer('tiempo_maximo')->unsigned();
             $table->string('hash', 32)->unique();
             $table->enum('estado', ['pendiente','aceptado','rechazado'])->default("pendiente");
+            $table->timestamps();
 
             $table->index('id_juego');
 
             $table->foreign('id_juego')->references('id')->on('juegos');
-            $table->timestamps();
         });
     }
 
