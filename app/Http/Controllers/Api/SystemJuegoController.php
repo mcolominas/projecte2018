@@ -1,0 +1,163 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Juego;
+use App\Models\Logro;
+use App\Models\Tienda;
+use App\Models\UserJugando;
+use App\Models\UserLogro;
+use App\Models\TiendaUser;
+
+class SystemJuegoController extends Controller
+{
+	protected function getDatosUser(Request $request){
+		if(!($user = $this->getUser())) return $this->returnError();
+
+		$datos = ["nombre" => $user->name, "coins" => $user->coins];
+		return response(json_encode(["status" => "1", "datos" => $datos]), 200)->header('Content-Type', 'application/json');
+	}
+
+	protected function iniciarPartida(Request $request){
+		if(!($user = $this->getUser())) return $this->returnError();
+		
+		$hash = $request->input("hash");
+		$juego = Juego::where("hash", $hash)->first();
+
+		if(count($juego) != 1) return $this->returnError();
+
+		$partida = new UserJugando();
+		$partida->id_usuario = $user->id;
+		$partida->id_juego = $juego->id;
+		$partida->save();
+
+		return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
+	}
+
+	protected function finalizarPartida(Request $request){
+		if(!($user = $this->getUser())) return $this->returnError();
+		
+		$hash = $request->input("hash");
+		$juego = Juego::where("hash", $hash)->first();
+
+		if(count($juego) != 1) return $this->returnError();
+
+		UserJugando::where("id_usuario", $user->id)->where("id_juego", $juego->id)->get()->delete();
+
+		return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
+	}
+
+	protected function getLogros(Request $request){
+		$user = $this->getUser();
+		
+		$hash = $request->input("hash");
+		$juego = Juego::where("hash", $hash)->first();
+
+		if(count($juego) != 1) return $this->returnError();
+
+		$logros = $juego->logros->where("estado", "aceptado")->each(function($model){
+			unset($model->tiempo_minimo);
+			unset($model->tiempo_maximo);
+			unset($model->estado);
+			unset($model->created_at);
+			unset($model->updated_at);
+			$model->setUrlImagePublic();
+			$model->consegido = 0;
+		});
+
+		if($user){
+			$misLogros = Juego::where("hash", $hash)->first()->logros->where("estado", "aceptado");
+			foreach ($misLogros as $value){
+				if($value->users->where("id", $user->id)->count() == 1){
+					foreach ($logros as $logro) {
+						if($logro->slug == $value->slug){
+							$logro->consegido = 1;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		return response(json_encode(["status" => "1", "logros" => $logros]), 200)->header('Content-Type', 'application/json');
+	}
+
+	protected function addLogro(Request $request){
+		if(!($user = $this->getUser())) return $this->returnError();
+
+		$hash = $request->input("hash");
+		$logro = Logro::where("hash", $hash)->first();
+		if(count($logro) != 1) return $this->returnError();
+		if(count(UserLogro::where("id_logro", $logro->id)->where("id_usuario", $user->id)->get()) > 0) return $this->returnError();
+
+		//!!!Check restricciones
+		if(!true) return $this->returnError();
+
+		$userLogro = new UserLogro();
+		$userLogro->id_usuario = $user->id;
+		$userLogro->id_logro = $logro->id;
+		$userLogro->save();
+
+		return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
+	}
+
+	protected function comprar(Request $request){
+		if(!($user = $this->getUser())) return $this->returnError();
+
+		$hash = $request->input("hash");
+		$producto = Tienda::where("hash", $hash)->first();
+		if(count($producto) != 1) return $this->returnError();
+		if(count(TiendaUser::where("id_tienda", $producto->id)->where("id_user", $user->id)->get()) > 0) return $this->returnError();
+
+		$tiendaUser = new TiendaUser();
+		$tiendaUser->id_user = $user->id;
+		$tiendaUser->id_tienda = $producto->id;
+		$tiendaUser->save();
+
+		return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
+	}
+
+	protected function getProductos(Request $request){
+		$user = $this->getUser();
+		
+		$hash = $request->input("hash");
+		$juego = Juego::where("hash", $hash)->first();
+
+		if(count($juego) != 1) return $this->returnError();
+
+		$productos = $juego->productos->each(function($model){
+			unset($model->created_at);
+			unset($model->updated_at);
+			$model->setUrlImagePublic();
+			$model->consegido = 0;
+		});
+
+		if($user){
+			$misProductos = Juego::where("hash", $hash)->first()->productos;
+			foreach ($misProductos as $value){
+				if($value->users->where("id", $user->id)->count() == 1){
+					foreach ($productos as $producto) {
+						if($producto->slug == $value->slug){
+							$producto->consegido = 1;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		return response(json_encode(["status" => "1", "productos" => $productos]), 200)->header('Content-Type', 'application/json');
+	}
+
+	private function getUser(){
+		if(!Auth::guest()) return Auth::user();
+		return false;
+	}
+
+	private function returnError(){
+		return response(json_encode(["status" => "0"]), 200)->header('Content-Type', 'application/json');
+	}
+}
