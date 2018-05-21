@@ -18,7 +18,7 @@ class CreateJuegosTable extends Migration
             $table->integer('id_creador')->unsigned();
             $table->string('nombre', 30);
             $table->longText('descripcion');
-            $table->string('img');
+            $table->string('img')->nullable();
             $table->string('slug', 30)->unique();
             $table->string('url')->nullable();
             $table->boolean('visible');

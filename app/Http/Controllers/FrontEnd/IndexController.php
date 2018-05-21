@@ -20,6 +20,7 @@ class IndexController extends Controller
 
         $juegos = $juegos->get()->each(function($juego){
             $juego->setUrl();
+            $juego->setUrlImagePublic();
         });
 
         return view('frontEnd/index', ["juegos" => $juegos, "paginado" => $paginado]);
@@ -37,6 +38,7 @@ class IndexController extends Controller
 
         $juegos = $juegos->get()->each(function($juego){
             $juego->setUrl();
+            $juego->setUrlImagePublic();
         });
 
         return view('frontEnd/index', ["juegos" => $juegos, "paginado" => $paginado]);

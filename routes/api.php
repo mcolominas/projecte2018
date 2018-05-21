@@ -23,3 +23,14 @@ Route::get('/buscar','Api\buscadorController@index')->name('buscar');
 Route::post('/addComentario','Api\JuegosController@addComentario');
 Route::post('/addSubComentario','Api\JuegosController@addSubComentario');
 Route::post('/addReporte','Api\JuegosController@addReporte');
+
+
+Route::get('/juego/getInfoUser','Api\SystemJuegoController@getDatosUser');
+Route::get('/juego/getLogros','Api\SystemJuegoController@getLogros');
+Route::get('/juego/getProductos','Api\SystemJuegoController@getProductos');
+Route::get('/juego/comprar','Api\SystemJuegoController@comprar');
+Route::get('/juego/addLogro','Api\SystemJuegoController@addLogro');
+Route::get('/juego/iniciarPartida','Api\SystemJuegoController@iniciarPartida');
+Route::get('/juego/finalizarPartida','Api\SystemJuegoController@finalizarPartida');
+
+

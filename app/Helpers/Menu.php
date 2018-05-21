@@ -17,7 +17,9 @@ class Menu{
 
 	public static function menuDesarollador(){
 
-		return [["nombre" => "Juegos", "img" => "#", "url" => route("desarrollador")]];
+		return [["nombre" => "Juegos", "img" => "#", "url" => route("desarrollador")],
+				["nombre" => "Logros", "img" => "#", "url" => route("desarrollador.verJuegosLogros")],
+				["nombre" => "Productos", "img" => "#", "url" => route("desarrollador.verJuegosProductos")]];
 	}
 	public static function menuAdministrador(){
 

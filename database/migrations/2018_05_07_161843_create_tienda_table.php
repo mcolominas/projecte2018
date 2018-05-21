@@ -18,6 +18,9 @@ class CreateTiendaTable extends Migration
             $table->integer('id_juego')->unsigned();
             $table->string('nombre', 30);
             $table->string('descripcion');
+            $table->string('img')->nullable();
+            $table->integer('coste')->unsigned();
+            $table->string('slug', 30)->unique();
             $table->string('hash', 32)->unique();
             $table->timestamps();
 

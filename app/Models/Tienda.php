@@ -9,7 +9,7 @@ class Tienda extends Model
 	protected $table = 'tienda';
 
 	protected $hidden = [
-		'id_juego',
+		'id_juego', 'id',
 	];
 
 	//Relaciones
@@ -30,15 +30,41 @@ class Tienda extends Model
 
         self::creating(function($model){
             $model->hash = $model->generateHash();
+            $model->slug = $model->generateSlug();
         });
     }
 
     //Otros
+    public function setUrlImagePublic(){
+        $this->img = route("storage.productoJuego", ["slug" => $this->slug]);
+    }
+
     private function generateHash(){
         do{
             $hash = md5(uniqid());
         }while(Tienda::where("hash", $hash)->count() > 0);
         return $hash;
+    }
+
+    private function generateSlug(){
+        $num = 0;
+        do{
+            $slug = $this->slugify($this->nombre.(++$num == 1 ? '' : $num));
+        }while(Tienda::where("slug", $slug)->count() > 0);
+        return $slug;
+    }
+
+    private function slugify($text){
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        $text = preg_replace('~[^-\w]+~', '', $text);
+        $text = trim($text, '-');
+        $text = preg_replace('~-+~', '-', $text);
+        $text = strtolower($text);
+
+        if (empty($text)) 
+            return 'n-a';
+        return $text;
     }
 
 }

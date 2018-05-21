@@ -37,7 +37,7 @@ class Juego extends Model{
         return $this->hasMany('App\Models\Reporte', 'id_juego', 'id');
     }
 
-    protected function logros(){
+    public function logros(){
         return $this->hasMany('App\Models\Logro', 'id_juego', 'id');
     }
 
@@ -57,6 +57,10 @@ class Juego extends Model{
     }
 
     //Otros
+    public function setUrlImagePublic(){
+        $this->img = route("storage.portadaJuego", ["slug" => $this->slug]);
+    }
+    
     private function generateSlug(){
         $num = 0;
         do{

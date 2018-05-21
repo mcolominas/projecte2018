@@ -17,6 +17,7 @@ class CreateLogrosTable extends Migration
             $table->increments('id');
             $table->integer('id_juego')->unsigned();
             $table->string('nombre', 30);
+            $table->string('slug', 30)->unique();
             $table->string('descripcion');
             $table->string('img');
             $table->integer('coins')->default(0);

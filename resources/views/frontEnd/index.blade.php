@@ -31,7 +31,7 @@
 				<h3 class="mt-card-name">{{ $juego->nombre }}</h3>
 			</div>
 			<div class="desc">
-				<img class="w-100" src='{{ route("storage.portadaJuego", ["slug" => $juego->slug]) }}' />
+				<img class="w-100" src='{{ $juego->img }}' />
 				<div>
 					{{ $juego->descripcion }}
 				</div>
