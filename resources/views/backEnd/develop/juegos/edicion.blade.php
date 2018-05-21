@@ -16,28 +16,32 @@
 <form method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
 	<div class="row">
-		<div id="datosJuegos"  style="border: 1px solid" class="form-group col-8 ">
-			<h4><b>Datos del Juego</b></h4>
-			<label for="nombre" class="control-label">Nombre del juego</label>
+		<div id="datosJuegos"  class="w-100 mb-2 form-group col-8 ">
+			<div class="w-100">
+				<h4><b>Datos del Juego</b></h4>
+				<label for="nombre" class="control-label">Nombre del juego</label>
 
-			<input id="nombre" type="text" class="form-control" name="nombre" required>
+				<input id="nombre" type="text" class="form-control color" name="nombre" required>
 
-			<label for="desc" class="control-label">Descripción del Juego</label>
+				<label for="desc" class="control-label">Descripción del Juego</label>
 
-			<textarea id="desc" class="w-100" rows="5" placeholder="Descripción del juego..." name="desc" required></textarea>
-
-
-			<p>¿Creará el juego utilizando esta página o mediante una URL? </p>
-			<label class="control-label">Por URL</label>
-			<input type="radio" class="form-control w-100" name="tipo" value="url" required>
-			<label class="control-label">Creado desde la página</label>
-			<input type="radio" class="form-control w-100" name="tipo" value="creado" required>
-
-			<input type="submit" class="btn btn-success" name="submit">
+				<textarea id="desc" class="w-100 color" rows="25" placeholder="Descripción del juego..." name="desc" required></textarea>
+			</div>
+			<div class="w-100"	>
+				<p>¿Creará el juego utilizando esta página o mediante una URL? </p>
+				<input type="radio" name="tipo" value="url" required>
+				<label>Por URL</label>
+				<br/>
+				<input type="radio" name="tipo" value="creado" required>
+				<label>Creado desde la página</label>
+			</div>
+			<div class="w-100 text-center">
+				<input type="submit" class="btn btn-lg btn-block btn-outline-success text-center" name="submit">
+			</div>
 		</div>
 
 		<div class="col-4">
-			<div class="w-100" style="border: 1px solid;"> 
+			<div class="w-100 mb-2" > 
 				<h4><b>	Publicar el juego </b></h4>
 				<p>Quiere que su juego aparezca disponible para jugar?</p>
 				<div class="input-group mb-2">
@@ -46,26 +50,26 @@
 							<input id="visible"  type="checkbox" name="visible" aria-label="Checkbox for following text input" >
 						</div>
 					</div>
-					<label class="form-control" >Si</label>
+					<label class="form-control color" >Si</label>
 				</div>
 			</div>
 
-			<div class="w-100" style="border: 1px solid;">
+			<div class="w-100 mb-2" >
 				<h4><b>	Imagen del juego </b></h4>
 				<p>Escoja una imagen que desea aplicar como portada de su juego</p>
 				<div class="input-group mb-5">
 					<div class="custom-file">
 						<input type="file" class="custom-file-input" name="img" id="img" required>
-						<label class="custom-file-label" for="inputGroupFile02">Imagen</label>
+						<label class="custom-file-label color" for="inputGroupFile02">Imagen</label>
 					</div>
 				</div>
 
 			</div>
 
-			<div class="w-100" style="border: 1px solid;">
+			<div class="w-100 mb-2" >
 				<h4><b>	Categoria del juego </b></h4>
 				<p>Escoja una categoría para su juego</p>
-				<select id="category" name="categoria[]"  multiple required size="5" required>
+				<select class="w-100 color" id="category" name="categoria[]"  multiple required size="5" required>
 					@forEach ($categorias as $categoria)
 					<option value='{{$categoria->slug}}'>
 						{{$categoria->nombre}}
@@ -74,10 +78,10 @@
 				</select>
 			</div>
 
-			<div class="w-100" style="border: 1px solid">
+			<div class="w-100 mb-2" >
 				<h4><b>	Plataforma del juego </b></h4>
 				<p>Indique si es para que plataforma es su juego</p>
-				<select id="plataforma" name="plataforma[]"  multiple required size="5" required>
+				<select class="w-100 color" id="plataforma" name="plataforma[]"  multiple required size="5" required>
 					@forEach ($plataformas as $plataforma)
 					<option value='{{$plataforma->slug}}'>
 						{{$plataforma->nombre}}
@@ -88,6 +92,8 @@
 		</div>
 
 	</div>
+	<hr>
+	<h2 class="text-center">Crea tu propio código</h2>
 	<div class="row">
 		<div class="col-sm-12 col-lg-4">
 			<div id="file-menu" class="row">
