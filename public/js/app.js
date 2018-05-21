@@ -75,7 +75,7 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 		if(type == "html") num = "";
 		let divParent = $('<div class="tab-pane" id="'+type+'-'+name+'">');
 		let inputOculto = $('<input hidden id="'+name+'" value="'+name+'" name="name'+type+num+'">');
-		let textarea = $('<textarea type="'+type+'" name="'+type+num+'" placeholder="Aquí va tu código '+type+'">');
+		let textarea = $('<textarea type="'+type+'" name="'+type+num+'" placeholder="Aquí va tu código '+type+'" required>');
 
 		textarea.keyup(updateIframe);
 		divParent.append(inputOculto)
@@ -91,7 +91,12 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 		var tipo = object.attr('tipo');
 		var name = object.attr('name');
 
-		$('#file-name-edit-modal form').submit(e,object,tipo,name,realizarSubmit)
+		$('#file-name-edit-modal form').submit(function(e){
+			if(object[0].name === name){
+				realizarSubmit(e,object,tipo,name)
+			}
+
+		})
 
 	}
 
@@ -100,8 +105,7 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 		//openModalFileNameEdit();
 
 		var tipo = $(this).parent().parent().find('a').attr('tipo')
-		var name = tipo + "-" + $(this).parent().parent().find('a').attr('name')
-		$(this).parent().parent().remove()
+		var name = $(this).parent().parent().find('a').attr('name')
 		removeFile(tipo,name)
 
 	}
@@ -215,18 +219,38 @@ function orderNames(type){
 	var array = $('.'+type)
 
 	for(i;i<array.length;i++){
-		var name = type+"-"+array[i].name
-		$(array.eq(i).attr("href")).find("#inputOculto")
+		var name = array[i].name
+		var id = type+"-"+name
+		//cambia valores del input hidden
+		$(array.eq(i).attr("href")).find("input").attr('id',name)
+		$(array.eq(i).attr("href")).find("input").attr('value',name)
+		$(array.eq(i).attr("href")).find("input").attr('name','name'+type+i)
+
+		//cambia atributos del textarea
 		$(array.eq(i).attr("href")).find("textarea").attr('name',type+i)
-		$(array.eq(i).attr("href")).attr("id",name)
+
+		//cambia el id del div padre
+		$(array.eq(i).attr("href")).attr("id",id)
 	}
 	
 }
 
 // Elimina el fichero y ordena de nuevo los textareas
-function removeFile(type,id){
-	orderNames(type)
+function removeFile(type,name){
+	var id = type + "-" + name
+
+	//elimina el textarea y su padre (Div)
 	$('#'+id).empty()
+	$('#'+id).remove()
+
+	//elimina el botón y sus padres/hermano
+	$('a[name='+name+']').parent().empty()
+	$('a[name='+name+']').parent().remove()
+
+
+	//reordena los botones 
+	orderNames(type)
+	
 }
 
 
