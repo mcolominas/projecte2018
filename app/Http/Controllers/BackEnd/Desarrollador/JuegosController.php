@@ -228,18 +228,20 @@ class JuegosController extends Controller
             $name = uniqid().".".$tipo;
             $fullPath = $path."$tipo/".$name;
             $fullPathMin = $path."min/$tipo/".$name;
+            $compile = $this->existeYNoEstaVacio($request->input("compilar"));
             if(Storage::disk('local')->put($fullPath, $content)){
-                if(Storage::disk('local')->put($fullPathMin, $content)){
-                    $fileSystem = new JuegoFileSystem();
-                    $fileSystem->nombre = $request->input("name$tipo".$i);
-                    $fileSystem->id_juego = $juego->id;
-                    $fileSystem->ruta = $fullPath;
-                    $fileSystem->rutaMin = $fullPathMin;
-                    $fileSystem->tipo = $tipo;
-                    $fileSystem->order = $i;
-                    $fileSystem->save();
-                    $arr[] = ["slug" => $juego->slug, "order" => $i];
+                if($compile){
+                    Storage::disk('local')->put($fullPathMin, $content);
                 }
+                $fileSystem = new JuegoFileSystem();
+                $fileSystem->nombre = $request->input("name$tipo".$i);
+                $fileSystem->id_juego = $juego->id;
+                $fileSystem->ruta = $fullPath;
+                if($compile) $fileSystem->rutaMin = $fullPathMin;
+                $fileSystem->tipo = $tipo;
+                $fileSystem->order = $i;
+                $fileSystem->save();
+                $arr[] = ["slug" => $juego->slug, "order" => $i];
             }
             $i++;
         }

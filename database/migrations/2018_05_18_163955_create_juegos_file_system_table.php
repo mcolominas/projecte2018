@@ -18,7 +18,7 @@ class CreateJuegosFileSystemTable extends Migration
             $table->integer('id_juego')->unsigned();
             $table->string('nombre');
             $table->string('ruta');
-            $table->string('rutaMin');
+            $table->string('rutaMin')->nullable();
             $table->enum('tipo', ['html','css','js']);
             $table->integer('order')->unsigned();
             $table->timestamps();
