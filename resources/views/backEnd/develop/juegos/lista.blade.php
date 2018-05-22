@@ -33,7 +33,7 @@
         <tr>
           <td>{{ $juego->nombre }}</td>
           <td>{{ $juego->created_at }}</td>
-          <td><a id="edit" href="#">Editar <i class="far fa-edit"></i></a> | <a  id="drop" href="#">Eliminar <i class="fas fa-trash-alt"></i></a></td>
+          <td><a id="edit" href="{{route('desarrollador.editarJuego')}}">Editar <i class="far fa-edit"></i></a> | <a  id="drop" href="{{route('desarrollador.eliminarJuego')}}">Eliminar <i class="fas fa-trash-alt"></i></a></td>
 
         </tr>
         @endforeach

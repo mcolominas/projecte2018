@@ -53,7 +53,7 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 			var buttonDelete = $('<button type="button" data-type="'+type+'" class="delete btn btn-link">');
 			buttonDelete.click(eventClickBtnRemove);
 			var iconDelete = $('<i class="material-icons">delete</i>');
-			var buttonEdit = $('<button id="btn'+type+name+'" data-type="'+type+'" class="edit btn btn-link">');
+			var buttonEdit = $('<button type="button" id="btn'+type+name+'" data-type="'+type+'" class="edit btn btn-link">');
 			buttonEdit.on("click", eventClickBtnEdit);
 			var iconEdit = $('<i class="material-icons">mode_edit</i>');
 		}
@@ -259,8 +259,13 @@ function realizarSubmit(e,object,tipo,name){
 	e.preventDefault()
 	var valor = $('#file-name-edit-modal #file-name');
 
-	object.attr('name',valor.val())
-	object.text(valor.val())
+	if($('[name='+valor.val()+']').length > 0){
+		alert('Ese nombre ya existe')
+		return;
+	}else{
+
+		object.attr('name',valor.val())
+		object.text(valor.val())
 
 	//ordena los textareas
 	orderNames(tipo)
@@ -269,7 +274,22 @@ function realizarSubmit(e,object,tipo,name){
 
 	valor.val("")
 	$('#file-name-edit-modal').modal('hide');
-
+	}	
 
 }
+$('input[name=tipo]').click(function(e){
+	console.log(e)
+	if(e.target.value == "creado" && e.target.checked == true){
+		$('#urlExterna').hide()
+		$('#creando').removeClass("d-none");
+		$('#creando').addClass("show");
+	}
+	else if(e.target.value == "url" && e.target.checked == true){
+		$('#creando').removeClass("show");
+		$('#creando').addClass("d-none");
+		$('#urlExterna').show()
+	}	
+})
+
+
 compile();
