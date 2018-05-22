@@ -85,30 +85,34 @@ class JuegosController extends Controller
         //add categorias
         $misCategorias = Categoria::get();
         foreach ($misCategorias as $misCategoria) {
+            $misCategoria->seleccionado = 0;
             foreach ($juego->categorias as $value) {
-                if($value->slug == $misCategoria->slug)
+                if($value->slug == $misCategoria->slug){
                     $misCategoria->seleccionado = 1;
-                else
-                    $misCategoria->seleccionado = 0;
+                    break;
+                }
             }
         }
+        unset($juego->categorias);
 
         //add plataformas
         $misPlataformas = Plataforma::get();
         foreach ($misPlataformas as $misPlataforma) {
+            $misPlataforma->seleccionado = 0;
             foreach ($juego->plataformas as $value) {
-                if($value->slug == $misPlataforma->slug)
+                if($value->slug == $misPlataforma->slug){
                     $misPlataforma->seleccionado = 1;
-                else
-                    $misPlataforma->seleccionado = 0;
+                    break;
+                }
             }
         }
+        unset($juego->plataformas);
 
         $juego->files->each(function($model){
             $model->getPrivateContent();
         });
         $juego->setUrlImagePublic();
-        die(json_encode($misCategorias));
+        
         return view('backEnd/develop/juegos/edicion', ["categorias" => $misCategorias, "plataformas" => $misPlataformas, "juego" => $juego]);
 
     }
