@@ -25,7 +25,7 @@ class JuegosController extends Controller
     protected function getCrear(Request $request){
         $categorias = Categoria::select("nombre", "slug")->orderBy("nombre")->get();
         $plataformas = Plataforma::select("nombre", "slug")->orderBy("nombre")->get();
-        return view('backEnd/develop/juegos/edicion', ["categorias" => $categorias, "plataformas" => $plataformas]);
+        return view('backEnd/develop/juegos/crear', ["categorias" => $categorias, "plataformas" => $plataformas]);
     }
 
     protected function postCrear(Request $request){
@@ -108,8 +108,9 @@ class JuegosController extends Controller
             $model->getPrivateContent();
         });
         $juego->setUrlImagePublic();
-        
-        return view('backEnd/develop/juegos/crear', ["categorias" => $misCategorias, "plataformas" => $misPlataformas, "juego" => $juego]);
+
+        return view('backEnd/develop/juegos/edicion', ["categorias" => $misCategorias, "plataformas" => $misPlataformas, "juego" => $juego]);
+
     }
 
     //AJAX CALL
@@ -231,7 +232,7 @@ class JuegosController extends Controller
             if(Storage::disk('local')->put($fullPath, $content)){
                 if(Storage::disk('local')->put($fullPathMin, $content)){
                     $fileSystem = new JuegoFileSystem();
-                    $fileSystem->nombre = "temp";//$request->input("name$tipo".$i);
+                    $fileSystem->nombre = $request->input("name$tipo".$i);
                     $fileSystem->id_juego = $juego->id;
                     $fileSystem->ruta = $fullPath;
                     $fileSystem->rutaMin = $fullPathMin;
@@ -259,7 +260,7 @@ class JuegosController extends Controller
             $content = $this->getHtmlFullCode($content, $arr);
             if(Storage::disk('local')->put($fullPathMin, $content)){
                 $fileSystem = new JuegoFileSystem();
-                $fileSystem->nombre = "temp";//$request->input("namehtml");
+                $fileSystem->nombre = $request->input("namehtml");
                 $fileSystem->id_juego = $juego->id;
                 $fileSystem->ruta = $fullPath;
                 $fileSystem->rutaMin = $fullPathMin;
