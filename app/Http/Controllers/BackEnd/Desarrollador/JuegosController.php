@@ -5,7 +5,6 @@ namespace App\Http\Controllers\BackEnd\Desarrollador;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Validate;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Juego;
 use App\Models\Categoria;
@@ -29,33 +28,28 @@ class JuegosController extends Controller
         return view('backEnd/develop/juegos/edicion', ["categorias" => $categorias, "plataformas" => $plataformas]);
     }
 
-    //AJAX CALL
     protected function postCrear(Request $request){
-        $errors = [];
-        
+        //validate
+        $this->validate(request(), [
+            'nombre' => 'required|max:30',
+            'desc' => 'required|max:500',
+            'tipo' => 'required',
+            'img' => 'required|file|image',
+            'desc' => 'required',
+            'urlExterna' => 'required_if:tipo,url',
+            'categorias' => 'required',
+            'plataforma' => 'required',
+        ]);
+
         //get inputs
         $nombre = $request->input("nombre");
         $desc = $request->input("desc");
-        $visible = ($request->input("visible") !== null) ? 1 : 0;
-        $icono = $request->input("icono");
         $tipo = $request->input("tipo");
         $logo = request()->file("img");
-        $urlExterna = $request->input("urlExterna"); //!!!mirar si el nombre es correcto
+        $urlExterna = $request->input("urlExterna") ?: "";
         $categorias = $request->input("categoria");
         $plataformas = $request->input("plataforma");
-
-        //validate
-        Validate::validate($nombre, "nombre", "required,maxLength:30", $errors);
-        Validate::validate($desc, "descripcion", "required,maxLength:500", $errors);
-        Validate::validate($logo, "logo", "required,imgValidFormat", $errors);
-        Validate::validate($tipo, "tipo", "required", $errors);
-        if(empty($errors) && $tipo == "url")
-            Validate::validate($urlExterna, "link", "required", $errors);
-        Validate::validate($categorias, "categoria", "required", $errors);
-        Validate::validate($plataformas, "plataforma", "required", $errors);
-
-        //if exist error return the error
-        if(!empty($errors)) return response(json_encode(["status" => "0", "errors" => $errors]), 200)->header('Content-Type', 'application/json');
+        $visible = ($request->input("visible") !== null) ? 1 : 0;
 
         //insert data
         $juego = new Juego();
@@ -98,8 +92,6 @@ class JuegosController extends Controller
                     $misCategoria->seleccionado = 0;
             }
         }
-        unset($juego->categorias);
-        $juego->categorias = $misCategorias;
 
         //add plataformas
         $misPlataformas = Plataforma::get();
@@ -111,46 +103,41 @@ class JuegosController extends Controller
                     $misPlataforma->seleccionado = 0;
             }
         }
-        unset($juego->plataformas);
-        $juego->plataformas = $misPlataformas;
-
 
         $juego->files->each(function($model){
             $model->getPrivateContent();
         });
         $juego->setUrlImagePublic();
-        die(json_encode($juego));
-        return view('backEnd/develop/juegos/edicion');
+
+        return view('backEnd/develop/juegos/crear', ["categorias" => $misCategorias, "plataformas" => $misPlataformas, "juego" => $juego]);
     }
 
     //AJAX CALL
     protected function putEditar(Request $request, $slug){
         $juego = Juego::where("slug", $slug)->firstOrFail();
         if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
-
-        $errors = [];
         
+        //validate
+        $this->validate(request(), [
+            'nombre' => 'required|max:30',
+            'desc' => 'required|max:500',
+            'tipo' => 'required',
+            'img' => 'required|file|image',
+            'desc' => 'required',
+            'urlExterna' => 'required_if:tipo,url',
+            'categorias' => 'required',
+            'plataforma' => 'required',
+        ]);
+
         //get inputs
         $nombre = $request->input("nombre");
         $desc = $request->input("desc");
-        $visible = ($request->input("visible") !== null) ? 1 : 0;
-        $icono = $request->input("icono");
         $tipo = $request->input("tipo");
         $logo = request()->file("img");
-        $urlExterna = $request->input("urlExterna"); //!!!mirar si el nombre es correcto
+        $urlExterna = $request->input("urlExterna") ?: "";
         $categorias = $request->input("categoria");
         $plataformas = $request->input("plataforma");
-
-        //validate
-        Validate::validate($nombre, "nombre", "maxLength:30", $errors);
-        Validate::validate($desc, "descripcion", "maxLength:500", $errors);
-        Validate::validate($logo, "logo", "imgValidFormat", $errors);
-        Validate::validate($tipo, "tipo", "required", $errors);
-        Validate::validate($categorias, "categoria", "required", $errors);
-        Validate::validate($plataformas, "plataforma", "required", $errors);
-
-        //if exist error return the error
-        if(!empty($errors)) return response(json_encode(["status" => "0", "errors" => $errors]), 200)->header('Content-Type', 'application/json');
+        $visible = ($request->input("visible") !== null) ? 1 : 0;
 
         //update data
         if($this->existeYNoEstaVacio($nombre))
@@ -191,7 +178,7 @@ class JuegosController extends Controller
     protected function deleteJuego(Request $request, $slug){
         $juego = Juego::where("slug", $slug)->firstOrFail();
         if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
-        //!!!Delete all files
+        //!!!Delete all files (No implementado)
 
         $juego->delete();
         return redirect()->action('BackEnd\Desarrollador\JuegosController@getList');
@@ -229,6 +216,7 @@ class JuegosController extends Controller
         $fileSystem->delete();
     }
 
+    //Guardar el codigo js y css
     private function uploadCode(Request $request, $tipo, Juego $juego){
         if($tipo != "css" && $tipo != "js") return null;
 
@@ -258,6 +246,7 @@ class JuegosController extends Controller
         return $arr;
     }
 
+    //Guardar el codigo html
     private function uploadCodeHtml(Request $request, Juego $juego, $arr){
         $path = "public/juegos/".$juego->slug."/";
         if (($content = $request->input("html")) === null)$content = "";
@@ -299,6 +288,7 @@ class JuegosController extends Controller
         return null;
     }
 
+    //Devuelve el html completo
     private function getHtmlFullCode($html, $arr){
         $style = "";
         foreach ($arr["css"] as $url) {
