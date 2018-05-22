@@ -99,7 +99,7 @@ class JuegosController extends Controller
             }
         }
         unset($juego->categorias);
-
+        
         //add plataformas
         $misPlataformas = Plataforma::get();
         foreach ($misPlataformas as $misPlataforma) {

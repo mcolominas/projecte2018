@@ -101,14 +101,14 @@
 				<p>Escoja una categoría para su juego</p>
 				<select class="w-100 color" id="category" name="categoria[]"  multiple required size="5" required>
 					@forEach ($categorias as $categoria)
-					<option value='{{$categoria->slug}}'>
+					<option value='{{ $categoria->slug }}' {{$categoria->seleccionado == 1 ? "selected" : null }}>
 						{{$categoria->nombre}}
 					</option>
 					@endForEach
 				</select>
 				@if ($errors->has('categoria'))
 				<span class="help-block">
-					<strong>{{ $errors->first('tipo') }}</strong>
+					<strong>{{ $errors->first('categoria') }}</strong>
 				</span>
 				@endif
 			</div>
@@ -118,14 +118,14 @@
 				<p>Indique si es para que plataforma es su juego</p>
 				<select class="w-100 color" id="plataforma" name="plataforma[]"  multiple required size="5" required>
 					@forEach ($plataformas as $plataforma)
-					<option value='{{$plataforma->slug}}'>
+					<option value='{{$plataforma->slug}}' {{$plataforma->seleccionado == 1 ? "selected" : null }}>
 						{{$plataforma->nombre}}
 					</option>
 					@endForEach
 				</select>
 				@if ($errors->has('plataforma'))
 				<span class="help-block">
-					<strong>{{ $errors->first('tipo') }}</strong>
+					<strong>{{ $errors->first('plataforma') }}</strong>
 				</span>
 				@endif
 			</div>
