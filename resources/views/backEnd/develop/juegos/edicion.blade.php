@@ -20,8 +20,7 @@
 			<div class="w-100">
 				<h4><b>Datos del Juego</b></h4>
 				<label for="nombre" class="control-label">Nombre del juego</label>
-
-				<input id="nombre" type="text" class="form-control color" name="nombre" value="{{ old('nombre') }}" required>
+				<input id="nombre" type="text" class="form-control color" name="nombre" value="{{ old('nombre')  == '' ?  $juego->nombre : old('nombre')  }}" required>
 				@if ($errors->has('nombre'))
 				<span class="help-block">
 					<strong>{{ $errors->first('nombre') }}</strong>
@@ -30,7 +29,7 @@
 
 				<label for="desc" class="control-label">Descripción del Juego</label>
 
-				<textarea id="desc" class="w-100 color" rows="25" placeholder="Descripción del juego..." name="desc" value="{{ old('desc') }}"  required></textarea>
+				<textarea id="desc" class="w-100 color" rows="25" placeholder="Descripción del juego..." name="desc" value="{{ old('desc') }}"  required>{{$juego->descripcion}}</textarea>
 				@if ($errors->has('desc'))
 				<span class="help-block">
 					<strong>{{ $errors->first('desc') }}</strong>
@@ -72,7 +71,7 @@
 				<div class="input-group mb-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text">
-							<input id="visible"  type="checkbox" name="visible" aria-label="Checkbox for following text input">
+							<input id="visible"  type="checkbox" name="visible"  {{ old('visible') == "" ? ($juego->visible == 1) ? 'checked' : null : 'checked' }} aria-label="Checkbox for following text input">
 						</div>
 					</div>
 					<label for="visible" class="form-control color" >¿Hacer visible?</label>
@@ -93,6 +92,7 @@
 						<label class="custom-file-label color" for="inputGroupFile02">Imagen</label>
 					</div>
 				</div>
+				<img src="{{$juego->img}}">
 
 			</div>
 
