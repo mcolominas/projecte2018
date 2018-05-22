@@ -35,9 +35,8 @@ class JuegosController extends Controller
             'desc' => 'required|max:500',
             'tipo' => 'required',
             'img' => 'required|file|image',
-            'desc' => 'required',
             'urlExterna' => 'required_if:tipo,url',
-            'categorias' => 'required',
+            'categoria' => 'required',
             'plataforma' => 'required',
         ]);
 
@@ -112,7 +111,7 @@ class JuegosController extends Controller
             $model->getPrivateContent();
         });
         $juego->setUrlImagePublic();
-        
+
         return view('backEnd/develop/juegos/edicion', ["categorias" => $misCategorias, "plataformas" => $misPlataformas, "juego" => $juego]);
 
     }
@@ -128,9 +127,8 @@ class JuegosController extends Controller
             'desc' => 'required|max:500',
             'tipo' => 'required',
             'img' => 'required|file|image',
-            'desc' => 'required',
             'urlExterna' => 'required_if:tipo,url',
-            'categorias' => 'required',
+            'categoria' => 'required',
             'plataforma' => 'required',
         ]);
 
