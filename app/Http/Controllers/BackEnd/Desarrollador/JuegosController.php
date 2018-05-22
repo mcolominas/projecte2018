@@ -108,7 +108,7 @@ class JuegosController extends Controller
             $model->getPrivateContent();
         });
         $juego->setUrlImagePublic();
-
+        
         return view('backEnd/develop/juegos/crear', ["categorias" => $misCategorias, "plataformas" => $misPlataformas, "juego" => $juego]);
     }
 

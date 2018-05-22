@@ -20,8 +20,7 @@
 			<div class="w-100">
 				<h4><b>Datos del Juego</b></h4>
 				<label for="nombre" class="control-label">Nombre del juego</label>
-
-				<input id="nombre" type="text" class="form-control color" name="nombre" value="{{ old('nombre') }}" required>
+				<input id="nombre" type="text" class="form-control color" name="nombre" value="{{ old('nombre')  == '' ?  $juego->nombre : ''  }}" required>
 				@if ($errors->has('nombre'))
 				<span class="help-block">
 					<strong>{{ $errors->first('nombre') }}</strong>
