@@ -14,7 +14,7 @@ class IndexController extends Controller
     const MAXITEMS = 16;
 
     protected function getJuegos(Request $request, $pag = 1){
-        $juegos = Juego::select("nombre", "descripcion", "img", "slug")->orderBy("created_at", "desc");
+        $juegos = Juego::select("nombre", "descripcion", "img", "slug")->where("visible", 1)->orderBy("created_at", "desc");
 
         $paginado = Paginado::generar($juegos, IndexController::MAXITEMS, $pag, IndexController::MAXBUTTONS, [$this, "getRouteIndex"]);
 
@@ -32,7 +32,7 @@ class IndexController extends Controller
         $juegos = Juego::select("nombre", "descripcion", "img", "slug")
         ->whereHas('categorias', function ($query) use ($slug) {
             $query->where('categorias.slug', '=', $slug);
-        })->orderBy("created_at", "desc");
+        })->where("visible", 1)->orderBy("created_at", "desc");
 
         $paginado = Paginado::generar($juegos, IndexController::MAXITEMS, $pag, IndexController::MAXBUTTONS, [$this, "getRouteCategoria"]);
 

@@ -48,7 +48,7 @@ Route::group(['prefix' => 'desarrollador', 'middleware' => 'desarrollador', "nam
 	Route::get('/editar/juego/{slug}','BackEnd\Desarrollador\JuegosController@getEditar')->name('desarrollador.editarJuego');
 	Route::put('/editar/juego/{slug}','BackEnd\Desarrollador\JuegosController@putEditar');
 
-	Route::delete('/eliminar/juego/{slug}','BackEnd\Desarrollador\JuegosController@deleteJuego')->name('desarrollador.eliminarJuego');
+	Route::get('/eliminar/juego/{slug}','BackEnd\Desarrollador\JuegosController@deleteJuego')->name('desarrollador.eliminarJuego');
 
 
 	Route::get('/ver/logros/{slugJuego}', 'BackEnd\Desarrollador\LogrosController@getListLogros')->name('desarrollador.verLogros');
@@ -60,7 +60,7 @@ Route::group(['prefix' => 'desarrollador', 'middleware' => 'desarrollador', "nam
 	Route::get('/editar/logro/{slugLogro}','BackEnd\Desarrollador\LogrosController@getEditar')->name('desarrollador.editarLogro');
 	Route::put('/editar/logro/{slugLogro}','BackEnd\Desarrollador\LogrosController@putEditar');
 
-	Route::delete('/eliminar/logro/{}','BackEnd\Desarrollador\LogrosController@deletelogro')->name('desarrollador.eliminarLogro');
+	Route::get('/eliminar/logro/{slugLogro}','BackEnd\Desarrollador\LogrosController@deletelogro')->name('desarrollador.eliminarLogro');
 
 
 	Route::get('/ver/productos/{slug}', 'BackEnd\Desarrollador\ProductosController@getListProductos')->name('desarrollador.verProductos');
@@ -72,7 +72,7 @@ Route::group(['prefix' => 'desarrollador', 'middleware' => 'desarrollador', "nam
 	Route::get('/editar/producto/{slugProducto}','BackEnd\Desarrollador\ProductosController@getEditar')->name('desarrollador.editarProducto');
 	Route::put('/editar/producto/{slugProducto}','BackEnd\Desarrollador\ProductosController@putEditar');
 
-	Route::delete('/eliminar/producto/{slugProducto}','BackEnd\Desarrollador\ProductosController@deleteProducto')->name('desarrollador.eliminarProducto');
+	Route::get('/eliminar/producto/{slugProducto}','BackEnd\Desarrollador\ProductosController@deleteProducto')->name('desarrollador.eliminarProducto');
 });
 
 

@@ -48,7 +48,13 @@ class JuegosController extends Controller
         $urlExterna = $request->input("urlExterna") ?: "";
         $categorias = $request->input("categoria");
         $plataformas = $request->input("plataforma");
-        $visible = ($request->input("visible") !== null) ? 1 : 0;
+        if($this->existeYNoEstaVacio($request->input("compilar")) || 
+            $this->existeYNoEstaVacio($request->input("guardar"))){
+            $visible = ($request->input("visible") !== null) ? 1 : 0;
+        }else{
+            $visible = 0;
+        }
+        
 
         //insert data
         $juego = new Juego();
@@ -140,7 +146,12 @@ class JuegosController extends Controller
         $urlExterna = $request->input("urlExterna") ?: "";
         $categorias = $request->input("categoria");
         $plataformas = $request->input("plataforma");
-        $visible = ($request->input("visible") !== null) ? 1 : 0;
+        if($this->existeYNoEstaVacio($request->input("compilar")) || 
+            $this->existeYNoEstaVacio($request->input("guardar"))){
+            $visible = ($request->input("visible") !== null) ? 1 : 0;
+        }else{
+            $visible = 0;
+        }
 
         //update data
         if($this->existeYNoEstaVacio($nombre))
@@ -182,8 +193,9 @@ class JuegosController extends Controller
         $juego = Juego::where("slug", $slug)->firstOrFail();
         if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
         //!!!Delete all files (No implementado)
+        //!!!Delere all foreign key (No implementado)
 
-        $juego->delete();
+        //$juego->delete();
         return redirect()->action('BackEnd\Desarrollador\JuegosController@getList');
     }
 
@@ -259,19 +271,22 @@ class JuegosController extends Controller
         $name = uniqid().".html";
         $fullPath = $path.$name;
         $fullPathMin = $path."min/".$name;
+        $compile = $this->existeYNoEstaVacio($request->input("compilar"));
 
         if(Storage::disk('local')->put($fullPath, $content)){
-            $content = $this->getHtmlFullCode($content, $arr);
-            if(Storage::disk('local')->put($fullPathMin, $content)){
-                $fileSystem = new JuegoFileSystem();
-                $fileSystem->nombre = $request->input("namehtml");
-                $fileSystem->id_juego = $juego->id;
-                $fileSystem->ruta = $fullPath;
-                $fileSystem->rutaMin = $fullPathMin;
-                $fileSystem->tipo = "html";
-                $fileSystem->order = 0;
-                $fileSystem->save();
+            if($compile){
+                $content = $this->getHtmlFullCode($content, $arr);
+                Storage::disk('local')->put($fullPathMin, $content);
             }
+
+            $fileSystem = new JuegoFileSystem();
+            $fileSystem->nombre = $request->input("namehtml");
+            $fileSystem->id_juego = $juego->id;
+            $fileSystem->ruta = $fullPath;
+            if($compile) $fileSystem->rutaMin = $fullPathMin;
+            $fileSystem->tipo = "html";
+            $fileSystem->order = 0;
+            $fileSystem->save();
         }
     }
 
