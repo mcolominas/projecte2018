@@ -92,7 +92,7 @@ class JuegosController extends Controller
                     $misCategoria->seleccionado = 0;
             }
         }
-
+        
         //add plataformas
         $misPlataformas = Plataforma::get();
         foreach ($misPlataformas as $misPlataforma) {
@@ -108,7 +108,7 @@ class JuegosController extends Controller
             $model->getPrivateContent();
         });
         $juego->setUrlImagePublic();
-        die(json_encode($misCategorias));
+        
         return view('backEnd/develop/juegos/edicion', ["categorias" => $misCategorias, "plataformas" => $misPlataformas, "juego" => $juego]);
 
     }

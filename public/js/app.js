@@ -143,6 +143,14 @@ function compile() {
 		})
 
 	});
+
+
+	$('#creando').removeClass("show");
+	$('#creando').addClass("d-none");
+	$('#urlExterna').attr('required');
+
+	$('#creando textarea').removeAttr('required');
+	$('#urlExterna').show()
 };
 
 function getHtmlCode(search = "#collapsehtml"){
@@ -256,7 +264,7 @@ function removeFile(type,name){
 
 function realizarSubmit(e,object,tipo,name){
 
-	e.preventDefault()
+	
 	var valor = $('#file-name-edit-modal #file-name');
 
 	if($('[name='+valor.val()+']').length > 0){
@@ -274,19 +282,26 @@ function realizarSubmit(e,object,tipo,name){
 
 	valor.val("")
 	$('#file-name-edit-modal').modal('hide');
-	}	
+}	
 
 }
 $('input[name=tipo]').click(function(e){
-	console.log(e)
+	//MUESTRA HTML,CSS,JS
 	if(e.target.value == "creado" && e.target.checked == true){
 		$('#urlExterna').hide()
+		$('#creando textarea').attr('required');
+		
+		$('#urlExterna').removeAttr('required');
 		$('#creando').removeClass("d-none");
 		$('#creando').addClass("show");
 	}
+	//MUESTRA INPUT URL
 	else if(e.target.value == "url" && e.target.checked == true){
 		$('#creando').removeClass("show");
 		$('#creando').addClass("d-none");
+		$('#urlExterna').attr('required');
+
+		$('#creando textarea').removeAttr('required');
 		$('#urlExterna').show()
 	}	
 })
