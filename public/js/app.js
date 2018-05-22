@@ -2,7 +2,7 @@ function Files(){
 	this.files = {"html": [], "css": [], "js": []};
 }
 
-Files.prototype.add = function(type, name, success, buttons = true) {
+Files.prototype.add = function(type, name, success, buttons = true, content = "") {
 	let self = this;
 	try{
 		if(!isset(type)) throw {message: "El tipo de fichero no puede estar vacio."};
@@ -23,7 +23,7 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 		let sortableItem = getSortableItem(type, name);
 
 		let fileEditor = $("#file-editor > div");
-		let fileEditorItem = getFileEditorItem(type, name);
+		let fileEditorItem = getFileEditorItem(type, name, content);
 
 		collapse.append(sortableItem);
 		fileEditor.append(fileEditorItem);
@@ -70,12 +70,13 @@ Files.prototype.add = function(type, name, success, buttons = true) {
 		return divParent;
 	}
 
-	function getFileEditorItem(type, name){
+	function getFileEditorItem(type, name, content){
+		console.log(content);
 		let num = $('#collapse' + type + " .buttons").children().length;
 		if(type == "html") num = "";
 		let divParent = $('<div class="tab-pane" id="'+type+'-'+name+'">');
 		let inputOculto = $('<input hidden id="'+name+'" value="'+name+'" name="name'+type+num+'">');
-		let textarea = $('<textarea type="'+type+'" name="'+type+num+'" placeholder="Aquí va tu código '+type+'" required>');
+		let textarea = $('<textarea type="'+type+'" name="'+type+num+'" placeholder="Aquí va tu código '+type+'" required>'+content+'</textarea>');
 
 		textarea.keyup(updateIframe);
 		divParent.append(inputOculto)
@@ -118,6 +119,7 @@ Files.prototype.update = function(type, name, success){
 var systemFiles = new Files();
 
 function compile() {
+	if($("input[name=namehtml]").length == 0)
 	systemFiles.add("html", "index", function(){}, false);
 	//add events
 	$("#file-menu .sortable" ).on( "sortupdate", function(){

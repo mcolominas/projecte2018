@@ -44,7 +44,7 @@
 				</label>
 
 
-				<input id="urlExterna" type="text" class="form-control color w-75" placeholder="Indique la URL del juego" name="urlExterna" value="{{ old('urlExterna') }}" required style="display: inline-block;  {{ old('tipo') == "url" || old('tipo') == "" ? null : "display:none" }}">
+				<input id="urlExterna" type="text" class="form-control color w-75" placeholder="Indique la URL del juego" name="urlExterna" value="{{ old('urlExterna') }}" required style="display: inline-block;  {{ old('tipo') == "url" || !empty($juego->files) ?  null : "display:none" }}">
 				@if ($errors->has('urlExterna'))
 				<span class="help-block">
 					<strong>{{ $errors->first('urlExterna') }}</strong>
@@ -92,7 +92,7 @@
 						<label class="custom-file-label color" for="inputGroupFile02">Imagen</label>
 					</div>
 				</div>
-				<img src="{{$juego->img}}">
+				<img class="w-100" src="{{$juego->img}}">
 
 			</div>
 
@@ -133,6 +133,7 @@
 
 	</div>
 	<hr>
+
 	<div id="creando" class="row d-none">
 		<h2 class="text-center w-100">Crea tu propio código</h2>
 		<br/>
@@ -150,6 +151,17 @@
 						<div id="collapsehtml" class="collapse">
 							<div class="card-body">
 								<div class="buttons">
+									@forEach($juego->files as $file)
+									@if($file->tipo == "html")
+									
+									<script type="text/javascript">
+										
+										$(function(){
+											systemFiles.add("html", "index", function(){}, false, {{ $file->content }});
+										})
+									</script>
+									@endif
+									@endForEach
 								</div>
 							</div>
 						</div>
@@ -171,6 +183,17 @@
 						<div id="collapsecss" class="collapse">
 							<div class="card-body">
 								<div class="sortable buttons">
+									<div>
+										<a class="list-group-item list-group-item-action p-1 css" tipo="css" href="#css-asd" name="asd" role="tab">asd</a>
+										<div class="absolue-rigth active">
+											<button type="button" data-type="css" class="delete btn btn-link">
+												<i class="material-icons">delete</i>
+											</button>
+											<button type="button" id="btncssasd" data-type="css" class="edit btn btn-link">
+												<i class="material-icons">mode_edit</i>
+											</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -202,12 +225,12 @@
 
 		<div id="file-editor" class="col-sm-12 col-lg-8">
 			<div class="tab-content" role="tab-content">
+				
 			</div>
 		</div>
 		<div class="col-sm mt-3">
 			<iframe id="code"></iframe>
 		</div>
-		
 	</div>
 	
 

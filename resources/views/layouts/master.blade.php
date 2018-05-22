@@ -28,6 +28,7 @@
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -64,7 +65,6 @@
   @show
 
   <!-- Core JavaScript-->
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
   <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
