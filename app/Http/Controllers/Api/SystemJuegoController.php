@@ -64,8 +64,11 @@ class SystemJuegoController extends Controller
 			unset($model->estado);
 			unset($model->created_at);
 			unset($model->updated_at);
+			unset($model->hash);
 			$model->setUrlImagePublic();
 			$model->consegido = 0;
+			$model->codigo = $model->slug;
+			unset($model->slug);
 		});
 
 		if($user){
@@ -73,7 +76,7 @@ class SystemJuegoController extends Controller
 			foreach ($misLogros as $value){
 				if($value->users->where("id", $user->id)->count() == 1){
 					foreach ($logros as $logro) {
-						if($logro->slug == $value->slug){
+						if($logro->codigo == $value->slug){
 							$logro->consegido = 1;
 							break;
 						}
@@ -90,8 +93,8 @@ class SystemJuegoController extends Controller
 
 		$hash = $request->input("hash");
 		$logro = Logro::where("hash", $hash)->first();
-		if(count($logro) != 1) return $this->returnError();
-		if(count(UserLogro::where("id_logro", $logro->id)->where("id_usuario", $user->id)->get()) > 0) return $this->returnError();
+		if(count($logro) != 1) return $this->returnError(); //Si existe el logro
+		if(count(UserLogro::where("id_logro", $logro->id)->where("id_usuario", $user->id)->get()) > 0) return $this->returnError(); //Si no lo ha consegido
 
 		//!!!Check restricciones
 		if(!true) return $this->returnError();
@@ -101,7 +104,7 @@ class SystemJuegoController extends Controller
 		$userLogro->id_logro = $logro->id;
 		$userLogro->save();
 
-		return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
+		return response(json_encode(["status" => "1", "codigo" => $logro->slug]), 200)->header('Content-Type', 'application/json');
 	}
 
 	protected function comprar(Request $request){
@@ -109,9 +112,10 @@ class SystemJuegoController extends Controller
 
 		$hash = $request->input("hash");
 		$producto = Tienda::where("hash", $hash)->first();
-		if(count($producto) != 1) return $this->returnError();
-		if(count(TiendaUser::where("id_tienda", $producto->id)->where("id_user", $user->id)->get()) > 0) return $this->returnError();
-
+		if(count($producto) != 1) return $this->returnError(); //Si existe el producto
+		if(($user->coins - $producto->coste) < 0) return $this->returnError(); //Si no el tiene dinero
+		if(count(TiendaUser::where("id_tienda", $producto->id)->where("id_user", $user->id)->get()) > 0) return $this->returnError(); //Si no lo tiene comprado
+		
 		$tiendaUser = new TiendaUser();
 		$tiendaUser->id_user = $user->id;
 		$tiendaUser->id_tienda = $producto->id;
@@ -133,6 +137,8 @@ class SystemJuegoController extends Controller
 			unset($model->updated_at);
 			$model->setUrlImagePublic();
 			$model->consegido = 0;
+			$model->codigo = $model->slug;
+			unset($model->slug);
 		});
 
 		if($user){
@@ -140,7 +146,7 @@ class SystemJuegoController extends Controller
 			foreach ($misProductos as $value){
 				if($value->users->where("id", $user->id)->count() == 1){
 					foreach ($productos as $producto) {
-						if($producto->slug == $value->slug){
+						if($producto->codigo == $value->slug){
 							$producto->consegido = 1;
 							break;
 						}
