@@ -1,5 +1,5 @@
 #formulario{
-	padding: 15px;
+	padding: 12px;
 	background-color: #d7e2ff;
 	border-radius: 35px;
 	box-shadow: 1px 1px  30px #da7400;
@@ -10,7 +10,7 @@ input{
 }
 
 h3{
-	margin-left: 41%;
+	margin: 0 auto;
 	text-shadow: 3px 2px 7px black;
 }
 

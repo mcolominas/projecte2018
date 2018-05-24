@@ -2,6 +2,7 @@ iframe#juego{
 	border: 1px solid black; 
 	border-radius: 20px 20px 0 0;
 	text-align: center; 
+	padding: 0;
 	height: 500px; 
 	margin: 5px ;
 }

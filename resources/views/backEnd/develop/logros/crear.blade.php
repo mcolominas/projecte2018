@@ -25,7 +25,7 @@
 			</div>
 			<div class="w-100 mb-2">
 				<label>Descripción del Logro:</label>
-				<textarea class="w-100 d-block" rows="5"  placeholder="Escriba aquí la descripción del logro  por ejemplo: 5 saltos seguidos" required></textarea>
+				<textarea class="w-100 d-block" rows="5" name="descripcion" placeholder="Escriba aquí la descripción del logro  por ejemplo: 5 saltos seguidos" required></textarea>
 			</div>
 			<div class="w-100 mb-2">
 				<label>Cantidad de monedas que da:</label>
@@ -44,7 +44,7 @@
 				<div class="input-group ">
 					<div id="image-preview">
 						<label for="img" id="image-label">Escoger portada</label>
-						<input type="file" class="custom-file-input" name="img" id="img" required/>
+						<input type="file" class="custom-file-input" name="imagen" id="img" required/>
 					</div>
 					<script type="text/javascript">
 						$(document).ready(function() {

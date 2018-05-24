@@ -29,7 +29,7 @@
 		<h2 class="col-12 offset-md-1">{{$juego["nombre"]}}</h2>
 		
 		<!-- el IFRAME del JUEGO -->
-		<iframe id="juego" class="col-md-12 "  src="{{$juego['url']}}" >
+		<iframe id="juego" class="col-md-12 "  src="{{$juego['url']}}" onload="resizeIframe(this)">
 		</iframe>
 
 
@@ -159,4 +159,9 @@
 
 @section("scripts")
 <script type="text/javascript" src="{{asset('js/enviarComentario.js')}}"></script>
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
+</script>
 @endSection

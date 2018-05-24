@@ -18,16 +18,35 @@
 	{{ csrf_field() }}
 	<div class="row">
 		<h3>CREA UN PRODUCTO PARA LA TIENDA</h3>
-		<div class="col-12 text-center" id="formulario">
+		<div class="col-12 text-center mt-4" id="formulario">
 			<div class="row">
-				<div class="col-5">
+
+
+				<div class=" col-8">
+					<div class="w-100 mb-3"> 
+						<label>Nombre del producto:</label>
+						<input  name="nombre" placeholder="Nombre " required>
+					</div>
+					<div class="w-100 mb-3">
+						<label>Descripción del producto:</label>
+						<textarea class="w-100 d-block" rows="5" name="descripcion"  placeholder="Una breve descripción del producto a vender ... " required></textarea>
+					</div>
+					<div class="w-100 mb-3">
+						<label>Coste del producto:</label>
+						<input type="number" id="coins" name="coste" value="0" min="0" required>
+					</div>
+
+				</div>
+
+
+				<div class="col-4">
 					<div class="w-100" >
 						<h4><b>	Imagen del producto </b></h4>
 
 						<div class="input-group ">
 							<div id="image-preview">
 								<label for="img" id="image-label">Escoger imagen</label>
-								<input type="file" class="custom-file-input" name="img" id="img" required/>
+								<input type="file" class="custom-file-input" name="imagen" id="img" required/>
 							</div>
 							<script type="text/javascript">
 								$(document).ready(function() {
@@ -45,26 +64,7 @@
 					</div>
 				</div>
 
-				<!-- Linea vertical para separar -->
-				<div class="col-1" style="border-left:1px solid #000;height:500px"></div>
-
-
-				<div class=" col-5">
-					<div class="w-100 mb-3"> 
-						<label>Nombre del producto:</label>
-						<input  name="nombre" placeholder="Nombre " required>
-					</div>
-					<div class="w-100 mb-3">
-						<label>Descripción del producto:</label>
-						<textarea class="w-100 d-block" rows="5"  placeholder="Una breve descripción del producto a vender ... " required></textarea>
-					</div>
-					<div class="w-100 mb-3">
-						<label>Coste del producto:</label>
-						<input type="number" id="coins" name="coins" value="0" min="0" required>
-					</div>
-
-					<input type="submit" class="btn btn-outline-success btn-lg btn-block">
-				</div>
+				<input type="submit" class="btn btn-outline-success btn-lg btn-block w-50 mx-auto mt-4">
 			</div>
 		</div>
 
