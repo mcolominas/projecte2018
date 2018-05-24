@@ -19,13 +19,21 @@
 	<div class="row">
 		<h3>EDITA TU LOGRO</h3>
 		<div class="col-8 text-center offset-2 mb-2" id="formulario">
+
+			<div class="card border-info mb-3 ">
+				<div class="card-header">HASH</div>
+				<div class="card-body text-info">
+					<p class="card-text">{{$logro->hash}}</p>
+				</div>
+			</div>
+			
 			<div class="w-100 mb-2"> 
 				<label>Nombre del Logro:</label>
 				<input  name="nombre" placeholder="Nombre " value="{{$logro->nombre}}" required>
 			</div>
 			<div class="w-100 mb-2">
 				<label>Descripción del Logro:</label>
-				<textarea class="w-100 d-block" rows="5"  placeholder="Escriba aquí la descripción del logro  por ejemplo: 5 saltos seguidos" required>{{$logro->descripcion}}</textarea>
+				<textarea class="w-100 d-block" rows="5" name="descripcion" placeholder="Escriba aquí la descripción del logro  por ejemplo: 5 saltos seguidos" required>{{$logro->descripcion}}</textarea>
 			</div>
 			<div class="w-100 mb-2">
 				<label>Cantidad de monedas que da:</label>
@@ -44,7 +52,7 @@
 				<div class="input-group " style="background-image: url({{$logro->img}})">
 					<div id="image-preview">
 						<label for="img" id="image-label">Escoger portada</label>
-						<input type="file" class="custom-file-input" name="img" id="img" required/>
+						<input type="file" class="custom-file-input" name="imagen" id="img" required/>
 					</div>
 					<script type="text/javascript">
 						$(document).ready(function() {
