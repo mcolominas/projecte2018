@@ -12,6 +12,6 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected function existeYNoEstaVacio($var){
-        return isset($var) && !empty($var);
+        return isset($var) && $var !== "";
     }
 }

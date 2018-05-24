@@ -300,6 +300,8 @@ function mostrarUrl(){
 
 	$('#urlExterna').show();
 	$('input[name=compilar').hide();
+
+	$("input[value=url]").prop("checked", true);
 }
 function mostrarCreado(){
 	$('#urlExterna').hide()

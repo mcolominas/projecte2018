@@ -122,17 +122,16 @@ class JuegosController extends Controller
 
     }
 
-    //AJAX CALL
     protected function putEditar(Request $request, $slug){
         $juego = Juego::where("slug", $slug)->firstOrFail();
         if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
-        
+
         //validate
         $this->validate(request(), [
             'nombre' => 'required|max:30',
             'desc' => 'required|max:500',
             'tipo' => 'required',
-            'img' => 'required|file|image',
+            'img' => 'file|image',
             'urlExterna' => 'required_if:tipo,url',
             'categoria' => 'required',
             'plataforma' => 'required',
@@ -194,6 +193,8 @@ class JuegosController extends Controller
             }else{
                 //!!!No echo
             }
+        }else{
+            $this->deleteAllFilesCode($juego);
         }
 
         return redirect()->action('BackEnd\Desarrollador\JuegosController@getEditar', ["slug" => $juego->slug]);

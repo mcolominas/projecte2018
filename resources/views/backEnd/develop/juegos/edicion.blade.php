@@ -22,6 +22,13 @@
 		<div id="datosJuegos"  class="w-100 mb-2 form-group col-8 ">
 			<div class="w-100">
 				<h4><b>Datos del Juego</b></h4>
+				<div class="card border-info mb-3 text-center">
+					<div class="card-header">Hash</div>
+					<div class="card-body text-info">
+						<p class="card-text">{{$juego->hash}}</p>
+					</div>
+				</div>
+
 				<label for="nombre" class="control-label">Nombre del juego</label>
 				<input id="nombre" type="text" class="form-control color" name="nombre" value="{{ old('nombre')  == '' ?  $juego->nombre : old('nombre')  }}" required>
 				@if ($errors->has('nombre'))
@@ -46,9 +53,9 @@
 					Por URL
 				</label>
 
-
-				<input id="urlExterna" type="text" class="form-control color w-75" placeholder="Indique la URL del juego" name="urlExterna" value="{{ old('urlExterna') }}" required style="display: inline-block;  {{ old('tipo') == "url" || !empty($juego->files) ?  null : "display:none" }}">
+				<input id="urlExterna" type="text" class="form-control color w-75" placeholder="Indique la URL del juego" name="urlExterna" value="{{ old('urlExterna') == '' ? count($juego->files) == 0 ? $juego->url : '' : old('urlExterna') }}" required style="display: inline-block;  {{ old('tipo') == "url" || count($juego->files) > 0 ?  null : "display:none" }}">
 				@if ($errors->has('urlExterna'))
+
 				<span class="help-block">
 					<strong>{{ $errors->first('urlExterna') }}</strong>
 				</span>
@@ -92,20 +99,8 @@
 				<div class="input-group mb-5">
 					<div id="image-preview" style="background-image: url({{$juego->img}})">
 						<label for="img" id="image-label">Escoger portada</label>
-						<input type="file" class="custom-file-input" name="img" id="img" required/>
+						<input type="file" class="custom-file-input" name="img" id="img"/>
 					</div>
-					<script type="text/javascript">
-						$(document).ready(function() {
-							$.uploadPreview({
-							    input_field: "#img", // Default: .image-upload
-							    preview_box: "#image-preview",  // Default: .image-preview
-							    label_field: "#image-label",    // Default: .image-label
-							    label_default: "Escoger portada",   // Default: Choose File
-							    label_selected: "Cambiar",  // Default: Change File
-							    no_label: false                 // Default: false
-							});
-						});
-					</script>
 				</div>
 
 			</div>
@@ -212,25 +207,6 @@
 							<div class="card-body">
 								<div class="sortable buttons">
 									<div>
-<<<<<<< HEAD
-=======
-										@forEach($juego->files as $file)
-										@if($file->tipo == "js")
-
-										<script type="text/javascript">
-											var a = <?= $file->content; ?>;
-											a = a.replace("\"", "\'");
-											console.log(a)
-											$(function(){
-												systemFiles.add('<?= $file->tipo; ?>','<?= $file->nombre; ?>' , function(){}, true,
-												 );
-
-											})
-										</script>
-										@endif
-										@endForEach
-
->>>>>>> 548a4dc49d3c0179ec538bd5275e7155e7716cad
 
 									</div>
 								</div>
@@ -312,6 +288,7 @@
 @stop
 
 
+
 @section('scripts')
 <script type="text/javascript" src="{{asset('js/jquery.uploadPreview.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
@@ -328,10 +305,20 @@
 
 		compile();
 
-		@if(!empty($file))
-			mostrarCreado();
+		@if(count($juego->files) > 0)
+		mostrarCreado();
 		@endif
+
+		$.uploadPreview({
+			input_field: "#img", // Default: .image-upload
+			preview_box: "#image-preview",  // Default: .image-preview
+			label_field: "#image-label",    // Default: .image-label
+			label_default: "Escoger portada",   // Default: Choose File
+			label_selected: "Cambiar",  // Default: Change File
+			no_label: false                 // Default: false
+		});
 
 	});
 </script>
+<?= json_encode($juego) ?>
 @stop

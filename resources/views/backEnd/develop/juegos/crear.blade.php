@@ -94,18 +94,6 @@
 						<label for="img" id="image-label">Escoger portada</label>
 						<input type="file" class="custom-file-input" name="img" id="img" required/>
 					</div>
-					<script type="text/javascript">
-						$(document).ready(function() {
-							$.uploadPreview({
-							    input_field: "#img",   // Default: .image-upload
-							    preview_box: "#image-preview",  // Default: .image-preview
-							    label_field: "#image-label",    // Default: .image-label
-							    label_default: "Escoger portada",   // Default: Choose File
-							    label_selected: "Cambiar",  // Default: Change File
-							    no_label: false                 // Default: false
-							});
-						});
-					</script>
 				</div>
 
 			</div>
@@ -290,4 +278,16 @@
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 <script type="text/javascript">compile()</script>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.uploadPreview({
+		    input_field: "#img",   // Default: .image-upload
+		    preview_box: "#image-preview",  // Default: .image-preview
+		    label_field: "#image-label",    // Default: .image-label
+		    label_default: "Escoger portada",   // Default: Choose File
+		    label_selected: "Cambiar",  // Default: Change File
+		    no_label: false                 // Default: false
+		});
+	});
+</script>
 @stop
