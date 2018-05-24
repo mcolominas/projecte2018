@@ -3,7 +3,6 @@ function Files(){
 }
 
 Files.prototype.add = function(type, name, success, buttons = true, content = "") {
-	console.log(content)	
 	let self = this;
 	try{
 		if(!isset(type)) throw {message: "El tipo de fichero no puede estar vacio."};
@@ -29,6 +28,7 @@ Files.prototype.add = function(type, name, success, buttons = true, content = ""
 
 		collapse.append(sortableItem);
 		fileEditor.append(fileEditorItem);
+
 		success();
 	}catch(err){
 		var divAlert = $("#file-name-modal div[role=alert]");
@@ -73,7 +73,7 @@ Files.prototype.add = function(type, name, success, buttons = true, content = ""
 	}
 
 	function getFileEditorItem(type, name, content){
-		let num = $('#collapse' + type + " .buttons").children().length;
+		let num = $('#collapse' + type + " .buttons").children().length-1;
 		if(type == "html") num = "";
 		let divParent = $('<div class="tab-pane" id="'+type+'-'+name+'">');
 		let inputOculto = $('<input hidden id="'+name+'" value="'+name+'" name="name'+type+num+'">');
@@ -121,7 +121,7 @@ var systemFiles = new Files();
 
 function compile() {
 	if($("input[name=namehtml]").length == 0)
-	systemFiles.add("html", "index", function(){}, false, "");
+		systemFiles.add("html", "index", function(){}, false, "");
 	//add events
 	$("#file-menu .sortable" ).on( "sortupdate", function(){
 		updateIframe();
@@ -146,14 +146,7 @@ function compile() {
 		})
 
 	});
-
-
-	$('#creando').removeClass("show");
-	$('#creando').addClass("d-none");
-	$('#urlExterna').attr('required');
-
-	$('#creando textarea').removeAttr('required');
-	$('#urlExterna').show()
+	mostrarUrl();
 };
 
 function getHtmlCode(search = "#collapsehtml"){
@@ -291,21 +284,32 @@ function realizarSubmit(e,object,tipo,name){
 $('input[name=tipo]').click(function(e){
 	//MUESTRA HTML,CSS,JS
 	if(e.target.value == "creado" && e.target.checked == true){
-		$('#urlExterna').hide()
-		$('#creando textarea').attr('required');
-		
-		$('#urlExterna').removeAttr('required');
-		$('#creando').removeClass("d-none");
-		$('#creando').addClass("show");
+		mostrarCreado();
 	}
 	//MUESTRA INPUT URL
 	else if(e.target.value == "url" && e.target.checked == true){
-		$('#creando').removeClass("show");
-		$('#creando').addClass("d-none");
-		$('#urlExterna').attr('required');
-
-		$('#creando textarea').removeAttr('required');
-		$('#urlExterna').show()
+		mostrarUrl();
 	}	
 })
+
+function mostrarUrl(){
+	$('#creando').hide();
+	$('#creando textarea').removeAttr('required');
+
+	$('#urlExterna').attr('required');
+
+	$('#urlExterna').show();
+	$('input[name=compilar').hide();
+}
+function mostrarCreado(){
+	$('#urlExterna').hide()
+	$('#urlExterna').removeAttr('required');
+
+	$('#creando textarea').attr('required');
+
+	$('#creando').show();
+	$('input[name=compilar').show();
+
+	$("input[value=creado]").prop("checked", true);
+}
 

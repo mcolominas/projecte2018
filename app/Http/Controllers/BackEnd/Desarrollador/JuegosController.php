@@ -67,7 +67,7 @@ class JuegosController extends Controller
             $juego->url = $urlExterna;
         else if($tipo == "creado")
             $juego->url = route("storage.codigoJuego",["slug" => $juego->slug, "tipo" => "html"]);
-        $juego->img = $logo->store("public/juegos/$juego->slug/img/portada");
+        $juego->img = $logo->store("private/juegos/$juego->slug/img/portada");
         $juego->save();
 
         $this->insertCategorias($juego, $categorias);
@@ -138,6 +138,7 @@ class JuegosController extends Controller
             'plataforma' => 'required',
         ]);
 
+
         //get inputs
         $nombre = $request->input("nombre");
         $desc = $request->input("desc");
@@ -167,9 +168,13 @@ class JuegosController extends Controller
             $juego->url = $urlExterna;
 
         if($this->existeYNoEstaVacio($logo)){
-            if(Storage::delete($juego->img))
-                $juego->img = $logo->store("public/juegos/$juego->slug/img/portada");
+            if(Storage::disk('local')->exists($juego->img))
+                Storage::disk('local')->delete($juego->img);
+            $juego->img = $logo->store("private/juegos/$juego->slug/img/portada");
         }
+
+        $juego->save();
+
 
         JuegoCategoria::where("id_juego", $juego->id)->delete();
         $this->insertCategorias($juego, $categorias);
@@ -179,14 +184,19 @@ class JuegosController extends Controller
 
         //Subir los archivos del juego e insertar datos basicos en la bbdd
         if($tipo == "creado"){
-            $this->deleteAllFilesCode();
-            $files = ["css"=>[], "js"=>[]];
-            $files["css"] = $this->uploadCode($request, "css", $juego);
-            $files["js"] = $this->uploadCode($request, "js", $juego);
-            $this->uploadCodeHtml($request, $juego, $files);
+            $files = ["css"=>[], "js"=>[]];{}
+            $compile = $this->existeYNoEstaVacio($request->input("compilar"));
+            if($compile){
+                $this->deleteAllFilesCode($juego);
+                $files["css"] = $this->uploadCode($request, "css", $juego);
+                $files["js"] = $this->uploadCode($request, "js", $juego);
+                $this->uploadCodeHtml($request, $juego, $files);
+            }else{
+                //!!!No echo
+            }
         }
 
-        return view('backEnd/develop/juegos/edicion');
+        return redirect()->action('BackEnd\Desarrollador\JuegosController@getEditar', ["slug" => $juego->slug]);
     }
 
     protected function deleteJuego(Request $request, $slug){
@@ -226,9 +236,9 @@ class JuegosController extends Controller
     private function deleteAllFilesCode(Juego $juego){
         $fileSystem = JuegoFileSystem::where("id_juego", $juego->id)->get();
         foreach ($fileSystem as $value) {
-            Storage::delete([$value->ruta, $value->rutaMin]);
+            Storage::disk('local')->delete([$value->ruta, $value->rutaMin]);
+            $value->delete();
         }
-        $fileSystem->delete();
     }
 
     //Guardar el codigo js y css
@@ -237,26 +247,25 @@ class JuegosController extends Controller
 
         $i = 0;
         $arr = [];
-        $path = "public/juegos/$juego->slug/";
-
+        $path = "private/juegos/$juego->slug/";
+        if($tipo == "js")
+        
         while (($content = $request->input($tipo.$i)) !== null) {
             $name = uniqid().".".$tipo;
             $fullPath = $path."$tipo/".$name;
             $fullPathMin = $path."min/$tipo/".$name;
-            $compile = $this->existeYNoEstaVacio($request->input("compilar"));
             if(Storage::disk('local')->put($fullPath, $content)){
-                if($compile){
-                    Storage::disk('local')->put($fullPathMin, $content);
+                if(Storage::disk('local')->put($fullPathMin, $content)){
+                    $fileSystem = new JuegoFileSystem();
+                    $fileSystem->nombre = $request->input("name$tipo".$i);
+                    $fileSystem->id_juego = $juego->id;
+                    $fileSystem->ruta = $fullPath;
+                    $fileSystem->rutaMin = $fullPathMin;
+                    $fileSystem->tipo = $tipo;
+                    $fileSystem->order = $i;
+                    $fileSystem->save();
+                    $arr[] = ["slug" => $juego->slug, "order" => $i];
                 }
-                $fileSystem = new JuegoFileSystem();
-                $fileSystem->nombre = $request->input("name$tipo".$i);
-                $fileSystem->id_juego = $juego->id;
-                $fileSystem->ruta = $fullPath;
-                if($compile) $fileSystem->rutaMin = $fullPathMin;
-                $fileSystem->tipo = $tipo;
-                $fileSystem->order = $i;
-                $fileSystem->save();
-                $arr[] = ["slug" => $juego->slug, "order" => $i];
             }
             $i++;
         }
@@ -265,25 +274,22 @@ class JuegosController extends Controller
 
     //Guardar el codigo html
     private function uploadCodeHtml(Request $request, Juego $juego, $arr){
-        $path = "public/juegos/".$juego->slug."/";
+        $path = "private/juegos/".$juego->slug."/";
         if (($content = $request->input("html")) === null)$content = "";
 
         $name = uniqid().".html";
         $fullPath = $path.$name;
         $fullPathMin = $path."min/".$name;
-        $compile = $this->existeYNoEstaVacio($request->input("compilar"));
 
         if(Storage::disk('local')->put($fullPath, $content)){
-            if($compile){
-                $content = $this->getHtmlFullCode($content, $arr);
-                Storage::disk('local')->put($fullPathMin, $content);
-            }
+            $content = $this->getHtmlFullCode($content, $arr);
+            Storage::disk('local')->put($fullPathMin, $content);
 
             $fileSystem = new JuegoFileSystem();
             $fileSystem->nombre = $request->input("namehtml");
             $fileSystem->id_juego = $juego->id;
             $fileSystem->ruta = $fullPath;
-            if($compile) $fileSystem->rutaMin = $fullPathMin;
+            $fileSystem->rutaMin = $fullPathMin;
             $fileSystem->tipo = "html";
             $fileSystem->order = 0;
             $fileSystem->save();

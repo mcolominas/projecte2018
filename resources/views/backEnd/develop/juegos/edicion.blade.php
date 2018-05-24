@@ -15,6 +15,7 @@
 
 <form method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
+	{{ method_field('PUT') }}
 	<div class="row">
 		<div id="datosJuegos"  class="w-100 mb-2 form-group col-8 ">
 			<div class="w-100">
@@ -134,7 +135,7 @@
 	</div>
 	<hr>
 
-	<div id="creando" class="row d-none">
+	<div id="creando" class="row">
 		<h2 class="text-center w-100">Crea tu propio código</h2>
 		<br/>
 		<div class="col-sm-12 col-lg-4">
@@ -151,18 +152,7 @@
 						<div id="collapsehtml" class="collapse">
 							<div class="card-body">
 								<div class="buttons">
-									@forEach($juego->files as $file)
-									@if($file->tipo == "html")
 
-									<script type="text/javascript">
-										
-										$(function(){
-											
-											systemFiles.add("html", "index", function(){}, false, '<?= $file->content; ?>' );
-										})
-									</script>
-									@endif
-									@endForEach
 								</div>
 							</div>
 						</div>
@@ -185,21 +175,7 @@
 							<div class="card-body">
 								<div class="sortable buttons">
 									<div>
-										@forEach($juego->files as $file)
-										@if($file->tipo == "css")
 
-										<script type="text/javascript">
-
-											$(function(){
-
-												systemFiles.add('<?= $file->tipo; ?>','<?= $file->nombre; ?>' , function(){}, true, '<?= $file->content; ?>' );
-											})
-										</script>
-
-										@endif
-										@endForEach
-
-										
 									</div>
 								</div>
 							</div>
@@ -223,21 +199,6 @@
 							<div class="card-body">
 								<div class="sortable buttons">
 									<div>
-										@forEach($juego->files as $file)
-										@if($file->tipo == "js")
-
-										<script type="text/javascript">
-											
-											console.log( <?=  str_replace( "\n", "\\ \n", $file->content)  ?>)
-											$(function(){
-												systemFiles.add('<?= $file->tipo; ?>','<?= $file->nombre; ?>' , function(){}, true,
-												 );
-
-											})
-										</script>
-										@endif
-										@endForEach
-
 
 									</div>
 								</div>
@@ -321,5 +282,23 @@
 
 @section('scripts')
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
+<script type="text/javascript">
+	$(function(){
+		@forEach($juego->files as $file)
+		var a = "<?= str_replace(["\r\n", "\n", "\r"], "/saltoLnGG", str_replace("\"","'", $file->content)) ?>"
+		@if($file->tipo == "html")
+		systemFiles.add("html", "<?= $file->nombre; ?>", function(){}, false, a.replace("/saltoLnGG","\n"));
+		@else
+		systemFiles.add('<?= $file->tipo; ?>','<?= $file->nombre; ?>' , function(){}, true, a.replace("/saltoLnGG","\n"));
+		@endif
+		@endForEach
 
+		compile();
+
+		@if(!empty($file))
+			mostrarCreado();
+		@endif
+
+	});
+</script>
 @stop

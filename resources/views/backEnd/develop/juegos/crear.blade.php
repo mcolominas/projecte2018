@@ -133,7 +133,7 @@
 
 	</div>
 	<hr>
-	<div id="creando" class="row d-none">
+	<div id="creando" class="row">
 		<h2 class="text-center w-100">Crea tu propio código</h2>
 		<br/>
 		<div class="col-sm-12 col-lg-4">
