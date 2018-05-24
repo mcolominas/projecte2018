@@ -24,7 +24,7 @@
 					<div class="w-100" >
 						<h4><b>	Imagen del producto </b></h4>
 
-						<div class="input-group ">
+						<div class="input-group " style="background-image: url({{$producto->img}})">
 							<div id="image-preview">
 								<label for="img" id="image-label">Escoger imagen</label>
 								<input type="file" class="custom-file-input" name="img" id="img" required/>
@@ -46,21 +46,21 @@
 				</div>
 
 				<!-- Linea vertical para separar -->
-				<div class="col-1" style="border-left:1px solid #000;height:500px"></div>
+				<div id="vertialLine" class="col-1" ></div>
 
 
 				<div class=" col-5">
 					<div class="w-100 mb-3"> 
 						<label>Nombre del producto:</label>
-						<input  name="nombre" placeholder="Nombre " required>
+						<input  name="nombre" placeholder="Nombre " value="{{$producto->nombre}}" required>
 					</div>
 					<div class="w-100 mb-3">
 						<label>Descripción del producto:</label>
-						<textarea class="w-100 d-block" rows="5"  placeholder="Una breve descripción del producto a vender ... " required></textarea>
+						<textarea class="w-100 d-block" rows="5" placeholder="Una breve descripción del producto a vender ... " required>{{$producto->descripcion}}</textarea>
 					</div>
 					<div class="w-100 mb-3">
 						<label>Coste del producto:</label>
-						<input type="number" id="coins" name="coins" value="0" min="0" required>
+						<input type="number" id="coins" name="coins" value="{{$producto->coste}}" min="0" required>
 					</div>
 
 					<input type="submit" class="btn btn-outline-success btn-lg btn-block">

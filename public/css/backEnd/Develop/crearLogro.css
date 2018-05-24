@@ -1,0 +1,25 @@
+#formulario{
+	padding: 15px;
+	background-color: #d7e2ff;
+	border-radius: 35px;
+	box-shadow: 1px 1px  30px #da7400;
+}
+
+input{
+	border-radius: 5px;
+}
+
+h3{
+	margin-left: 41%;
+	text-shadow: 3px 2px 7px black;
+}
+
+p{
+	font-size: 12px;
+	font-weight: bold;
+
+}
+
+b{
+	text-decoration-line: underline;
+}
