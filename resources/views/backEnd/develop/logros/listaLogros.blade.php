@@ -14,7 +14,7 @@
 
 <div class="row">
 	<div class="col-12">
-		<a href="{{ route('desarrollador.crearLogro', ['slugJuego', $slugJuego]) }}" class="btn btn-dark ml-3" type="button">Añadir Logro Nuevo</a>
+		<a href="{{ route('desarrollador.crearLogro', ['slugJuego'=> $slugJuego]) }}" class="btn btn-dark ml-3" type="button">Añadir Logro Nuevo</a>
 	</div>
 	<div class="col-12 mt-3 col-md-10 offset-md-1">
     @if(count($logros)>0)

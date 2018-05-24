@@ -272,6 +272,8 @@
 
 
 @section('scripts')
+<script type="text/javascript" src="{{asset('js/jquery.uploadPreview.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
+<script type="text/javascript">compile()</script>
 
 @stop

@@ -153,11 +153,12 @@
 								<div class="buttons">
 									@forEach($juego->files as $file)
 									@if($file->tipo == "html")
-									
+
 									<script type="text/javascript">
 										
 										$(function(){
-											systemFiles.add("html", "index", function(){}, false, {{ $file->content }});
+											
+											systemFiles.add("html", "index", function(){}, false, '<?= $file->content; ?>' );
 										})
 									</script>
 									@endif
@@ -184,15 +185,21 @@
 							<div class="card-body">
 								<div class="sortable buttons">
 									<div>
-										<a class="list-group-item list-group-item-action p-1 css" tipo="css" href="#css-asd" name="asd" role="tab">asd</a>
-										<div class="absolue-rigth active">
-											<button type="button" data-type="css" class="delete btn btn-link">
-												<i class="material-icons">delete</i>
-											</button>
-											<button type="button" id="btncssasd" data-type="css" class="edit btn btn-link">
-												<i class="material-icons">mode_edit</i>
-											</button>
-										</div>
+										@forEach($juego->files as $file)
+										@if($file->tipo == "css")
+
+										<script type="text/javascript">
+
+											$(function(){
+
+												systemFiles.add('<?= $file->tipo; ?>','<?= $file->nombre; ?>' , function(){}, true, '<?= $file->content; ?>' );
+											})
+										</script>
+
+										@endif
+										@endForEach
+
+										
 									</div>
 								</div>
 							</div>
@@ -215,6 +222,24 @@
 						<div id="collapsejs" class="collapse">
 							<div class="card-body">
 								<div class="sortable buttons">
+									<div>
+										@forEach($juego->files as $file)
+										@if($file->tipo == "js")
+
+										<script type="text/javascript">
+											
+											console.log( <?=  str_replace( "\n", "\\ \n", $file->content)  ?>)
+											$(function(){
+												systemFiles.add('<?= $file->tipo; ?>','<?= $file->nombre; ?>' , function(){}, true,
+												 );
+
+											})
+										</script>
+										@endif
+										@endForEach
+
+
+									</div>
 								</div>
 							</div>
 						</div>

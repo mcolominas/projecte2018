@@ -3,6 +3,7 @@ function Files(){
 }
 
 Files.prototype.add = function(type, name, success, buttons = true, content = "") {
+	console.log(content)	
 	let self = this;
 	try{
 		if(!isset(type)) throw {message: "El tipo de fichero no puede estar vacio."};
@@ -21,6 +22,7 @@ Files.prototype.add = function(type, name, success, buttons = true, content = ""
 
 		let collapse = $("#collapse"+type+" > div > div");
 		let sortableItem = getSortableItem(type, name);
+
 
 		let fileEditor = $("#file-editor > div");
 		let fileEditorItem = getFileEditorItem(type, name, content);
@@ -71,7 +73,6 @@ Files.prototype.add = function(type, name, success, buttons = true, content = ""
 	}
 
 	function getFileEditorItem(type, name, content){
-		console.log(content);
 		let num = $('#collapse' + type + " .buttons").children().length;
 		if(type == "html") num = "";
 		let divParent = $('<div class="tab-pane" id="'+type+'-'+name+'">');
@@ -120,7 +121,7 @@ var systemFiles = new Files();
 
 function compile() {
 	if($("input[name=namehtml]").length == 0)
-	systemFiles.add("html", "index", function(){}, false);
+	systemFiles.add("html", "index", function(){}, false, "");
 	//add events
 	$("#file-menu .sortable" ).on( "sortupdate", function(){
 		updateIframe();
@@ -308,5 +309,3 @@ $('input[name=tipo]').click(function(e){
 	}	
 })
 
-
-compile();
