@@ -17,31 +17,31 @@
 <form method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
 	<div class="row">
-		<h3>CREA TU LOGRO</h3>
+		<h3>EDITA TU LOGRO</h3>
 		<div class="col-8 text-center offset-2 mb-2" id="formulario">
 			<div class="w-100 mb-2"> 
 				<label>Nombre del Logro:</label>
-				<input  name="nombre" placeholder="Nombre " required>
+				<input  name="nombre" placeholder="Nombre " value="{{$logro->nombre}}" required>
 			</div>
 			<div class="w-100 mb-2">
 				<label>Descripción del Logro:</label>
-				<textarea class="w-100 d-block" rows="5"  placeholder="Escriba aquí la descripción del logro  por ejemplo: 5 saltos seguidos" required></textarea>
+				<textarea class="w-100 d-block" rows="5"  placeholder="Escriba aquí la descripción del logro  por ejemplo: 5 saltos seguidos" required>{{$logro->descripcion}}</textarea>
 			</div>
 			<div class="w-100 mb-2">
 				<label>Cantidad de monedas que da:</label>
-				<input type="number" name="coins" value="0" min="0" max="50">
+				<input type="number" name="coins" value="{{$logro->coins}}" min="0" max="50">
 			</div>
 			<div class="w-100 mb-2">
 				<p>*Indique aquí <b>EN SEGUNDOS</b> el tiempo  mínimo y máximo que considere que se puede tardar en conseguir el logro*</p>
 				<label>Tiempo mínimo:</label>
-				<input type="number" min="0" name="tiempoMinimo" required>
+				<input type="number" name="tiempoMinimo" min="0" value="{{$logro->tiempo_minimo}}" required>
 				<label>Tiempo máximo:</label>
-				<input type="number" min="0" name="tiempoMaximo" required>
+				<input type="number" name="tiempoMaximo" min="0"  value="{{$logro->tiempo_maximo}}" required>
 			</div>
 			<div class="w-100 mb-2" >
 				<h4><b>	Imagen del logro </b></h4>
 
-				<div class="input-group ">
+				<div class="input-group " style="background-image: url({{$logro->img}})">
 					<div id="image-preview">
 						<label for="img" id="image-label">Escoger portada</label>
 						<input type="file" class="custom-file-input" name="img" id="img" required/>

@@ -3,6 +3,8 @@
 @section('styles')
 @parent
 <link href="{{ asset('css/backEnd/Develop/crearJuego.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('css/backEnd/Develop/application.css') }}" rel="stylesheet" type="text/css" />
+
 @stop
 
 @section('title')
@@ -88,12 +90,23 @@
 				<h4><b>	Imagen del juego </b></h4>
 				<p>Escoja una imagen que desea aplicar como portada de su juego</p>
 				<div class="input-group mb-5">
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" name="img" id="img" required>
-						<label class="custom-file-label color" for="inputGroupFile02">Imagen</label>
+					<div id="image-preview" style="background-image: url({{$juego->img}})">
+						<label for="img" id="image-label">Escoger portada</label>
+						<input type="file" class="custom-file-input" name="img" id="img" required/>
 					</div>
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$.uploadPreview({
+							    input_field: "#img", // Default: .image-upload
+							    preview_box: "#image-preview",  // Default: .image-preview
+							    label_field: "#image-label",    // Default: .image-label
+							    label_default: "Escoger portada",   // Default: Choose File
+							    label_selected: "Cambiar",  // Default: Change File
+							    no_label: false                 // Default: false
+							});
+						});
+					</script>
 				</div>
-				<img class="w-100" src="{{$juego->img}}">
 
 			</div>
 
@@ -199,6 +212,25 @@
 							<div class="card-body">
 								<div class="sortable buttons">
 									<div>
+<<<<<<< HEAD
+=======
+										@forEach($juego->files as $file)
+										@if($file->tipo == "js")
+
+										<script type="text/javascript">
+											var a = <?= $file->content; ?>;
+											a = a.replace("\"", "\'");
+											console.log(a)
+											$(function(){
+												systemFiles.add('<?= $file->tipo; ?>','<?= $file->nombre; ?>' , function(){}, true,
+												 );
+
+											})
+										</script>
+										@endif
+										@endForEach
+
+>>>>>>> 548a4dc49d3c0179ec538bd5275e7155e7716cad
 
 									</div>
 								</div>
@@ -281,6 +313,7 @@
 
 
 @section('scripts')
+<script type="text/javascript" src="{{asset('js/jquery.uploadPreview.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 <script type="text/javascript">
 	$(function(){

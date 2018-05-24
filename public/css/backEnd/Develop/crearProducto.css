@@ -1,0 +1,28 @@
+#vertialLine{
+	border-left: 2px dotted #0a23e857;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 80px;
+	height: 400px;
+
+}
+
+.row {
+	border-radius: 60px;
+	background-color: #99b6e421;
+}
+
+h3{
+	margin-left: 25%;
+}
+#formulario{
+	font-weight: bold;
+}
+
+#coins{
+	display: inline;
+}
+
+input{
+	border-radius: 5px;
+}
