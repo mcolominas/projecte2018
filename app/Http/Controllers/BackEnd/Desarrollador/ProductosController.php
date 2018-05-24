@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Tienda;
 use App\Models\Juego;
+use Illuminate\Support\Facades\Storage;
 
 class ProductosController extends Controller
 {
@@ -85,7 +86,7 @@ class ProductosController extends Controller
 
 		$producto->save();
 
-		return view('backEnd/develop/productos/edicion');
+		return redirect()->action('BackEnd\Desarrollador\ProductosController@putEditar', ["slugProducto" => $producto->slug]);
 	}
 
 	protected function deleteProducto(Request $request, $slugProducto){

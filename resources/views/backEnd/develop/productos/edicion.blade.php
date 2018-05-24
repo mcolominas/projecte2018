@@ -16,6 +16,7 @@
 
 <form method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
+	{{ method_field('PUT') }}
 	<div class="row">
 		<h3>CREA UN PRODUCTO PARA LA TIENDA</h3>
 		<div class="col-12 text-center mt-4" id="formulario">

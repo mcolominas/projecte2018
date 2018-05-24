@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Logro;
 use App\Models\Juego;
+use Illuminate\Support\Facades\Storage;
 
 class LogrosController extends Controller
 {
@@ -53,8 +54,8 @@ class LogrosController extends Controller
 		$logro->nombre = $request->input("nombre");
 		$logro->descripcion = $request->input("descripcion");
 		$logro->coins = $request->input("coins");
-		$logro->tiempoMinimo = $request->input("tiempoMinimo");
-		$logro->tiempoMaximo = $request->input("tiempoMaximo");
+		$logro->tiempo_minimo = $request->input("tiempoMinimo");
+		$logro->tiempo_maximo = $request->input("tiempoMaximo");
 		$logro->img = request()->file("imagen")->store("public/juegos/$juego->slug/img/logros");
 		$logro->save();
 
@@ -86,8 +87,8 @@ class LogrosController extends Controller
 		$logro->nombre = $request->input("nombre");
 		$logro->descripcion = $request->input("descripcion");
 		$logro->coins = $request->input("coins");
-		$logro->tiempoMinimo = $request->input("tiempoMinimo");
-		$logro->tiempoMaximo = $request->input("tiempoMaximo");
+		$logro->tiempo_minimo = $request->input("tiempoMinimo");
+		$logro->tiempo_maximo = $request->input("tiempoMaximo");
 		if($this->existeYNoEstaVacio($logro->img)){
 			if(Storage::delete($logro->img))
 				$logro->img = request()->file("imagen")->store("public/juegos/$juego->slug/img/logros");
@@ -95,7 +96,7 @@ class LogrosController extends Controller
 
 		$logro->save();
 
-		return view('backEnd/develop/logros/edicion');
+		return redirect()->action('BackEnd\Desarrollador\LogrosController@getEditar', ["slugLogro" => $logro->slug]);
 	}
 
 	protected function deleteLogro(Request $request, $slugLogro){

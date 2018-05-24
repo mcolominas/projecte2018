@@ -16,6 +16,7 @@
 
 <form method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
+	{{ method_field('PUT') }}
 	<div class="row">
 		<h3>EDITA TU LOGRO</h3>
 		<div class="col-8 text-center offset-2 mb-2" id="formulario">
