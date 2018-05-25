@@ -16,8 +16,10 @@
 
 <form method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
+	<div class="row text-center mb-4">
+		<div class="col-12"><h3>CREA UN PRODUCTO PARA EL JUEGO</h3></div>
+	</div>
 	<div class="row">
-		<h3>CREA UN PRODUCTO PARA LA TIENDA</h3>
 		<div class="col-12 text-center mt-4" id="formulario">
 			<div class="row">
 

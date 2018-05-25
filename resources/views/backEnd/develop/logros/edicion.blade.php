@@ -18,7 +18,9 @@
 	{{ csrf_field() }}
 	{{ method_field('PUT') }}
 	<div class="row">
-		<h3>EDITA TU LOGRO</h3>
+		<div class="col-12 text-center mb-4"><h3>EDITA TU LOGRO</h3></div>
+	</div>
+	<div class="row">
 		<div class="col-8 text-center offset-2 mb-2" id="formulario">
 
 			<div class="card border-info mb-3 ">
@@ -50,10 +52,10 @@
 			<div class="w-100 mb-2" >
 				<h4><b>	Imagen del logro </b></h4>
 
-				<div class="input-group " style="background-image: url({{$logro->img}})">
-					<div id="image-preview">
+				<div class="input-group">
+					<div id="image-preview" style="background-image: url({{$logro->img}})">
 						<label for="img" id="image-label">Escoger portada</label>
-						<input type="file" class="custom-file-input" name="imagen" id="img" required/>
+						<input type="file" class="custom-file-input" name="imagen" id="img"/>
 					</div>
 					<script type="text/javascript">
 						$(document).ready(function() {

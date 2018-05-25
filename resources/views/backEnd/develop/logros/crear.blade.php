@@ -16,8 +16,10 @@
 
 <form method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
+	<div class="row text-center mb-4">
+		<div class="col-12"><h3>CREA TU LOGRO</h3></div>
+	</div>
 	<div class="row">
-		<h3>CREA TU LOGRO</h3>
 		<div class="col-8 text-center offset-2 mb-2" id="formulario">
 			<div class="w-100 mb-2"> 
 				<label>Nombre del Logro:</label>

@@ -18,7 +18,10 @@
 	{{ csrf_field() }}
 	{{ method_field('PUT') }}
 	<div class="row">
-		<h3>CREA UN PRODUCTO PARA LA TIENDA</h3>
+		<div class="col-12 text-center mb-4"><h3>CREA UN PRODUCTO PARA EL JUEGO</h3></div>
+	</div>
+	<div class="row">
+		
 		<div class="col-12 text-center mt-4" id="formulario">
 
 
@@ -51,10 +54,10 @@
 					<div class="w-100" >
 						<h4><b>	Imagen del producto </b></h4>
 
-						<div class="input-group " style="background-image: url({{$producto->img}})">
-							<div id="image-preview">
+						<div class="input-group">
+							<div id="image-preview" style="background-image: url({{$producto->img}})">
 								<label for="img" id="image-label">Escoger imagen</label>
-								<input type="file" class="custom-file-input" name="imagen" id="img" required/>
+								<input type="file" class="custom-file-input" name="imagen" id="img"/>
 							</div>
 							<script type="text/javascript">
 								$(document).ready(function() {

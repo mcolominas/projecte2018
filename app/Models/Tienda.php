@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Tienda extends Model
 {
@@ -31,6 +32,10 @@ class Tienda extends Model
         self::creating(function($model){
             $model->hash = $model->generateHash();
             $model->slug = $model->generateSlug();
+        });
+        self::deleting(function($model){
+            if(Storage::disk('local')->exists($model->img)) Storage::delete($model->img);
+            $model->users()->sync([]);
         });
     }
 

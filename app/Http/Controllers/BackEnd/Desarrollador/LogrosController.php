@@ -56,7 +56,7 @@ class LogrosController extends Controller
 		$logro->coins = $request->input("coins");
 		$logro->tiempo_minimo = $request->input("tiempoMinimo");
 		$logro->tiempo_maximo = $request->input("tiempoMaximo");
-		$logro->img = request()->file("imagen")->store("public/juegos/$juego->slug/img/logros");
+		$logro->img = request()->file("imagen")->store("private/juegos/$juego->slug/img/logros");
 		$logro->save();
 
 		return redirect()->action('BackEnd\Desarrollador\LogrosController@putEditar', ["slugLogro" => $logro->slug]);
@@ -66,6 +66,8 @@ class LogrosController extends Controller
 		$logro = Logro::where("slug", $slugLogro)->firstOrFail();
 		$juego = $logro->juego;
 		if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
+
+		$logro->setUrlImagePublic();
 
 		return view('backEnd/develop/logros/edicion', ["logro" => $logro]);
 	}
@@ -87,11 +89,13 @@ class LogrosController extends Controller
 		$logro->nombre = $request->input("nombre");
 		$logro->descripcion = $request->input("descripcion");
 		$logro->coins = $request->input("coins");
+		$logro->estado = "aceptado";
 		$logro->tiempo_minimo = $request->input("tiempoMinimo");
 		$logro->tiempo_maximo = $request->input("tiempoMaximo");
-		if($this->existeYNoEstaVacio($logro->img)){
-			if(Storage::delete($logro->img))
-				$logro->img = request()->file("imagen")->store("public/juegos/$juego->slug/img/logros");
+		if($this->existeYNoEstaVacio(request()->file("imagen"))){
+			if(Storage::disk('local')->exists($logro->img)) Storage::delete($logro->img);
+
+			$logro->img = request()->file("imagen")->store("private/juegos/$juego->slug/img/logros");
 		}
 
 		$logro->save();
@@ -104,8 +108,9 @@ class LogrosController extends Controller
 		$juego = $logro->juego;
 		if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
 
-		if(Storage::delete($logro->img))
-			$logro->delete();
+		if(Storage::disk('local')->exists($logro->img)) Storage::delete($logro->img);
+		
+		$logro->delete();
 
 		return redirect()->action('BackEnd\Desarrollador\LogrosController@getListLogros', ["slugJuego" => $juego->slug]);
 	}

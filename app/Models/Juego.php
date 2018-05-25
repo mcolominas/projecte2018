@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use App\Models\TiendaUser;
+use App\Models\UserLogro;
 
 class Juego extends Model{
     protected $table = 'juegos';
@@ -53,6 +56,25 @@ class Juego extends Model{
         self::creating(function($model){
             $model->slug = $model->generateSlug();
             $model->hash = $model->generateHash();
+        });
+
+        self::deleting(function($model){
+            $model->categorias()->sync([]);
+            $model->plataformas()->sync([]);
+            $model->productos->each(function($producto){
+                TiendaUser::where("id_tienda", $producto->id)->delete();
+            });
+            $model->logros->each(function($logro){
+                UserLogro::where("id_logro", $logro->id)->delete();
+            });
+            
+            $model->comentarios()->delete();
+            $model->reportes()->delete();
+            $model->logros()->delete();
+            $model->productos()->delete();
+            if(Storage::disk('local')->exists("private/juegos/$model->slug"))
+                Storage::disk('local')->deleteDirectory("private/juegos/$model->slug", true);
+            $model->files()->delete();
         });
     }
 

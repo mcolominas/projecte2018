@@ -28,7 +28,8 @@ Files.prototype.add = function(type, name, success, buttons = true, content = ""
 
 		collapse.append(sortableItem);
 		fileEditor.append(fileEditorItem);
-
+		if(type != "html")
+			orderNames(type);
 		success();
 	}catch(err){
 		var divAlert = $("#file-name-modal div[role=alert]");
@@ -73,7 +74,7 @@ Files.prototype.add = function(type, name, success, buttons = true, content = ""
 	}
 
 	function getFileEditorItem(type, name, content){
-		let num = $('#collapse' + type + " .buttons").children().length-1;
+		let num = $('#collapse' + type + " .buttons").children().length;
 		if(type == "html") num = "";
 		let divParent = $('<div class="tab-pane" id="'+type+'-'+name+'">');
 		let inputOculto = $('<input hidden id="'+name+'" value="'+name+'" name="name'+type+num+'">');

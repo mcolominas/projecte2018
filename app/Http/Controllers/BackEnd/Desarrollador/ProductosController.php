@@ -50,7 +50,7 @@ class ProductosController extends Controller
 		$producto->nombre = $request->input("nombre");
 		$producto->descripcion = $request->input("descripcion");
 		$producto->coste = $request->input("coste");
-		$producto->img = request()->file("imagen")->store("public/juegos/$juego->slug/img/productos");
+		$producto->img = request()->file("imagen")->store("private/juegos/$juego->slug/img/productos");
 		$producto->save();
 
 		return redirect()->action('BackEnd\Desarrollador\ProductosController@putEditar', ["slugProducto" => $producto->slug]);
@@ -60,6 +60,7 @@ class ProductosController extends Controller
 		$producto = Tienda::where("slug", $slugProducto)->firstOrFail();
 		$juego = $producto->juego;
 		if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
+		$producto->setUrlImagePublic();
 
 		return view('backEnd/develop/productos/edicion', ["producto" => $producto]);
 	}
@@ -79,9 +80,10 @@ class ProductosController extends Controller
 		$producto->nombre = $request->input("nombre");
 		$producto->descripcion = $request->input("descripcion");
 		$producto->coste = $request->input("coste");
-		if($this->existeYNoEstaVacio($producto->img)){
-			if(Storage::delete($producto->img))
-				$producto->img = request()->file("imagen")->store("public/juegos/$juego->slug/img/productos");
+		if($this->existeYNoEstaVacio(request()->file("imagen"))){
+			if(Storage::disk('local')->exists($producto->img)) Storage::delete($producto->img);
+			
+			$producto->img = request()->file("imagen")->store("private/juegos/$juego->slug/img/productos");
 		}
 
 		$producto->save();
@@ -94,9 +96,10 @@ class ProductosController extends Controller
 		$juego = $producto->juego;
 		if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
 
-		if(Storage::delete($producto->img))
-			$producto->delete();
+		if(Storage::disk('local')->exists($producto->img)) Storage::delete($producto->img);
+		
+		$producto->delete();
 
-		return redirect()->action('BackEnd\Desarrollador\productosController@getListProductos', ["slugJuego" => $juego->slug]);
+		return redirect()->action('BackEnd\Desarrollador\ProductosController@getListProductos', ["slugJuego" => $juego->slug]);
 	}
 }

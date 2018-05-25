@@ -81,7 +81,7 @@ class JuegosController extends Controller
             $this->uploadCodeHtml($request, $juego, $files);
         }
 
-        return redirect()->action('BackEnd\Desarrollador\JuegosController@getList');
+        return redirect()->action('BackEnd\Desarrollador\JuegosController@getEditar', ["slug"=> $juego->slug]);
     }
 
     protected function getEditar(Request $request, $slug){
@@ -203,10 +203,8 @@ class JuegosController extends Controller
     protected function deleteJuego(Request $request, $slug){
         $juego = Juego::where("slug", $slug)->firstOrFail();
         if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
-        //!!!Delete all files (No implementado)
-        //!!!Delere all foreign key (No implementado)
 
-        //$juego->delete();
+        $juego->delete();
         return redirect()->action('BackEnd\Desarrollador\JuegosController@getList');
     }
 
@@ -249,7 +247,6 @@ class JuegosController extends Controller
         $i = 0;
         $arr = [];
         $path = "private/juegos/$juego->slug/";
-        if($tipo == "js")
         
         while (($content = $request->input($tipo.$i)) !== null) {
             $name = uniqid().".".$tipo;
