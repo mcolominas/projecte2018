@@ -12,8 +12,6 @@
 
 @section('content')
 
-
-
 <!-- PUBLICIDAD -->
 <div class="row">
 	<div class="col-12">
@@ -27,25 +25,22 @@
 	<div class="col-12">
 		<!-- El titulo del juego -->
 		<h2 class="col-12 offset-md-1">{{$juego["nombre"]}}</h2>
-		
 		<!-- el IFRAME del JUEGO -->
-		<iframe id="juego" class="col-md-12 "  src="{{$juego['url']}}" onload="resizeIframe(this)">
-		</iframe>
 
+<iframe id="juego" class="col-md-12" src="{{$juego['url']}}" width="100%" frameborder="0" transparency="transparency"></iframe>
 
-
-		<!-- Aquí va la descripción -->
-		<div id="descrip" class="row">
-			<span class="d-flex flex-row flex-nowrap justify-content-around">
-				<div>
-					{{$juego["descripcion"]}}
-				</div>
-				<span data-toggle="modal" data-target="#addReport">
-					<button class="p-0" id="reportar" data-toggle="tooltip" data-placement="top" title="Reportar!" > 
-						<i class="fas fa-ban"></i> 
-					</button>
-				</span>
-			</span>
+<!-- Aquí va la descripción -->
+<div id="descrip" class="row">
+	<span class="d-flex flex-row flex-nowrap justify-content-around">
+		<div>
+			{{$juego["descripcion"]}}
+		</div>
+		<span data-toggle="modal" data-target="#addReport">
+			<button class="p-0" id="reportar" data-toggle="tooltip" data-placement="top" title="Reportar!" > 
+				<i class="fas fa-ban"></i> 
+			</button>
+		</span>
+	</span>
 				<!--
 				<a  href="#" data-toggle="tooltip" data-placement="top" title="No Me Gusta"> 
 					<i id="noMeGusta" class="far fa-thumbs-down"></i> 
@@ -159,9 +154,5 @@
 
 @section("scripts")
 <script type="text/javascript" src="{{asset('js/enviarComentario.js')}}"></script>
-<script>
-  function resizeIframe(obj) {
-    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-  }
-</script>
+
 @endSection
