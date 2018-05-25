@@ -4,7 +4,6 @@
 @parent
 <link href="{{ asset('css/backEnd/Develop/crearJuego.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/backEnd/Develop/application.css') }}" rel="stylesheet" type="text/css" />
-
 @stop
 
 @section('title')
@@ -62,7 +61,7 @@
 				@endif
 				<br/>
 				<label>
-					<input type="radio" name="tipo" value="creado" {{ old('tipo') == "creado" ? "checked" : null }}   required>
+					<input type="radio" name="tipo" value="creado" {{ old('tipo') == "creado" ? "checked" : null }} required>
 					Creado desde la página
 				</label>
 
@@ -219,7 +218,25 @@
 
 		<div id="file-editor" class="col-sm-12 col-lg-8">
 			<div class="tab-content" role="tab-content">
-				
+				@forEach($juego->files as $index=>$file)
+					@if($file->tipo == "html")
+					<div class="tab-pane show active" id="{{$file->tipo}}-{{$file->nombre}}">
+						<input id="{{$file->nombre}}" value="{{$file->nombre}}" name="name{{$file->tipo}}" hidden="">
+						<textarea style="display: none;" type="{{$file->tipo}}" name="{{$file->tipo}}" placeholder="Aquí va tu código js">{{$file->content}}</textarea>
+					</div>
+					<script type="text/javascript">
+						systemFiles.add("html", "index", function(){}, false, false);
+					</script>
+					@else
+					<div class="tab-pane show active" id="{{$file->tipo}}-{{$file->nombre}}">
+						<input id="{{$file->nombre}}" value="{{$file->nombre}}" name="name{{$file->tipo}}{{$index}}" hidden="">
+						<textarea style="display: none;" type="{{$file->tipo}}" name="{{$file->tipo}}{{$index}}" placeholder="Aquí va tu código js">{{$file->content}}</textarea>
+					</div>
+					<script type="text/javascript">
+						systemFiles.add("{{$file->tipo}}", "{{$file->nombre}}", function(){}, false, false);
+					</script>
+					@endif
+				@endForEach
 			</div>
 		</div>
 		<div class="col-sm mt-3">
@@ -294,21 +311,7 @@
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 <script type="text/javascript">
 	$(function(){
-		@forEach($juego->files as $file)
-		var a = "<?= str_replace(["\r\n", "\n", "\r"], "/saltoLnGG", str_replace("\"","'", $file->content)) ?>"
-		@if($file->tipo == "html")
-		systemFiles.add("html", "<?= $file->nombre; ?>", function(){}, false, a.replace("/saltoLnGG","\n"));
-		@else
-		systemFiles.add('<?= $file->tipo; ?>','<?= $file->nombre; ?>' , function(){}, true, a.replace("/saltoLnGG","\n"));
-		@endif
-		@endForEach
-
 		compile();
-
-		@if(count($juego->files) > 0)
-		mostrarCreado();
-		@endif
-
 		$.uploadPreview({
 			input_field: "#img", // Default: .image-upload
 			preview_box: "#image-preview",  // Default: .image-preview
@@ -320,5 +323,4 @@
 
 	});
 </script>
-<?= json_encode($juego) ?>
 @stop

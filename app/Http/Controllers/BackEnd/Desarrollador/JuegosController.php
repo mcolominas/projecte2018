@@ -319,11 +319,17 @@ class JuegosController extends Controller
             $style .= "<link href='".route("storage.codigoJuego",["slug" => $url["slug"], "tipo" => "css", "num" => $url["order"]])."' rel='stylesheet'>";
         }
 
-        $js = "";
+        $js = $this->getJsLibrery();
         foreach ($arr["js"] as $url) {
             $js .= "<script src='".route("storage.codigoJuego",["slug" => $url["slug"], "tipo" => "js", "num" => $url["order"]])."'></script>";
         }
 
         return "<!DOCTYPE html><head>$style</head><body>$html$js</body></html>";
+    }
+    private function getJsLibrery(){
+        $codeJs = "";
+        $codeJs += "<script type='text/javascript' src='/storage/js/jquery'></script>";
+        $codeJs += "<script type='text/javascript' src='/storage/js/getApiJuego'></script>";
+        return $codeJs;
     }
 }

@@ -1,53 +1,48 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## Descripción
+Nuestro poyecto trata de una página web para desarollar y jugar juegos creados mediante javascript.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Los usuarios verán una lista de juegos que habrán creado otras personas y al jugarlos, al estar logeado podrán obtener logros y dinero para comprar articulos de ese juego o cualquier que use el sistema de logros y productos de la pagina, incluso podrás dejar un comentario de que te a parecido el juego.
 
-## About Laravel
+También puedes solicitar ser Developer y crear tus propios juegos y ver como disfruta la gente con ellos.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Nosotros como Administradores controlaremos el uso debido de la página y si hayamos un usuario tóxico o un juego inapropiado, será baneado de la página.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requisitos
+- php 7.0+
+- composer
+- apache
+- mysql
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+## Instalación
+- Clonar repositorio:
+git clone https://github.com/mcolominas/projecte2018.git
 
-## Learning Laravel
+- Acceder a la carpeta:
+cd projecte2018
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+- Instalar el composer:
+composer install
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+- Crear el .env
+cp .env.example .env
 
-## Laravel Sponsors
+- Modificar el .env con la conexión a la BBDD correcta
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+- Generar una Key privada:
+php artisan generate:key
 
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
+- Establecer que se pueda logear por username, modificar el fichero:
+vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php
+y cambiar el contenido del metodo "username()" de:
+return 'email';
+a:
+return 'name';
 
-## Contributing
+- Crear un link simbolico de public/storage a storage/app/public
+php artisan storage:link
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+- Migrar la BBDD:
+php artisan migrate
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+- Dar permisos necesarios a las carpetas "storage" y "bootstrap/cache":
+sudo chown -R www-data storage bootstrap/cache	

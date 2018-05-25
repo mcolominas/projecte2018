@@ -21,6 +21,14 @@ class StorageController extends Controller
 				return Storage::response($logro->img);
 	}
 
+	protected function getJsApiJuego() {
+		return redirect('js/apiJuego.js');
+	}
+
+	protected function getJsJQuery() {
+		return redirect('vendor/jquery/jquery.min.js');
+	}
+
 	protected function getProductoJuego($slug) {
 		if($producto = $this->getProductoPorSlug($slug))
 			if(Storage::disk('local')->exists($producto->img))

@@ -24,8 +24,11 @@ Route::get('/uploads/juegos/portada/{slug}', 'StorageController@getPortadaJuego'
 Route::get('/uploads/juegos/logros/{slug}', 'StorageController@getLogroJuego')->name("storage.logroJuego");
 Route::get('/uploads/juegos/producto/{slug}', 'StorageController@getProductoJuego')->name("storage.productoJuego");
 Route::get('/uploads/juego/{slug}/{tipo}/{num?}', 'StorageController@getCodigoJuego')->name("storage.codigoJuego");
+Route::get('/storage/js/getApiJuego', 'StorageController@getJsApiJuego')->name("storage.jsApiJuego");
+Route::get('/storage/js/jquery', 'StorageController@getJsJQuery')->name("storage.jsJQuery");
 
 
+///storage/js/getApiJuego
 Route::name('perfil')->group(function () {
 	Route::get('/perfil','FrontEnd\PerfilController@getPerfil');
 	Route::post('/perfil','FrontEnd\PerfilController@postCorreo')->name('.datos');

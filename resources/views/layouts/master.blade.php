@@ -20,7 +20,16 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+  
+  <!-- Core JavaScript-->
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
 
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>  
   @section('styles')
   @show
 
@@ -28,7 +37,6 @@
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -63,16 +71,6 @@
 
   @section('modals')
   @show
-
-  <!-- Core JavaScript-->
-  <script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-  crossorigin="anonymous"></script>
-
-  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>  
-
   <script src="{{ asset('vendor/datatables/jquery.dataTables.js') }}"></script>
   <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.js') }}"></script>
 

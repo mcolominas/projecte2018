@@ -2,7 +2,7 @@ function Files(){
 	this.files = {"html": [], "css": [], "js": []};
 }
 
-Files.prototype.add = function(type, name, success, buttons = true, content = "") {
+Files.prototype.add = function(type, name, success, buttons = true, createTextArea = true) {
 	let self = this;
 	try{
 		if(!isset(type)) throw {message: "El tipo de fichero no puede estar vacio."};
@@ -21,13 +21,14 @@ Files.prototype.add = function(type, name, success, buttons = true, content = ""
 
 		let collapse = $("#collapse"+type+" > div > div");
 		let sortableItem = getSortableItem(type, name);
-
-
-		let fileEditor = $("#file-editor > div");
-		let fileEditorItem = getFileEditorItem(type, name, content);
-
 		collapse.append(sortableItem);
-		fileEditor.append(fileEditorItem);
+
+		if(createTextArea){
+			let fileEditor = $("#file-editor > div");
+			let fileEditorItem = getFileEditorItem(type, name);
+			fileEditor.append(fileEditorItem);
+		}
+
 		if(type != "html")
 			orderNames(type);
 		success();
@@ -73,12 +74,12 @@ Files.prototype.add = function(type, name, success, buttons = true, content = ""
 		return divParent;
 	}
 
-	function getFileEditorItem(type, name, content){
+	function getFileEditorItem(type, name){
 		let num = $('#collapse' + type + " .buttons").children().length;
 		if(type == "html") num = "";
 		let divParent = $('<div class="tab-pane" id="'+type+'-'+name+'">');
 		let inputOculto = $('<input hidden id="'+name+'" value="'+name+'" name="name'+type+num+'">');
-		let textarea = $('<textarea type="'+type+'" name="'+type+num+'" placeholder="Aquí va tu código '+type+'" required>'+content+'</textarea>');
+		let textarea = $('<textarea type="'+type+'" name="'+type+num+'" placeholder="Aquí va tu código '+type+'" required></textarea>');
 
 		textarea.keyup(updateIframe);
 		divParent.append(inputOculto)
@@ -122,7 +123,7 @@ var systemFiles = new Files();
 
 function compile() {
 	if($("input[name=namehtml]").length == 0)
-		systemFiles.add("html", "index", function(){}, false, "");
+		systemFiles.add("html", "index", function(){}, false);
 	//add events
 	$("#file-menu .sortable" ).on( "sortupdate", function(){
 		updateIframe();
@@ -166,10 +167,18 @@ function getCssCode(search = "#collapsecss"){
 	return codeCss;
 }
 
+function getJsLibrery(){
+	var codeJs = "";
+	codeJs += "<script type='text/javascript' src='/storage/js/jquery'></script>";
+	codeJs += "<script type='text/javascript' src='/storage/js/getApiJuego'></script>";
+	return codeJs;
+}
+
 function getJsCode(search = "#collapsejs"){
 	var tagStart = "<script>";
 	var tagClose = "</script>\n";
 	var codeJs = "";
+	codeJs += getJsLibrery();
 	$(search + " a").each(function(index) {
 		var id = $(this).attr("href");
 		codeJs += tagStart + $(id + " textarea").val() + tagClose;
@@ -190,7 +199,23 @@ function changeTab(e){
 	target.addClass("show active");
 }
 
+let blockIframe = false;
+let entraIframe = false;
 function updateIframe(e){
+	//Limitar el uso de del metodo cada 500 milisegundos
+	if(blockIframe){
+		entraIframe = true;
+		return;
+	}
+	blockIframe = true;
+	setTimeout(function(){
+		blockIframe = false;
+		if(entraIframe){
+			updateIframe(null);
+			entraIframe = false;
+		}
+	}, 2000);
+
 	var frame = document.getElementById("code");
 	var code = frame.contentDocument || frame.contentWindow.document;
 
@@ -282,6 +307,7 @@ function realizarSubmit(e,object,tipo,name){
 }	
 
 }
+
 $('input[name=tipo]').click(function(e){
 	//MUESTRA HTML,CSS,JS
 	if(e.target.value == "creado" && e.target.checked == true){
