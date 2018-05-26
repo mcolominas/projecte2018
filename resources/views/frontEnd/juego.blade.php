@@ -24,31 +24,25 @@
 <div class="row">
 	<div class="col-12">
 		<!-- El titulo del juego -->
-		<h2 class="col-12 offset-md-1">{{$juego["nombre"]}}</h2>
+		<h2>{{$juego["nombre"]}}</h2>
+
 		<!-- el IFRAME del JUEGO -->
+		<iframe id="juego" src="{{$juego['url']}}" height="750px" width="100%" onload="resizeIframe(this)"></iframe>
 
-<iframe id="juego" class="col-md-12" src="{{$juego['url']}}" width="100%" frameborder="0" transparency="transparency"></iframe>
-
-<!-- Aquí va la descripción -->
-<div id="descrip" class="row">
-	<span class="d-flex flex-row flex-nowrap justify-content-around">
-		<div>
-			{{$juego["descripcion"]}}
-		</div>
-		<span data-toggle="modal" data-target="#addReport">
-			<button class="p-0" id="reportar" data-toggle="tooltip" data-placement="top" title="Reportar!" > 
-				<i class="fas fa-ban"></i> 
-			</button>
-		</span>
-	</span>
-				<!--
-				<a  href="#" data-toggle="tooltip" data-placement="top" title="No Me Gusta"> 
-					<i id="noMeGusta" class="far fa-thumbs-down"></i> 
-				</a>
-				<a  href="#" data-toggle="tooltip" data-placement="top" title="Me Gusta"> 
-					<i id="meGusta" class="far fa-thumbs-up"></i> 
-				</a>
-			-->
+		<!-- Aquí va la descripción -->
+		<div id="descrip" class="d-flex flex-row flex-nowrap justify-content-between">
+			<div>{{$juego["descripcion"]}}</div>
+			<div data-toggle="modal" data-target="#addReport">
+				<button class="p-0" id="reportar" data-toggle="tooltip" data-placement="top" title="Reportar!" > 
+					<i class="fas fa-ban"></i> 
+				</button>
+			</div>
+			<!-- <a  href="#" data-toggle="tooltip" data-placement="top" title="No Me Gusta"> 
+				<i id="noMeGusta" class="far fa-thumbs-down"></i> 
+			</a>
+			<a  href="#" data-toggle="tooltip" data-placement="top" title="Me Gusta"> 
+				<i id="meGusta" class="far fa-thumbs-up"></i> 
+			</a> -->
 		</div>
 	</div>
 </div>
@@ -154,5 +148,10 @@
 
 @section("scripts")
 <script type="text/javascript" src="{{asset('js/enviarComentario.js')}}"></script>
-
+<script type="text/javascript">
+	function resizeIframe(e) {
+		var innerDoc = e.contentDocument || e.contentWindow.document;
+		e.height = innerDoc.body.offsetHeight + 2;
+	}
+</script>
 @endSection

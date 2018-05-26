@@ -4,8 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use App\Models\TiendaUser;
-use App\Models\UserLogro;
+use App\Models\UserJugando;
+use App\Models\JuegoPlataforma;
+use App\Models\JuegoCategoria;
+use App\Models\JuegoFileSystem;
+use App\Models\Logro;
+use App\Models\Tienda;
+use App\Models\Reporte;
+use App\Models\Comentario;
 
 class Juego extends Model{
     protected $table = 'juegos';
@@ -59,22 +65,33 @@ class Juego extends Model{
         });
 
         self::deleting(function($model){
-            $model->categorias()->sync([]);
-            $model->plataformas()->sync([]);
-            $model->productos->each(function($producto){
-                TiendaUser::where("id_tienda", $producto->id)->delete();
+            UserJugando::where("id_juego", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
             });
-            $model->logros->each(function($logro){
-                UserLogro::where("id_logro", $logro->id)->delete();
+            JuegoPlataforma::where("id_juego", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
             });
-            
-            $model->comentarios()->delete();
-            $model->reportes()->delete();
-            $model->logros()->delete();
-            $model->productos()->delete();
+            JuegoCategoria::where("id_juego", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
+            });
+            JuegoFileSystem::where("id_juego", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
+            });
+            Logro::where("id_juego", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
+            });
+            Tienda::where("id_juego", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
+            });
+            Reporte::where("id_juego", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
+            });
+            Comentario::where("id_juego", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
+            });
+
             if(Storage::disk('local')->exists("private/juegos/$model->slug"))
                 Storage::disk('local')->deleteDirectory("private/juegos/$model->slug", true);
-            $model->files()->delete();
         });
     }
 

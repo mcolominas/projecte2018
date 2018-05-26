@@ -1,4 +1,4 @@
-const servidor = "http://127.0.0.1:8000/api/";
+const servidor = document.location.origin+"/api/";
 
 var hash,url,comentario,params,slug;
 

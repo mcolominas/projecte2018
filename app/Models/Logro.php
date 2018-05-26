@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use App\Models\UserLogro;
 
 class Logro extends Model
 {
@@ -37,8 +38,10 @@ class Logro extends Model
         });
 
         self::deleting(function($model){
+            UserLogro::where("id_logro", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
+            });
             if(Storage::disk('local')->exists($model->img)) Storage::delete($model->img);
-            $model->users()->sync([]);
         });
     }
 

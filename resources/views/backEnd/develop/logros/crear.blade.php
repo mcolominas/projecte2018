@@ -36,9 +36,9 @@
 			<div class="w-100 mb-2">
 				<p>*Indique aquí <b>EN SEGUNDOS</b> el tiempo  mínimo y máximo que considere que se puede tardar en conseguir el logro*</p>
 				<label>Tiempo mínimo:</label>
-				<input type="number" min="0" name="tiempoMinimo" required>
+				<input type="number" min="0" value="0" name="tiempoMinimo" required>
 				<label>Tiempo máximo:</label>
-				<input type="number" min="0" name="tiempoMaximo" required>
+				<input type="number" min="0" value="0" name="tiempoMaximo" required>
 			</div>
 			<div class="w-100 mb-2" >
 				<h4><b>	Imagen del logro </b></h4>
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 
-			<input type="submit" class="btn btn-outline-success btn-lg btn-block">
+			<input type="submit" value="Crear" class="btn btn-outline-success btn-lg btn-block">
 		</div>
 
 	</div>

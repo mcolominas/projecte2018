@@ -72,7 +72,7 @@
 				</div>
 			</div>
 
-			<input type="submit" class="btn btn-outline-success btn-lg btn-block">
+			<input type="submit" value="Actualizar" class="btn btn-outline-success btn-lg btn-block">
 		</div>
 
 	</div>

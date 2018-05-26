@@ -39,7 +39,14 @@ class Comentario extends Model
         self::creating(function($model){
             $model->hash = $model->generateHash();
         });
+
+        self::deleting(function($model){
+            Comentario::where("id_comentario", $model->id)->get()->each(function($relacion){
+                $relacion->delete();
+            });
+        });
     }
+
 
     private function generateHash(){
         do{

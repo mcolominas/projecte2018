@@ -77,7 +77,7 @@
 
 				</div>
 
-				<input type="submit" class="btn btn-outline-success btn-lg btn-block w-50 mx-auto ">
+				<input type="submit" value="Actualizar" class="btn btn-outline-success btn-lg btn-block w-50 mx-auto ">
 			</div>
 		</div>
 

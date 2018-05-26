@@ -66,7 +66,7 @@
 					</div>
 				</div>
 
-				<input type="submit" class="btn btn-outline-success btn-lg btn-block w-50 mx-auto mt-4">
+				<input type="submit" value="Crear" class="btn btn-outline-success btn-lg btn-block w-50 mx-auto mt-4">
 			</div>
 		</div>
 
