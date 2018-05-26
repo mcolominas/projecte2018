@@ -4,6 +4,7 @@
 @parent
 <link href="{{ asset('css/backEnd/Develop/crearJuego.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/backEnd/Develop/application.css') }}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 @stop
 
 @section('title')
@@ -75,6 +76,28 @@
 		</div>
 
 		<div class="col-4">
+			<div class="w-100 mb-2" > 
+				<h4><b>	Descargas </b></h4>
+				<div>
+					<b>Quieres utilizar nuestro sistema de logros y productos?</b><br>
+					<ul>
+						<li class="mt-1"><a class="btn btn-info px-2 py-0" href="{{ env('APP_URL') }}/documentacion/apiJuegoPorAjax" download>Descargar la guía AJAX.</a></li>
+					</ul>
+				</div>
+				<div>
+					<b>Si su juego admite JS puede descargar nuestra API de JS</b><br>
+					<ul>
+						<li class="mt-1"><a class="btn btn-info px-2 py-0" href="{{ env('APP_URL') }}/documentacion/apiJuegoPorJs" download>Descargar la guía.</a></li>
+						<li class="mt-1"><button class="btn btn-info px-2 py-0" type="button" data-toggle="collapse" data-target="#importarJSApi" aria-expanded="false" aria-controls="importarJSApi">Importar</button> | <a class="btn btn-info px-2 py-0" href="{{ env('APP_URL') }}/js/apiJuego.js" download>Descargar la API.</a></li>
+						<div class="collapse" id="importarJSApi">
+							<div class="card card-body mt-2 p-3">
+								&lt;script type="text/javascript" src="{{ env('APP_URL') }}/js/apiJuego.js"&gt;&lt;/script&gt;
+							</div>
+						</div>
+					</ul>
+				</div>
+			</div>
+
 			<div class="w-100 mb-2" > 
 				<h4><b>	Información Básica </b></h4>
 				<div class="input-group mb-2">
@@ -219,23 +242,23 @@
 		<div id="file-editor" class="col-sm-12 col-lg-8">
 			<div class="tab-content" role="tab-content">
 				@forEach($juego->files as $index=>$file)
-					@if($file->tipo == "html")
-					<div class="tab-pane show active" id="{{$file->tipo}}-{{$file->nombre}}">
-						<input id="{{$file->nombre}}" value="{{$file->nombre}}" name="name{{$file->tipo}}" hidden="">
-						<textarea style="display: none;" type="{{$file->tipo}}" name="{{$file->tipo}}" placeholder="Aquí va tu código js">{{$file->content}}</textarea>
-					</div>
-					<script type="text/javascript">
-						systemFiles.add("html", "index", function(){}, false, false);
-					</script>
-					@else
-					<div class="tab-pane show active" id="{{$file->tipo}}-{{$file->nombre}}">
-						<input id="{{$file->nombre}}" value="{{$file->nombre}}" name="name{{$file->tipo}}{{$index}}" hidden="">
-						<textarea style="display: none;" type="{{$file->tipo}}" name="{{$file->tipo}}{{$index}}" placeholder="Aquí va tu código js">{{$file->content}}</textarea>
-					</div>
-					<script type="text/javascript">
-						systemFiles.add("{{$file->tipo}}", "{{$file->nombre}}", function(){}, false, false);
-					</script>
-					@endif
+				@if($file->tipo == "html")
+				<div class="tab-pane" id="{{$file->tipo}}-{{$file->nombre}}">
+					<input id="{{$file->nombre}}" value="{{$file->nombre}}" name="name{{$file->tipo}}" hidden="">
+					<textarea type="{{$file->tipo}}" name="{{$file->tipo}}" placeholder="Aquí va tu código js">{{$file->content}}</textarea>
+				</div>
+				<script type="text/javascript">
+					systemFiles.add("html", "index", function(){}, false, $("#{{$file->tipo}}-{{$file->nombre}} textarea"));
+				</script>
+				@else
+				<div class="tab-pane" id="{{$file->tipo}}-{{$file->nombre}}">
+					<input id="{{$file->nombre}}" value="{{$file->nombre}}" name="name{{$file->tipo}}{{$index}}" hidden="">
+					<textarea type="{{$file->tipo}}" name="{{$file->tipo}}{{$index}}" placeholder="Aquí va tu código js">{{$file->content}}</textarea>
+				</div>
+				<script type="text/javascript">
+					systemFiles.add("{{$file->tipo}}", "{{$file->nombre}}", function(){}, false, $("#{{$file->tipo}}-{{$file->nombre}} textarea"));
+				</script>
+				@endif
 				@endForEach
 			</div>
 		</div>
@@ -243,7 +266,7 @@
 			<iframe id="code"></iframe>
 		</div>
 	</div>
-	
+
 
 </form>
 @stop
@@ -308,11 +331,17 @@
 
 @section('scripts')
 <script type="text/javascript" src="{{asset('js/jquery.uploadPreview.min.js') }}"></script>
-<script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 <script type="text/javascript">
-	$(function(){
-		compile();
-		$.uploadPreview({
+	compile();
+
+	@if($juego->files)
+	mostrarCreado();
+	updateIframe(null);
+	@else
+	mostrarUrl();
+	@endif
+
+	$.uploadPreview({
 			input_field: "#img", // Default: .image-upload
 			preview_box: "#image-preview",  // Default: .image-preview
 			label_field: "#image-label",    // Default: .image-label
@@ -321,6 +350,39 @@
 			no_label: false                 // Default: false
 		});
 
-	});
+	$('input[name=tipo]').click(function(e){
+		//MUESTRA HTML,CSS,JS
+		if(e.target.value == "creado"){
+			mostrarCreado();
+		}
+		//MUESTRA INPUT URL
+		else if(e.target.value == "url"){
+			mostrarUrl();
+		}	
+	})
+
+	function mostrarUrl(){
+		$('#creando').hide();
+		$('#creando textarea').removeAttr('required');
+
+		$('#urlExterna').attr('required');
+
+		$('#urlExterna').show();
+		$('input[name=compilar').hide();
+
+		$("input[value=url]").prop("checked", true);
+	}
+
+	function mostrarCreado(){
+		$('#urlExterna').hide()
+		$('#urlExterna').removeAttr('required');
+
+		$('#creando textarea').attr('required');
+
+		$('#creando').show();
+		$('input[name=compilar').show();
+
+		$("input[value=creado]").prop("checked", true);
+	}
 </script>
 @stop

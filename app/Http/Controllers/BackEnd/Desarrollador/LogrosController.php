@@ -54,6 +54,7 @@ class LogrosController extends Controller
 		$logro->nombre = $request->input("nombre");
 		$logro->descripcion = $request->input("descripcion");
 		$logro->coins = $request->input("coins");
+		$logro->estado = "aceptado";
 		$logro->tiempo_minimo = $request->input("tiempoMinimo");
 		$logro->tiempo_maximo = $request->input("tiempoMaximo");
 		$logro->img = request()->file("imagen")->store("private/juegos/$juego->slug/img/logros");
@@ -89,7 +90,6 @@ class LogrosController extends Controller
 		$logro->nombre = $request->input("nombre");
 		$logro->descripcion = $request->input("descripcion");
 		$logro->coins = $request->input("coins");
-		$logro->estado = "aceptado";
 		$logro->tiempo_minimo = $request->input("tiempoMinimo");
 		$logro->tiempo_maximo = $request->input("tiempoMaximo");
 		if($this->existeYNoEstaVacio(request()->file("imagen"))){

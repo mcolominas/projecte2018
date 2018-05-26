@@ -13,7 +13,7 @@ Nosotros como Administradores controlaremos el uso debido de la página y si hay
 - apache
 - mysql
 
-## Instalación
+## Instalación (Linux)
 - Clonar repositorio:
 git clone https://github.com/mcolominas/projecte2018.git
 
@@ -23,10 +23,10 @@ cd projecte2018
 - Instalar el composer:
 composer install
 
-- Crear el .env
+- Crear el .env:
 cp .env.example .env
 
-- Modificar el .env con la conexión a la BBDD correcta
+- Modificar el .env con la conexión a la BBDD correcta.
 
 - Generar una Key privada:
 php artisan generate:key
@@ -38,7 +38,7 @@ return 'email';
 a:
 return 'name';
 
-- Crear un link simbolico de public/storage a storage/app/public
+- Crear un link simbolico de public/storage a storage/app/public:
 php artisan storage:link
 
 - Migrar la BBDD:

@@ -328,8 +328,8 @@ class JuegosController extends Controller
     }
     private function getJsLibrery(){
         $codeJs = "";
-        $codeJs += "<script type='text/javascript' src='/storage/js/jquery'></script>";
-        $codeJs += "<script type='text/javascript' src='/storage/js/getApiJuego'></script>";
+        $codeJs .= "<script type='text/javascript' src='/vendor/jquery/jquery.min.js'></script>";
+        $codeJs .= "<script type='text/javascript' src='/js/apiJuego.js'></script>";
         return $codeJs;
     }
 }

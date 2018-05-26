@@ -1,0 +1,78 @@
+@url https://mcolominas.cf/GameWorld/api/juego/getInfoUser
+@tipo = POST
+@description = Obtener datos basicos del usuario que ha iniciado sesion en la pagina web
+@return Array
+	opcion1: ["status": 0]
+	opcion2: ["status": 1, 
+			  "datos": ["nombre": String, 
+					    "coins": Integer
+					   ]
+			 ]
+
+
+@url https://mcolominas.cf/GameWorld/api/juego/iniciarPartida
+@tipo = POST
+@description = Inicia la partida de un jugador
+@params hash = String, Hash del juego
+@return Array
+	opcion1: ["status": 0]
+	opcion2: ["status": 1]
+
+
+@url https://mcolominas.cf/GameWorld/api/juego/finalizarPartida
+@tipo = POST
+@description = Finaliza la partida de un jugador
+@params hash = String, Hash del juego
+@return Array
+	opcion1: ["status": 0]
+	opcion2: ["status": 1]
+
+
+@url https://mcolominas.cf/GameWorld/api/juego/getLogros
+@tipo = POST
+@description = Obtener todos los logros del juego
+@params hash = String, Hash del juego
+@return Array
+	opcion1: ["status": 0]
+	opcion2: ["status": 1,
+			  "logros": ["codigo": String,
+						 "consegido": Integer (0|1),
+						 "coins": Integer,
+						 "descripcion": String,
+						 "img": String,
+						 "nombre": String]
+			 ]
+
+@url https://mcolominas.cf/GameWorld/api/juego/addLogro
+@tipo = POST
+@description = Añade 1 logro a un jugador
+@params hash = String, Hash del logro
+@return Array
+	opcion1: ["status": 0]
+	opcion2: ["status": 1, "codigo": String]
+
+
+@url https://mcolominas.cf/GameWorld/api/juego/getProductos
+@tipo = POST
+@description = Obtener todos los productos del juego
+@params hash = String, Hash del juego
+@return Array
+	opcion1: ["status": 0]
+	opcion2: ["status": 1,
+			  "logros": ["hash": String,
+						 "codigo": String,
+						 "consegido": Integer (0|1),
+						 "coste": Integer,
+						 "descripcion": String,
+						 "img": String,
+						 "nombre": String]
+			  ]
+
+
+@url https://mcolominas.cf/GameWorld/api/juego/comprar
+@tipo = POST
+@description = Añade el producto comprado del jugador
+@params hash = String, Hash del producto
+@return Array
+	opcion1: ["status": 0]
+	opcion2: ["status": 1]

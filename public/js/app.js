@@ -2,6 +2,7 @@ function Files(){
 	this.files = {"html": [], "css": [], "js": []};
 }
 
+//createTextArea true|jquery object
 Files.prototype.add = function(type, name, success, buttons = true, createTextArea = true) {
 	let self = this;
 	try{
@@ -23,10 +24,13 @@ Files.prototype.add = function(type, name, success, buttons = true, createTextAr
 		let sortableItem = getSortableItem(type, name);
 		collapse.append(sortableItem);
 
-		if(createTextArea){
+		if(createTextArea === true){
 			let fileEditor = $("#file-editor > div");
 			let fileEditorItem = getFileEditorItem(type, name);
 			fileEditor.append(fileEditorItem);
+		}else if(typeof(createTextArea) == "object"){
+			createTextArea.keyup(updateIframe);
+			createTextArea.keydown(detectTab);
 		}
 
 		if(type != "html")
@@ -82,6 +86,7 @@ Files.prototype.add = function(type, name, success, buttons = true, createTextAr
 		let textarea = $('<textarea type="'+type+'" name="'+type+num+'" placeholder="Aquí va tu código '+type+'" required></textarea>');
 
 		textarea.keyup(updateIframe);
+		textarea.keydown(detectTab);
 		divParent.append(inputOculto)
 		divParent.append(textarea);
 
@@ -115,10 +120,6 @@ Files.prototype.add = function(type, name, success, buttons = true, createTextAr
 	}
 };
 
-Files.prototype.update = function(type, name, success){
-
-}
-
 var systemFiles = new Files();
 
 function compile() {
@@ -148,7 +149,6 @@ function compile() {
 		})
 
 	});
-	mostrarUrl();
 };
 
 function getHtmlCode(search = "#collapsehtml"){
@@ -169,8 +169,8 @@ function getCssCode(search = "#collapsecss"){
 
 function getJsLibrery(){
 	var codeJs = "";
-	codeJs += "<script type='text/javascript' src='/storage/js/jquery'></script>";
-	codeJs += "<script type='text/javascript' src='/storage/js/getApiJuego'></script>";
+	codeJs += "<script type='text/javascript' src='/vendor/jquery/jquery.min.js'></script>";
+	codeJs += "<script type='text/javascript' src='/js/apiJuego.js'></script>";
 	return codeJs;
 }
 
@@ -202,7 +202,7 @@ function changeTab(e){
 let blockIframe = false;
 let entraIframe = false;
 function updateIframe(e){
-	//Limitar el uso de del metodo cada 500 milisegundos
+	//Limitar el uso de del metodo cada 2 segundos
 	if(blockIframe){
 		entraIframe = true;
 		return;
@@ -211,8 +211,8 @@ function updateIframe(e){
 	setTimeout(function(){
 		blockIframe = false;
 		if(entraIframe){
-			updateIframe(null);
 			entraIframe = false;
+			updateIframe(null);
 		}
 	}, 2000);
 
@@ -222,6 +222,28 @@ function updateIframe(e){
 	code.open();
 	code.writeln(getHtmlCode() + getCssCode()+ getJsCode() + "");
 	code.close();
+}
+
+function detectTab(e){
+	if(e.keyCode === 9) { // tab was pressed
+        // get caret position/selection
+        var start = this.selectionStart;
+        var end = this.selectionEnd;
+
+        var $this = $(this);
+        var value = $this.val();
+
+        // set textarea value to: text before caret + tab + text after caret
+        $this.val(value.substring(0, start)
+                    + "\t"
+                    + value.substring(end));
+
+        // put caret at right position again (add one for the tab)
+        this.selectionStart = this.selectionEnd = start + 1;
+
+        // prevent the focus lose
+        e.preventDefault();
+    }
 }
 
 //Open modals
@@ -283,62 +305,23 @@ function removeFile(type,name){
 	
 }
 
-
 function realizarSubmit(e,object,tipo,name){
-
-	
 	var valor = $('#file-name-edit-modal #file-name');
 
 	if($('[name='+valor.val()+']').length > 0){
 		alert('Ese nombre ya existe')
 		return;
 	}else{
-
 		object.attr('name',valor.val())
 		object.text(valor.val())
 
-	//ordena los textareas
-	orderNames(tipo)
+		//ordena los textareas
+		orderNames(tipo)
 
-	object.attr('href','#'+tipo+'-'+object.attr('name'))
+		object.attr('href','#'+tipo+'-'+object.attr('name'))
 
-	valor.val("")
-	$('#file-name-edit-modal').modal('hide');
-}	
-
-}
-
-$('input[name=tipo]').click(function(e){
-	//MUESTRA HTML,CSS,JS
-	if(e.target.value == "creado" && e.target.checked == true){
-		mostrarCreado();
-	}
-	//MUESTRA INPUT URL
-	else if(e.target.value == "url" && e.target.checked == true){
-		mostrarUrl();
+		valor.val("")
+		$('#file-name-edit-modal').modal('hide');
 	}	
-})
-
-function mostrarUrl(){
-	$('#creando').hide();
-	$('#creando textarea').removeAttr('required');
-
-	$('#urlExterna').attr('required');
-
-	$('#urlExterna').show();
-	$('input[name=compilar').hide();
-
-	$("input[value=url]").prop("checked", true);
-}
-function mostrarCreado(){
-	$('#urlExterna').hide()
-	$('#urlExterna').removeAttr('required');
-
-	$('#creando textarea').attr('required');
-
-	$('#creando').show();
-	$('input[name=compilar').show();
-
-	$("input[value=creado]").prop("checked", true);
 }
 

@@ -1,0 +1,213 @@
+Nota: En caso de estar no estar logeado se le asignara de nombre invitado, se le daran 0 coins y no podra recibir ningun logro ni comprar articulos.
+
+--- Estructuras de datos ---
+Tienda:
+	hash: String
+	codigo: String
+	consegido: Integer (0|1)
+	coste: Integer
+	descripcion: String
+	img: String
+	nombre: String
+
+Logros:
+	codigo: String
+	consegido: Integer (0|1)
+	coins: Integer
+	descripcion: String
+	img: String
+	nombre: String
+
+--- Objetos ---
+Objeto Usuario:
+	@constructor
+	@param callback = funcion callback que se llama cuando los coins se han modificado (opcional), recibe como parametro la cantidad de dinero despues del cambio.
+	constructor(callback = null)
+
+	@method cargar = obtiene todos los datos del usuario
+	@param success = funcion callback que se llama cuando se han obtenido todos los datos.
+	cargar(success)
+
+	@method setNombre = almacena el nombre del usuario
+	@param nombre = nombre del usuario
+	setNombre(nombre)
+
+	@method setNombre = almacena el nombre del usuario
+	@return devuelve el nombre del usaurio
+	getNombre()
+
+	@method setCoins = almacena los coins del usuario
+	@param coins = coins del usuario
+	setCoins(coins)
+
+	@method addCoins = agrega coins al usuario
+	@param coins = coins del usuario
+	addCoins(coins)
+
+	@method removeCoins = quita coins al usuario
+	@param coins = coins del usuario
+	removeCoins(coins)
+
+	@method getCoins = obtener los cois del usuario
+	@return devuelve los coins que dispone el usuario
+	getCoins()
+
+	@method isConectado = obtener si el usuario se encuentra conectado
+	@return true | false
+	isConectado()
+
+Objeto Juego:
+	@constructor
+	@param hash = hash del juego
+	constructor(hash):
+
+	@method iniciarPartida = Indica que se ha empezado la partida
+	@param success = funcion callback que se llama cuando se han obtenido todos los datos.
+	@param fail = funcion callback que se llama cuando no se han obtenido los datos.
+	iniciarPartida(success, fail)
+
+	@method finalizarPartida = Indica que se ha finalizado la partida
+	@param success = funcion callback que se llama cuando se han obtenido todos los datos.
+	@param fail = funcion callback que se llama cuando no se han obtenido los datos.
+	finalizarPartida(success, fail)
+
+Objeto Logros:
+	@constructor
+	@param user = objeto Usuario
+	constructor(user):
+
+	@method cargar = obtiene todos los datos de los logros
+	@param juego = objeto Juego
+	@param success = funcion callback que se llama cuando se han obtenido todos los datos.
+	@param fail = funcion callback que se llama cuando no se han obtenido los datos.
+	cargar(juego, success, fail)
+
+	@method addLogro = añade un logro al jugador
+	@param hash = hash del logro que se desea comprar
+	@param success = funcion callback que se llama cuando se han obtenido todos los datos, recibe como parametro el logro.
+	@param fail = funcion callback que se llama cuando no se han obtenido los datos, recibe como parametro el logro.
+	addLogro(hash, success, fail)
+
+	@method setLogros = almacena los logros
+	@param logros = array de logros
+	setLogros(logros)
+
+	@method getLogros = devuelve los logros
+	@return array de logros
+	getLogros()
+
+	@method setLogro = almacena un logro en la posicion indicada
+	@param index = index de la posicion
+	@param logro = array con la informacion del logro que se desea guardar
+	setLogro(index, logro)
+
+	@method getLogro = devuelve un logro en la posicion indicada
+	@param index = index de la posicion
+	@return array con la informacion del logro
+	getLogro(index)
+
+	@method getIndex = devuelve el index de un logro en especifico
+	@param codigo = codigo del logro
+	@return index de la posicion del logro | -1 si no se ha encontrado
+	getIndex(codigo)
+
+	@method getCantLogros = devuelve al cantidad de logros que el juego tiene
+	@return cantidad de logros que el juego tiene
+	getCantLogros()
+
+Objeto Tienda:
+	@constructor
+	@param user = objeto Usuario
+	constructor(user):
+
+	@method cargar = obtiene todos los datos de los productos
+	@param juego = objeto Juego
+	@param success = funcion callback que se llama cuando se han obtenido todos los datos.
+	@param fail = funcion callback que se llama cuando no se han obtenido los datos.
+	cargar(juego, success, fail)
+
+	comprar = compra un item de la tienda
+	codigo = codigo del item que se desea comprar
+	success = funcion callback que se llama cuando se han obtenido todos los datos, recibe como parametro el producto.
+	fail = funcion callback que se llama cuando no se han obtenido los datos, recibe como parametro el producto.
+	comprar(codigo, success, fail)
+
+	@method setProductos = almacena los productos
+	@param productos = array de productos
+	setProductos(productos)
+
+	@method getProductos = devuelve los productos
+	@return array de productos
+	getProductos()
+
+	@method setProducto = almacena un producto en la posicion indicada
+	@param index = index de la posicion
+	@param producto = array con la informacion del producto que se desea guardar
+	setProducto(index, producto)
+
+	@method getProducto = devuelve un producto en la posicion indicada
+	@param index = index de la posicion
+	@return array con la informacion del producto
+	getProducto(index)
+
+	@method getProductoByCodigo = devuelve un producto que contenga el codigo indicado
+	@param codigo = codigo del producto
+	@return array con la informacion del producto
+	getProductoByCodigo(codigo)
+
+	@method getIndex = devuelve el index de un producto en especifico
+	@param codigo = codigo del producto
+	@return index de la posicion del producto | -1 si no se ha encontrado
+	getIndex(codigo)
+
+	@method getCantProductos = devuelve al cantidad de productos que el juego tiene
+	@return cantidad de productos que el juego tiene
+	getCantProductos()
+
+---- Ejemplo basico de funcionamiento -----
+Instanciar los objetos:
+
+var juego = new Juego("hash_del_juego");
+var usuario = new Usuario(eventCambioDinero);
+var tienda = new Tienda(usuario);
+var logros = new Logros(usuario);
+------------------------------------------------------
+Cargar los datos:
+
+loadData(function(){ //se han cargado los datos correctamente
+	//Iniciar el juego
+	//...
+
+}, function(){ //Error al cargar los datos
+	alert("No se han podido obtener los datos del juego.");
+});
+
+function loadData(success, fail){
+	usuario.cargar(function(){
+		tienda.cargar(juego, function(){
+			crearTabla();
+			logros.cargar(juego, function(){
+				success();
+			}, function(){fail();});
+		}, function(){fail();});
+	});
+}
+------------------------------------------------------
+Comprar un producto:
+
+tienda.comprar("codigo_del_producto", function(producto){
+	//Se ha comprado con exito
+
+}, function(){ //Error al comprar el producto
+	alert("Hubo algun error al comprar el producto.");
+});
+------------------------------------------------------
+Dar logros:
+
+logros.addLogro("hash_del_logro",function(logro){
+	//Ha recibido el logro
+	showNuevoLogro(logro);
+}, function(){
+	//No complio con todos los requisitos o huvo un error
+	console.log("no has podido obtener un logro");
+});

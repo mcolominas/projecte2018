@@ -14,6 +14,12 @@ use App\Models\TiendaUser;
 
 class SystemJuegoController extends Controller
 {
+	/*
+	@method getDatosUser = Obtener datos basicos del usuario que ha iniciado sesion en la pagina web
+	@return Array
+		opcion1: ["status": 0]
+		opcion2: ["status": 1, "datos": ["nombre": String, "coins": Integer]]
+	*/
 	protected function getDatosUser(Request $request){
 		if(!($user = $this->getUser())) return $this->returnError();
 
@@ -21,6 +27,13 @@ class SystemJuegoController extends Controller
 		return response(json_encode(["status" => "1", "datos" => $datos]), 200)->header('Content-Type', 'application/json');
 	}
 
+	/*
+	@method iniciarPartida = Inicia la partida de un jugador
+	@params hash = String, Hash del juego
+	@return Array
+		opcion1: ["status": 0]
+		opcion2: ["status": 1]
+	*/
 	protected function iniciarPartida(Request $request){
 		if(!($user = $this->getUser())) return $this->returnError();
 		
@@ -37,6 +50,13 @@ class SystemJuegoController extends Controller
 		return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
 	}
 
+	/*
+	@method finalizarPartida = Finaliza la partida de un jugador
+	@params hash = String, Hash del juego
+	@return Array
+		opcion1: ["status": 0]
+		opcion2: ["status": 1]
+	*/
 	protected function finalizarPartida(Request $request){
 		if(!($user = $this->getUser())) return $this->returnError();
 		
@@ -50,6 +70,13 @@ class SystemJuegoController extends Controller
 		return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
 	}
 
+	/*
+	@method getLogros = Obtener todos los logros del juego
+	@params hash = String, Hash del juego
+	@return Array
+		opcion1: ["status": 0]
+		opcion2: ["status": 1, "logros": ["codigo": String, "consegido": Integer (0|1), "coins": Integer, "descripcion": String, "img": String, "nombre": String]]
+	*/
 	protected function getLogros(Request $request){
 		$user = $this->getUser();
 		
@@ -88,6 +115,13 @@ class SystemJuegoController extends Controller
 		return response(json_encode(["status" => "1", "logros" => $logros]), 200)->header('Content-Type', 'application/json');
 	}
 
+	/*
+	@method addLogro = Añade 1 logro a un jugador
+	@params hash = String, Hash del logro
+	@return Array
+		opcion1: ["status": 0]
+		opcion2: ["status": 1, "codigo": String]
+	*/
 	protected function addLogro(Request $request){
 		if(!($user = $this->getUser())) return $this->returnError();
 
@@ -107,23 +141,13 @@ class SystemJuegoController extends Controller
 		return response(json_encode(["status" => "1", "codigo" => $logro->slug]), 200)->header('Content-Type', 'application/json');
 	}
 
-	protected function comprar(Request $request){
-		if(!($user = $this->getUser())) return $this->returnError();
-
-		$hash = $request->input("hash");
-		$producto = Tienda::where("hash", $hash)->first();
-		if(count($producto) != 1) return $this->returnError(); //Si existe el producto
-		if(($user->coins - $producto->coste) < 0) return $this->returnError(); //Si no el tiene dinero
-		if(count(TiendaUser::where("id_tienda", $producto->id)->where("id_user", $user->id)->get()) > 0) return $this->returnError(); //Si no lo tiene comprado
-		
-		$tiendaUser = new TiendaUser();
-		$tiendaUser->id_user = $user->id;
-		$tiendaUser->id_tienda = $producto->id;
-		$tiendaUser->save();
-
-		return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
-	}
-
+	/*
+	@method getProductos = Obtener todos los productos del juego
+	@params hash = String, Hash del juego
+	@return Array
+		opcion1: ["status": 0]
+		opcion2: ["status": 1, "logros": ["hash": String, "codigo": String, "consegido": Integer (0|1), "coste": Integer, "descripcion": String, "img": String, "nombre": String]]
+	*/
 	protected function getProductos(Request $request){
 		$user = $this->getUser();
 		
@@ -156,6 +180,30 @@ class SystemJuegoController extends Controller
 		}
 
 		return response(json_encode(["status" => "1", "productos" => $productos]), 200)->header('Content-Type', 'application/json');
+	}
+
+	/*
+	@method comprar = Añade el producto comprado del jugador
+	@params hash = String, Hash del producto
+	@return Array
+		opcion1: ["status": 0]
+		opcion2: ["status": 1]
+	*/
+	protected function comprar(Request $request){
+		if(!($user = $this->getUser())) return $this->returnError();
+
+		$hash = $request->input("hash");
+		$producto = Tienda::where("hash", $hash)->first();
+		if(count($producto) != 1) return $this->returnError(); //Si existe el producto
+		if(($user->coins - $producto->coste) < 0) return $this->returnError(); //Si no el tiene dinero
+		if(count(TiendaUser::where("id_tienda", $producto->id)->where("id_user", $user->id)->get()) > 0) return $this->returnError(); //Si no lo tiene comprado
+		
+		$tiendaUser = new TiendaUser();
+		$tiendaUser->id_user = $user->id;
+		$tiendaUser->id_tienda = $producto->id;
+		$tiendaUser->save();
+
+		return response(json_encode(["status" => "1"]), 200)->header('Content-Type', 'application/json');
 	}
 
 	private function getUser(){
