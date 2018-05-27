@@ -1,18 +1,20 @@
 <ul class="navbar-nav ml-auto">
-  <li class="nav-item">
-    <!-- BUSCADOR -->
-    <form id="formBuscar" class="form-inline my-2 my-lg-0 mr-lg-2" method="get" action="{{route('buscar')}}">
-      <div class="input-group">
-        <input id="location" class="form-control" type="text" placeholder="Buscar juego">
-        <span class="input-group-append">
-          <button class="btn btn-primary" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
-        </span>
-      </div>
-    </form>
-  </li>
 
+  @if(!Request::is('admin*') && !Request::is('desarrollador*'))
+    <li class="nav-item">
+      <!-- BUSCADOR -->
+      <form id="formBuscar" class="form-inline my-2 my-lg-0 mr-lg-2 " method="get" action="{{route('buscar')}}">
+        <div class="input-group w-100 w-lg-auto">
+          <input id="location" class="form-control" type="text" placeholder="Buscar juego">
+          <span class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+      </form>
+    </li>
+  @endif
   <!-- Entrar/Salir -->
   @guest
   <li class="nav-item">
@@ -24,23 +26,45 @@
   </li>
   @else
   @if ( Auth::user()->rol === "admin" )
-  <li class="nav-item" id="admin">
-    <a class="nav-link" href="{{ route('admin')}}">Panel de Administrador</a>
-  </li>
+    @if(Request::is('admin*'))
+      <li class="nav-item" id="develop">
+        <a class="nav-link" href="{{ route('index')}}">Volver a la página</a>
+      </li>
+    @else
+      <li class="nav-item" id="admin">
+        <a class="nav-link" href="{{ route('admin')}}">Panel de Administrador</a>
+      </li>
+    @endif
   @elseif ( Auth::user()->rol === "desarrollador")
-  <li class="nav-item" id="develop">
-    <a class="nav-link" href="{{ route('desarrollador')}}">Panel de Desarollador</a>
-  </li>
+    @if(Request::is('desarrollador*'))
+      <li class="nav-item" id="develop">
+        <a class="nav-link" href="{{ route('index')}}">Volver a la página</a>
+      </li>
+    @else
+      <li class="nav-item" id="develop">
+        <a class="nav-link" href="{{ route('desarrollador')}}">Panel de Desarollador</a>
+      </li>
+    @endif
   @endif
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle mr-lg-2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-      <span>{{ Auth::user()->name }} </span>
+      <span>{{ Auth::user()->name }}
+        @if(!Request::is('admin*') && !Request::is('desarrollador*'))
+          <span title="coins" style="color:gold;">
+            <img class="icon" alt="coins" src="{{ asset('img/iconos/coins.png') }}">
+            <span id="coins">{{Auth::user()->coins}}</span>
+          </span>
+        @endif
+      </span>
 
     </a>
     <div class="dropdown-menu dropdown-menu-right">
       <a class="dropdown-item" href="{{ route('perfil') }}">
         <i class="fas fa-user"></i> Mi Perfil 
+      </a>
+      <a class="dropdown-item" href="{{ route('misLogros') }}">
+        <i class="fas fa-trophy"></i> Mis Logros 
       </a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="{{ route('logout') }}"
@@ -60,12 +84,26 @@
 @section("scripts")
 <script type="text/javascript">
   $(function(){
-  $("#formBuscar").submit(function(e){
-    e.preventDefault();
-    var link = '{{route("juego",["slug" => ""])}}/' + $(this).find("input").eq(0).attr("slug");
-    window.location.replace(link);
-  });
-
+    $("#formBuscar").submit(function(e){
+      e.preventDefault();
+      var link = '{{route("juego",["slug" => ""])}}/' + $(this).find("input").eq(0).attr("slug");
+      window.location.replace(link);
+    });
+    @if(!Request::is('admin*') && !Request::is('desarrollador*'))
+      setInterval(recargarCoins, 5000);
+      function recargarCoins(){
+        $.ajax({
+          dataType: 'json',
+          url: "http://projecte2018.oo/api/juego/getInfoUser",
+          type: "post",
+          success: setCoins,
+          error: function(data) { console.log(data);}
+        });
+        function setCoins(res){
+          $("#coins").text(res.datos.coins);
+        }
+      }
+    @endif
   })
 </script>
 @endSection

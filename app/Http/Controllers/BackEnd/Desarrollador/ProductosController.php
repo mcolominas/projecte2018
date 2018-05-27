@@ -62,7 +62,7 @@ class ProductosController extends Controller
 		if(Auth::user()->id != $juego->id_creador) abort(404, 'Unauthorized action.');
 		$producto->setUrlImagePublic();
 
-		return view('backEnd/develop/productos/edicion', ["producto" => $producto]);
+		return view('backEnd/develop/productos/edicion', ["producto" => $producto, "juego" => $juego]);
 	}
 
 	protected function putEditar(Request $request, $slugProducto){

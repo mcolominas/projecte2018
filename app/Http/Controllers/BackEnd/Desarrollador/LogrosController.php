@@ -70,7 +70,7 @@ class LogrosController extends Controller
 
 		$logro->setUrlImagePublic();
 
-		return view('backEnd/develop/logros/edicion', ["logro" => $logro]);
+		return view('backEnd/develop/logros/edicion', ["logro" => $logro, "juego" => $juego]);
 	}
 
 	protected function putEditar(Request $request, $slugLogro){

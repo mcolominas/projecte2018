@@ -100,6 +100,11 @@
 
 			<div class="w-100 mb-2" > 
 				<h4><b>	Información Básica </b></h4>
+				<div class="mb-2">
+					<span><b>Creación:</b> {{$juego->created_at}}</span><br>
+					<span><b>Ultima modificación:</b> {{$juego->updated_at}}</span><br>
+					<span><b>Visitias:</b> {{$juego->visitas}}</span>
+				</div>
 				<div class="input-group mb-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text">
@@ -334,7 +339,7 @@
 <script type="text/javascript">
 	compile();
 
-	@if($juego->files)
+	@if(count($juego->files) > 0)
 	mostrarCreado();
 	updateIframe(null);
 	@else

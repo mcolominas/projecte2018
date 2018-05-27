@@ -24,6 +24,7 @@
         <tr>
           <th>Titulo</th>
           <th>Fecha de Creación</th>
+          <th>Visitas</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -33,6 +34,7 @@
         <tr>
           <td>{{ $juego->nombre }}</td>
           <td>{{ $juego->created_at }}</td>
+          <td>{{ $juego->visitas }}</td>
           <td><a id="edit" href="{{route('desarrollador.editarJuego', ['slug' => $juego->slug])}}">Editar <i class="far fa-edit"></i></a> | <a  id="drop" href="{{route('desarrollador.eliminarJuego', ['slug' => $juego->slug])}}">Eliminar <i class="fas fa-trash-alt"></i></a></td>
 
         </tr>

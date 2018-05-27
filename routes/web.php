@@ -35,6 +35,7 @@ Route::name('perfil')->group(function () {
 });
 
 Route::get('/juego/{slug}','FrontEnd\JuegoController@index')->name('juego');
+Route::get('/misLogros','FrontEnd\LogrosController@index')->name('misLogros');
 
 //BackEnd Admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', "name" => "admin"], function () {

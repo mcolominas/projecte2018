@@ -10,19 +10,18 @@ class Menu{
 			$model->setUrl("juegosPorCategoria");
 		})->toArray();
 
-		array_unshift($categorias, ["nombre" => "Todos los juegos", "img" => "#", "url" => route("index")]);
+		array_unshift($categorias, ["nombre" => "Todos los juegos", "img" => asset("img/iconos/game.png"), "url" => route("index")]);
 
 		return($categorias);
 	}
 
 	public static function menuDesarollador(){
-
-		return [["nombre" => "Juegos", "img" => "#", "url" => route("desarrollador")],
-				["nombre" => "Logros", "img" => "#", "url" => route("desarrollador.verJuegosLogros")],
-				["nombre" => "Productos", "img" => "#", "url" => route("desarrollador.verJuegosProductos")]];
+		return [["nombre" => "Juegos", "img" => asset("img/iconos/game.png"), "url" => route("desarrollador")],
+				["nombre" => "Logros", "img" => asset("img/iconos/logro.png"), "url" => route("desarrollador.verJuegosLogros")],
+				["nombre" => "Productos", "img" => asset("img/iconos/producto.png"), "url" => route("desarrollador.verJuegosProductos")]];
 	}
+	
 	public static function menuAdministrador(){
-
-		return [["nombre" => "Juegos", "img" => "#", "url" => route("admin")]];
+		return [["nombre" => "Juegos", "img" => asset("img/iconos/game.png"), "url" => route("admin")]];
 	}
 }

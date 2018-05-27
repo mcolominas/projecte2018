@@ -13,6 +13,11 @@
 
 
 @section('content')
+<div class="row mb-3" style="background-color: transparent;">
+	<div class="col-md-12">
+		<a href="{{ route('desarrollador.verProductos',['slugJuego' => request()->route()->parameters['slugJuego']]) }}" class="btn btn-secondary"><= Volver</a>
+	</div>
+</div>
 
 <form method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
@@ -22,8 +27,6 @@
 	<div class="row">
 		<div class="col-12 text-center mt-4" id="formulario">
 			<div class="row">
-
-
 				<div class=" col-8">
 					<div class="w-100 mb-3"> 
 						<label>Nombre del producto:</label>

@@ -62,11 +62,11 @@ class JuegosController extends Controller
         $juego->nombre = $nombre;
         $juego->descripcion = $desc;
         $juego->visible = $visible;
-        $juego->save();
         if($tipo == "url")
             $juego->url = $urlExterna;
         else if($tipo == "creado")
             $juego->url = route("storage.codigoJuego",["slug" => $juego->slug, "tipo" => "html"]);
+        $juego->save();
         $juego->img = $logo->store("private/juegos/$juego->slug/img/portada");
         $juego->save();
 
@@ -165,7 +165,8 @@ class JuegosController extends Controller
 
         if($tipo == "url")
             $juego->url = $urlExterna;
-
+        else if($tipo == "creado")
+            $juego->url = route("storage.codigoJuego",["slug" => $juego->slug, "tipo" => "html"]);
         if($this->existeYNoEstaVacio($logo)){
             if(Storage::disk('local')->exists($juego->img))
                 Storage::disk('local')->delete($juego->img);

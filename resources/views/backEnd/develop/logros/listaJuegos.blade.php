@@ -35,7 +35,7 @@
       </tbody>
     </table>
     @else
-      <p class="text-center">No tienes juegos, clica <a id="edit" href="{{route('desarrollador.crearJuego')}}">aquí<i class="fas fa-arrow-alt-circle-right"></i></a> para crear uno.</p>
+      <p class="text-center">No tienes juegos, clica <a href="{{route('desarrollador.crearJuego')}}">aquí</a> para crear uno.</p>
     @endif
   </div>
 </div>

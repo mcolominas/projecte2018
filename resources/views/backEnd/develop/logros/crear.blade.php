@@ -13,6 +13,11 @@
 
 
 @section('content')
+<div class="row mb-3" style="background-color: transparent;">
+	<div class="col-md-12">
+		<a href="{{ route('desarrollador.verLogros',['slugJuego' => request()->route()->parameters['slugJuego']]) }}" class="btn btn-secondary"><= Volver</a>
+	</div>
+</div>
 
 <form method="post" enctype="multipart/form-data">
 	{{ csrf_field() }}
