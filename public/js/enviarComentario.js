@@ -1,4 +1,4 @@
-const servidor = document.location.origin+"/api/";
+const servidor = "/api/";
 
 var hash,url,comentario,params,slug;
 

@@ -45,4 +45,6 @@ php artisan storage:link
 php artisan migrate
 
 - Dar permisos necesarios a las carpetas "storage" y "bootstrap/cache":
-sudo chown -R www-data storage bootstrap/cache	
+sudo chown -R www-data storage bootstrap/cache
+
+- Modificar la url del fichero public/js/apiJuego.js y poner la url del dominio correcta que se encuentra en el metodo: "ajaxJuego"

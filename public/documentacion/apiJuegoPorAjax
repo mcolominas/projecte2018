@@ -1,4 +1,4 @@
-@url https://mcolominas.cf/GameWorld/api/juego/getInfoUser
+@url https://mcolominas.cf/api/juego/getInfoUser
 @tipo = POST
 @description = Obtener datos basicos del usuario que ha iniciado sesion en la pagina web
 @return Array
@@ -10,7 +10,7 @@
 			 ]
 
 
-@url https://mcolominas.cf/GameWorld/api/juego/iniciarPartida
+@url https://mcolominas.cf/api/juego/iniciarPartida
 @tipo = POST
 @description = Inicia la partida de un jugador
 @params hash = String, Hash del juego
@@ -19,7 +19,7 @@
 	opcion2: ["status": 1]
 
 
-@url https://mcolominas.cf/GameWorld/api/juego/finalizarPartida
+@url https://mcolominas.cf/api/juego/finalizarPartida
 @tipo = POST
 @description = Finaliza la partida de un jugador
 @params hash = String, Hash del juego
@@ -28,7 +28,7 @@
 	opcion2: ["status": 1]
 
 
-@url https://mcolominas.cf/GameWorld/api/juego/getLogros
+@url https://mcolominas.cf/api/juego/getLogros
 @tipo = POST
 @description = Obtener todos los logros del juego
 @params hash = String, Hash del juego
@@ -43,7 +43,7 @@
 						 "nombre": String]
 			 ]
 
-@url https://mcolominas.cf/GameWorld/api/juego/addLogro
+@url https://mcolominas.cf/api/juego/addLogro
 @tipo = POST
 @description = Añade 1 logro a un jugador
 @params hash = String, Hash del logro
@@ -52,7 +52,7 @@
 	opcion2: ["status": 1, "codigo": String]
 
 
-@url https://mcolominas.cf/GameWorld/api/juego/getProductos
+@url https://mcolominas.cf/api/juego/getProductos
 @tipo = POST
 @description = Obtener todos los productos del juego
 @params hash = String, Hash del juego
@@ -69,7 +69,7 @@
 			  ]
 
 
-@url https://mcolominas.cf/GameWorld/api/juego/comprar
+@url https://mcolominas.cf/api/juego/comprar
 @tipo = POST
 @description = Añade el producto comprado del jugador
 @params hash = String, Hash del producto

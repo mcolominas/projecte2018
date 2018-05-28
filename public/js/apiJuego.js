@@ -1,6 +1,6 @@
 //función ajax
 function ajaxJuego(dato, params, respuesta){
-	let host = "https://mcolominas.cf/GameWorld/api/juego/";
+	let host = "https://mcolominas.cf/api/juego/";
 	if(params != null){
 		$.ajax({
 			data:params,

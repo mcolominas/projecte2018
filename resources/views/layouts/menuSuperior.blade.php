@@ -94,7 +94,7 @@
       function recargarCoins(){
         $.ajax({
           dataType: 'json',
-          url: "http://projecte2018.oo/api/juego/getInfoUser",
+          url: "/api/juego/getInfoUser",
           type: "post",
           success: setCoins,
           error: function(data) { console.log(data);}
