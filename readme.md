@@ -26,10 +26,10 @@ composer install
 - Crear el .env:
 cp .env.example .env
 
-- Modificar el .env con la conexión a la BBDD correcta.
+- Modificar el .env con la información correcta (BBDD, URL ...).
 
 - Generar una Key privada:
-php artisan generate:key
+php artisan key:generate
 
 - Establecer que se pueda logear por username, modificar el fichero:
 vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php
