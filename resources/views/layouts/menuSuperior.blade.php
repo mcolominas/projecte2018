@@ -82,6 +82,7 @@
 </ul>
 
 @section("scripts")
+@parent
 <script type="text/javascript">
   $(function(){
     $("#formBuscar").submit(function(e){

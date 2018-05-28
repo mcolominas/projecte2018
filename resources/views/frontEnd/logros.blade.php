@@ -48,6 +48,7 @@
 @stop
 
 @section('scripts')
+@parent
 <script type="text/javascript">
   $("#dataTable").DataTable();
 </script>

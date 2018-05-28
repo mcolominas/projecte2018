@@ -147,6 +147,7 @@
 @stop
 
 @section("scripts")
+@parent
 <script type="text/javascript" src="{{asset('js/enviarComentario.js')}}"></script>
 <script type="text/javascript">
 	function resizeIframe(e) {
