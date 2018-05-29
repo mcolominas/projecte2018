@@ -90,21 +90,24 @@
       var link = '{{route("juego",["slug" => ""])}}/' + $(this).find("input").eq(0).attr("slug");
       window.location.replace(link);
     });
-    @if(!Request::is('admin*') && !Request::is('desarrollador*'))
-      setInterval(recargarCoins, 5000);
-      function recargarCoins(){
-        $.ajax({
-          dataType: 'json',
-          url: "/api/juego/getInfoUser",
-          type: "post",
-          success: setCoins,
-          error: function(data) { console.log(data);}
-        });
-        function setCoins(res){
-          $("#coins").text(res.datos.coins);
-        }
-      }
-    @endif
+	@auth
+		@if(!Request::is('admin*') && !Request::is('desarrollador*'))
+		  setInterval(recargarCoins, 5000);
+		  function recargarCoins(){
+			$.ajax({
+			  dataType: 'json',
+			  url: "/api/juego/getInfoUser",
+			  type: "post",
+			  success: setCoins,
+			  error: function(data) { console.log(data);}
+			});
+			function setCoins(res){
+				if(res.status == 1)
+			  $("#coins").text(res.datos.coins);
+			}
+		  }
+		@endif
+	@endauth
   })
 </script>
 @endSection
